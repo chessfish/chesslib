@@ -1,6 +1,7 @@
 import { WHITE, BLACK } from './constants'
 import { Pawn, Rook, Knight, Bishop, King, Queen } from './pieces/standard'
 import { Position } from './position'
+import { Castling } from './castling'
 
 export class Fen {
 
@@ -16,7 +17,7 @@ export class Fen {
 		this.position = new Position({
 			arr2d: parseRanks(ranks),
 			activeColor: parseActiveColor(activeColor),
-			castling: castling,
+			castling: parseCastling(castling),
 			enPassantTarget: parseEPTarget(enPassantTarget),
 			halfmoveClock: parseClock(halfmoveClock),
 			fullmoveClock: parseClock(fullmoveClock)
@@ -70,6 +71,10 @@ function parseActiveColor(activeColor) {switch (activeColor) {
 	case 'b': return BLACK;
 }}
 
+function parseCastling(castling) {
+	return new Castling(castling);
+}
+
 function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {
 	case '-': return null;
 	default: return enPassantTarget;
@@ -83,32 +88,45 @@ function parseClock(clock) {
 }
 
 function stringifyPosition(position) {
-	var str = '';
-	for (var i = 0; i < 8; i++) {
-		file: for (var j = 0, cj = 0; j < 8; j++) {
-			var piece = position.getPiece(i, j);
-			if (piece == null) {
-				cj += 1;
-				if (j === 7) {
-					str += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`;
-				}
-				continue file;
-			}
-			str += `${cj ? cj : ''}${piece.fenEncoding}`;
-			if (j === 7 && i !== 7) {
-				str += '/';
-			}
-			cj = 0;
-		}
-	}
 	return [
-		str,
-		position.activeColor === WHITE ? 'w' : 'b',
-		position.castling,
+		stringifyRanks(position),
+		stringifyActiveColor(position.activeColor),
+		stringifyCastling(position.castling),
 		stringifyEPTarget(position.enPassantTarget),
 		stringifyClock(position.halfmoveClock),
 		stringifyClock(position.fullmoveClock)
 	].filter(Boolean).join(' ');
+}
+
+function stringifyRanks(position) {
+	var ranks = '';
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0, cj = 0; j < 8; j++) {
+			var piece = position.getPiece(i, j);
+			if (piece == null) {
+				cj += 1;
+				if (j === 7) {
+					ranks += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`;
+				}
+				continue;
+			}
+			ranks += `${cj ? cj : ''}${piece.fenEncoding}`;
+			if (j === 7 && i !== 7) {
+				ranks += '/';
+			}
+			cj = 0;
+		}
+	}
+	return ranks;
+}
+
+function stringifyActiveColor(activeColor) {switch (activeColor) {
+	case WHITE: return 'w';
+	case BLACK: return 'b';
+}}
+
+function stringifyCastling(castling) {
+	return castling.castling;
 }
 
 function stringifyEPTarget(enPassantTarget) {

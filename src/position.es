@@ -4,8 +4,8 @@ import identity from 'lodash.identity'
 export class Position {
 
 	constructor({
-		rows=8,
-		columns=8,
+		ranks=8,
+		files=8,
 		activeColor=WHITE,
 		castling=true,
 		enPassantTarget=null,
@@ -13,7 +13,9 @@ export class Position {
 		fullmoveClock=0,
 		arr2d=null,
 	} = {}) {
-		this.board = this.createBoard(rows, columns);
+		this.ranks = ranks;
+		this.files = files;
+		this.board = this.createBoard(ranks, files);
 		this.activeColor = activeColor;
 		this.castling = castling;
 		this.enPassantTarget = enPassantTarget;
@@ -22,15 +24,15 @@ export class Position {
 		this.arr2d = arr2d;
 	}
 
-	createBoard(rows=8, columns=8) {
+	createBoard(ranks=8, files=8) {
 		// ugly imperative way to create a board:
 		const board = [];
-		for (var i = 0; i < rows; i++) {
-			var row = [];
-			for (var j = 0; j < columns; j++) {
-				row.push(null);
+		for (var i = 0; i < ranks; i++) {
+			var rank = [];
+			for (var j = 0; j < files; j++) {
+				rank.push(null);
 			}
-			board.push(row);
+			board.push(rank);
 		}
 		return board;
 	}

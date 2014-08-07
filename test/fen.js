@@ -21,7 +21,6 @@ test('it can decode and encode FEN losslessly', function (t) {
 	t.plan(fenCodes.length);
 
 	fenCodes.forEach(function (code) {
-		var fen = new Fen(code);
-		t.equal(code, fen.fen);
+		t.equal(code, new Fen(code).fen);
 	});
 });

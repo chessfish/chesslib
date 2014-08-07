@@ -4,7 +4,8 @@ var traceur = require('gulp-traceur');
 var rename = require('gulp-rename');
 var watch = require('gulp-watch');
 
-gulp.task('build', function () {
+gulp.task('build', function (options) {
+  console.log(options);
   esify('./src/*.es');
   esify('./src/pieces/*.es');
 });

@@ -90,13 +90,13 @@ function stringifyPosition(position) {
 			if (piece == null) {
 				cj += 1;
 				if (j === 7) {
-					str += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`
+					str += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`;
 				}
 				continue file;
 			}
 			str += `${cj ? cj : ''}${piece.fenEncoding}`;
 			if (j === 7 && i !== 7) {
-				str += '/'
+				str += '/';
 			}
 			cj = 0;
 		}
@@ -120,7 +120,7 @@ function stringifyEPTarget(enPassantTarget) {
 
 function stringifyClock(clock) {
 	if (clock == null) {
-		return null
+		return null;
 	}
 	return String(clock);
 }

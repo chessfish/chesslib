@@ -11,15 +11,15 @@ gulp.task('build', function () {
 
 function esify(src) {
   var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '');
-  gulp.src(src)
-    .pipe(watch())
-    .pipe(traceur({
+  gulp.src(src).
+    pipe(watch()).
+    pipe(traceur({
       experimental: true,
       sourceMaps: true
-    }))
-    .pipe(rename({
+    })).
+    pipe(rename({
       extname: '.js'
-    }))
-    .pipe(gulp.dest(path.join('lib', p)))
+    })).
+    pipe(gulp.dest(path.join('lib', p)))
   ;
 }

@@ -1,0 +1,22 @@
+{
+  "name": "chessview",
+  "version": "0.0.0",
+  "description": "A view for chess positions",
+  "main": "index.js",
+  "dependencies": {
+    "lodash.identity": "^2.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-watch": "^0.6.9",
+    "gulp-rename": "^1.2.0",
+    "gulp-traceur": "^0.11.0",
+    "tape": "^2.14.0",
+    "traceur": "0.0.55"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/tape ./test/*.js"
+  },
+  "author": "Christopher Thorn <morphcham@gmail.com>",
+  "license": "MIT"
+}

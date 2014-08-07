@@ -18,8 +18,8 @@ export class Fen {
 			activeColor: parseActiveColor(activeColor),
 			castling: castling,
 			enPassantTarget: parseEPTarget(enPassantTarget),
-			halfmoveClock: Number(halfmoveClock),
-			fullmoveClock: Number(fullmoveClock)
+			halfmoveClock: parseClock(halfmoveClock),
+			fullmoveClock: parseClock(fullmoveClock)
 		});
 	}
 
@@ -75,19 +75,29 @@ function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {
 	default: return enPassantTarget;
 }}
 
+function parseClock(clock) {
+	if (clock == null) {
+		return null;
+	}
+	return Number(clock);
+}
+
 function stringifyPosition(position) {
 	var str = '';
 	for (var i = 0; i < 8; i++) {
-		for (var j = 0, cj = 0; j < 8; j++) {
+		file: for (var j = 0, cj = 0; j < 8; j++) {
 			var piece = position.getPiece(i, j);
 			if (piece == null) {
 				cj += 1;
 				if (j === 7) {
-					str += `${cj ? cj : ''}/`
+					str += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`
 				}
-				continue;
+				continue file;
 			}
 			str += `${cj ? cj : ''}${piece.fenEncoding}`;
+			if (j === 7 && i !== 7) {
+				str += '/'
+			}
 			cj = 0;
 		}
 	}
@@ -96,12 +106,21 @@ function stringifyPosition(position) {
 		position.activeColor === WHITE ? 'w' : 'b',
 		position.castling,
 		stringifyEPTarget(position.enPassantTarget),
-		String(position.halfmoveClock),
-		String(position.fullmoveClock)
-	].join(' ');
+		stringifyClock(position.halfmoveClock),
+		stringifyClock(position.fullmoveClock)
+	].filter(Boolean).join(' ');
 }
 
-function stringifyEPTarget(enPassantTarget) {switch(enPassantTarget) {
-	case null: '-';
-	default: return enPassantTarget;
-}}
+function stringifyEPTarget(enPassantTarget) {
+	if (enPassantTarget == null) {
+		return '-';
+	}
+	return String(enPassantTarget);
+}
+
+function stringifyClock(clock) {
+	if (clock == null) {
+		return null
+	}
+	return String(clock);
+}

@@ -2,7 +2,7 @@ require('traceur/bin/traceur-runtime.js');
 
 var test = require('tape');
 
-var Fen = require('../lib/fen.js').Fen;
+var Fen = require('../lib/codecs/fen.js').Fen;
 
 var fenCodes = [
 	'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',

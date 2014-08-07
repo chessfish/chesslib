@@ -1,7 +1,7 @@
-import { WHITE, BLACK } from './constants'
-import { Pawn, Rook, Knight, Bishop, King, Queen } from './pieces/standard'
-import { Position } from './position'
-import { Castling } from './castling'
+import { WHITE, BLACK } from '../constants'
+import { Pawn, Rook, Knight, Bishop, King, Queen } from '../pieces/standard'
+import { Position } from '../position'
+import { Castling } from '../castling'
 
 export class Fen {
 

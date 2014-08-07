@@ -7,6 +7,7 @@ var argv = require('minimist')(process.argv);
 
 gulp.task('build', function (options) {
   esify('./src/*.es');
+  esify('./src/codecs/*.es');
   esify('./src/pieces/*.es');
 });
 

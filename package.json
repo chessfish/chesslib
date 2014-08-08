@@ -4,7 +4,8 @@
   "description": "A view for chess positions",
   "main": "index.js",
   "dependencies": {
-    "lodash.identity": "^2.4.1"
+    "lodash.identity": "^2.4.1",
+    "weakmap": "0.0.6"
   },
   "devDependencies": {
     "gulp": "^3.8.7",
@@ -13,7 +14,8 @@
     "gulp-traceur": "^0.11.0",
     "tape": "^2.14.0",
     "traceur": "0.0.55",
-    "minimist": "^0.2.0"
+    "minimist": "^0.2.0",
+    "longjohn": "^0.2.4"
   },
   "scripts": {
     "test": "./node_modules/.bin/tape ./test/*.js"

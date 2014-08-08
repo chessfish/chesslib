@@ -101,20 +101,20 @@ function stringifyPosition(position) {
 function stringifyRanks(position) {
 	var ranks = '';
 	for (var i = 0; i < 8; i++) {
-		for (var j = 0, cj = 0; j < 8; j++) {
+		for (var j = 0, count = 0; j < 8; j++) {
 			var piece = position.getPiece(i, j);
 			if (piece == null) {
-				cj += 1;
+				count += 1;
 				if (j === 7) {
-					ranks += `${cj ? cj : ''}${i !== 7 ? '/' : ''}`;
+					ranks += `${count ? count : ''}${i !== 7 ? '/' : ''}`;
 				}
 				continue;
 			}
-			ranks += `${cj ? cj : ''}${piece.fenEncoding}`;
+			ranks += `${count ? count : ''}${piece.fenEncoding}`;
 			if (j === 7 && i !== 7) {
 				ranks += '/';
 			}
-			cj = 0;
+			count = 0;
 		}
 	}
 	return ranks;

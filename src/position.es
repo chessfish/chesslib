@@ -1,6 +1,23 @@
-import { WHITE, BLACK } from './constants'
-import identity from 'lodash.identity'
+// VENDOR
+import identity from 'lodash.identity';
+// traceur modules are failing me here:
+const WeakMap = require('weakmap');
 
+// LIBRARY
+import {
+	WHITE,
+	BLACK,
+	KING,
+	QUEEN,
+	KNIGHT,
+	BISHOP,
+	ROOK,
+	PAWN,
+} from './constants';
+import { Cursor } from './cursor';
+import { entries } from './util';
+
+// MODULE
 export class Position {
 
 	constructor({
@@ -21,6 +38,14 @@ export class Position {
 		this.enPassantTarget = enPassantTarget;
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
+		this.pieces = new Set();
+		this.pieces[KING] = new Set();
+		this.pieces[QUEEN] = new Set();
+		this.pieces[KNIGHT] = new Set();
+		this.pieces[BISHOP] = new Set();
+		this.pieces[ROOK] = new Set();
+		this.pieces[PAWN] = new Set();
+		this.positions = new WeakMap();
 		this.arr2d = arr2d;
 	}
 
@@ -42,6 +67,11 @@ export class Position {
 			throw new Error(this.squareName(rank, file) + " occupied!")
 		}
 		this.board[rank][file] = piece;
+		this.pieces.add(piece);
+		this.pieces[piece.brand].add(piece);
+		const golden = Position.golden(rank, file);
+		this.positions.set(golden, piece);
+		this.positions.set(piece, golden);
 	}
 
 	squareName(rank, file) {
@@ -68,8 +98,43 @@ export class Position {
 		return this.board.map((rank) => rank.map((piece) => fn(piece)));
 	}
 
+	getPieces(brand) {
+		return brand == null ? this.pieces : this.pieces[brand];
+	}
+
 	getPiece(rank, file) {
 		return this.board[rank][file];
+	}
+
+	queryAll(selector={}) {
+		const collection = this.getPieces(selector.brand);
+		const results = new Cursor();
+		pieces: for (var piece of collection) {
+			for (var [val, key] of entries(selector)) {
+				if (piece[key] !== val) {
+					continue pieces;
+				}
+			}
+			results.push(piece);
+		}
+		return results;
+	}
+
+	query(selector={}) {
+		const collection = this.getPieces(selector.brand);
+		pieces: for (var piece of collection) {
+			for (var [val, key] of entries(selector)) {
+				if (piece[key] !== val) {
+					continue pieces;
+				}
+			}
+			return piece;
+		}
+		return null;
+	}
+
+	move(algebraic) {
+		const m = new Move(this, algebraic);
 	}
 
 	set arr2d(arr2d) {
@@ -99,4 +164,24 @@ export class Position {
 			join('\n')
 		;
 	}
+
+	static golden(rank, file) {
+		return goldenPosition(rank, file);
+	}
+}
+
+var golden = new Map();
+
+function goldenPosition(rank, file) {
+	var r = golden.get(rank);
+	if (r == null) {
+		r = new Map();
+		golden.set(rank, r);
+	}
+	var f = r.get(file);
+	if (f == null) {
+		f = { rank, file };
+		r.set(r, f);
+	}
+	return f;
 }

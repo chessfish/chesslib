@@ -1,6 +1,10 @@
+import { KING, QUEEN, KNIGHT, BISHOP, ROOK, PAWN } from '../constants'
 import { Piece } from '../piece'
 
 export class Pawn extends Piece {
+  get brand() {
+    return PAWN;
+  }
   get unicode() {
     return this.isWhite ? '♙' : '♟';
   }
@@ -10,6 +14,9 @@ export class Pawn extends Piece {
 }
 
 export class Rook extends Piece {
+  get brand() {
+    return ROOK;
+  }
   get unicode() {
     return this.isWhite ? '♖' : '♜';
   }
@@ -19,6 +26,9 @@ export class Rook extends Piece {
 }
 
 export class Knight extends Piece {
+  get brand() {
+    return KNIGHT;
+  }
   get unicode() {
     return this.isWhite ? '♘' : '♞';
   }
@@ -28,6 +38,9 @@ export class Knight extends Piece {
 }
 
 export class Bishop extends Piece {
+  get brand() {
+    return BISHOP;
+  }
   get unicode() {
     return this.isWhite ? '♗' : '♝';
   }
@@ -37,6 +50,9 @@ export class Bishop extends Piece {
 }
 
 export class King extends Piece {
+  get brand() {
+    return KING;
+  }
   get unicode() {
     return this.isWhite ? '♔' : '♚';
   }
@@ -46,6 +62,9 @@ export class King extends Piece {
 }
 
 export class Queen extends Piece {
+  get brand() {
+    return QUEEN;
+  }
   get unicode() {
     return this.isWhite ? '♕' : '♛';
   }

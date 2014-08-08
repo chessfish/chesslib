@@ -8,7 +8,6 @@ import {
 	ROOK,
 	PAWN,
 } from './constants';
-import { Cursor } from './cursor';
 import { entries, identity } from './util';
 
 // MODULE
@@ -98,7 +97,7 @@ export class Position {
 
 	queryAll(selector={}) {
 		const collection = this.getPieces(selector.brand);
-		const results = new Cursor();
+		const results = [];
 		pieces: for (var piece of collection) {
 			for (var [val, key] of entries(selector)) {
 				if (piece[key] !== val) {

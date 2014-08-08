@@ -22,7 +22,7 @@ test('can query all pieces', function (t) {
 
 test('can query all pawns', function (t) {
 	t.plan(2);
-	var allPawns = startingPosition.queryAll({ brand: PAWN }).array();
+	var allPawns = startingPosition.queryAll({ brand: PAWN });
 	t.equal(allPawns.length, 16, 'there are sixteen of them');
 	t.ok(allPawns.every(function (pawn) {
 		return pawn.brand === PAWN;
@@ -34,7 +34,7 @@ test('can query all white pawns', function (t) {
 	var whitePawns = startingPosition.queryAll({
 		brand: PAWN,
 		color: WHITE
-	}).array();
+	});
 	t.equal(whitePawns.length, 8, 'there are eight of them');
 	t.ok(whitePawns.every(function (pawn) {
 		return pawn.brand === PAWN && pawn.color === WHITE;
@@ -46,7 +46,7 @@ test('can query all black pawns', function (t) {
 	var blackPawns = startingPosition.queryAll({
 		brand: PAWN,
 		color: BLACK
-	}).array();
+	});
 	t.equal(blackPawns.length, 8, 'there are eight of them');
 	t.ok(blackPawns.every(function (pawn) {
 		return pawn.brand === PAWN && pawn.color === BLACK;
@@ -57,7 +57,7 @@ test('can query both kings', function (t) {
 	t.plan(2);
 	var kings = startingPosition.queryAll({
 		brand: KING
-	}).array();
+	});
 	t.equal(kings.length, 2, 'there are two of them');
 	t.ok(kings.every(function (king) {
 		return king.brand === KING;

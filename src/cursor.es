@@ -25,6 +25,6 @@ export class Cursor {
 
 	canAccess(algebraic) {
 		console.warn(new Error('Cursor#canAccess is not implemented!'));
-		return true
+		return true;
 	}
 }

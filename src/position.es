@@ -133,10 +133,6 @@ export class Position {
 		return null;
 	}
 
-	move(algebraic) {
-		const m = new Move(this, algebraic);
-	}
-
 	set arr2d(arr2d) {
 		arr2d.forEach((rank, i) => {
 			rank.forEach((file, j) => {

@@ -83,27 +83,27 @@ var fenCodes = [
 ];
 </script>
 <script>
-  (function () {
-    var mercury = require('mercury');
-    var Fen = require('chessview').Fen;
-    var render = require('chessview').render;
+(function () {
+  var mercury = require('mercury');
+  var Fen = require('chessview').Fen;
+  var render = require('chessview').render;
 
-    var game = mercury.value(
-      randomPosition()
-    );
+  var game = mercury.value(
+    randomPosition()
+  );
 
-    setInterval(function () {
-      game.set(randomPosition());
-    }, 3000);
+  setInterval(function () {
+    game.set(randomPosition());
+  }, 3000);
 
-    mercury.app(
-      document.getElementsByClassName('chessview')[0],
-      game,
-      render
-    );
+  mercury.app(
+    document.getElementsByClassName('chessview')[0],
+    game,
+    render
+  );
 
-    function randomPosition () {
-      return new Fen(fenCodes[Math.floor(Math.random() * fenCodes.length)]).position
-    }
-  }());
+  function randomPosition () {
+    return FEN.parse(fenCodes[Math.floor(Math.random() * fenCodes.length)]);
+  }
+}());
 </script>

@@ -3,9 +3,9 @@ import { Pawn, Rook, Knight, Bishop, King, Queen } from '../pieces/standard'
 import { Position } from '../position'
 import { Castling } from '../castling'
 
-export class Fen {
+export const FEN = {
 
-	constructor(fenStr) {
+	parse(fenStr) {
 		const [
 			ranks,
 			activeColor,
@@ -14,7 +14,7 @@ export class Fen {
 			halfmoveClock,
 			fullmoveClock
 		] = fenStr.split(' ');
-		this.position = new Position({
+		return new Position({
 			arr2d: parseRanks(ranks),
 			activeColor: parseActiveColor(activeColor),
 			castling: parseCastling(castling),
@@ -22,11 +22,12 @@ export class Fen {
 			halfmoveClock: parseClock(halfmoveClock),
 			fullmoveClock: parseClock(fullmoveClock)
 		});
+	},
+
+	stringify(position) {
+		return stringifyPosition(position);
 	}
 
-	get fen() {
-		return stringifyPosition(this.position);
-	}
 }
 
 function parseRanks(ranks) {

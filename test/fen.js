@@ -3,7 +3,7 @@ require('traceur/bin/traceur-runtime.js');
 require('longjohn');
 
 var test = require('tape');
-var Fen = require('../lib/codecs/fen.js').Fen;
+var FEN = require('../lib/codecs/fen.js').FEN;
 
 var fenCodes = [
 	'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',
@@ -24,6 +24,6 @@ test('it can decode and encode FEN losslessly', function (t) {
 	t.plan(fenCodes.length);
 
 	fenCodes.forEach(function (code) {
-		t.equal(code, new Fen(code).fen, code);
+		t.equal(code, FEN.stringify(FEN.parse(code)), code);
 	});
 });

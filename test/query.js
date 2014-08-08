@@ -2,7 +2,7 @@ require('traceur/bin/traceur-runtime.js');
 require('longjohn');
 
 var test = require('tape');
-var Fen = require('../lib/codecs/fen.js').Fen;
+var FEN = require('../lib/codecs/fen.js').FEN;
 var constants = require('../lib/constants.js');
 var PAWN = constants.PAWN;
 var WHITE = constants.WHITE;
@@ -12,8 +12,7 @@ var BISHOP = constants.BISHOP;
 var ROOK = constants.ROOK;
 
 var startingPosition =
-	new Fen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
-		.position;
+	FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
 test('can query all pieces', function (t) {
 	t.plan(1);
@@ -74,7 +73,7 @@ test('the active king in the starting position is white', function (t) {
 	t.equal(activeKing.color, WHITE, 'the piece is white');
 });
 
-var morphyPuzzle = new Fen('kbK5/pp6/1P6/8/8/8/8/R7 w - - 0 1').position
+var morphyPuzzle = FEN.parse('kbK5/pp6/1P6/8/8/8/8/R7 w - - 0 1');
 
 test("morphy's puzzle features", function (t) {
 	t.plan(9);

@@ -141,7 +141,7 @@ export class Position {
 					this.placePiece(piece, i, j);
 				}
 			});
-		})
+		});
 	}
 
 	get arr2d() {

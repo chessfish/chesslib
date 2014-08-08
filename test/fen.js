@@ -15,6 +15,7 @@ var fenCodes = [
 	'rnbq1b1r/1p3kp1/p2p1n1p/4N3/4P3/2N5/PPP2PPP/R1BQK2R b KQ -',
 	'3r4/p1R5/5k1p/6p1/2p5/8/P3nPPP/R4K2 b - -',
 	'r1bq1b1r/ppppkBp1/2n5/4P1p1/3p4/5Q2/PPP3PP/RNB1R1K1 b - -',
+	'kbK5/pp6/1P6/8/8/8/8/R7 w - - 0 1',
 	// TODO: make this list much, much longer.
 ];
 

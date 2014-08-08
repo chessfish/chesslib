@@ -1,5 +1,9 @@
 import { KING, QUEEN, KNIGHT, BISHOP, ROOK, PAWN } from '../constants'
 import { Piece } from '../piece'
+import { Leaper } from './traits/leaper'
+import { Rider } from './traits/rider'
+import { Royal } from './traits/royal'
+
 
 export class Pawn extends Piece {
 	get brand() {
@@ -14,6 +18,10 @@ export class Pawn extends Piece {
 }
 
 export class Rook extends Piece {
+	constructor(options) {
+		super(options);
+		Rider.call(this, 1, 0);
+	}
 	get brand() {
 		return ROOK;
 	}
@@ -26,6 +34,10 @@ export class Rook extends Piece {
 }
 
 export class Knight extends Piece {
+	constructor() {
+		super(options);
+		Leaper.call(this, 1, 2);
+	}
 	get brand() {
 		return KNIGHT;
 	}
@@ -38,6 +50,10 @@ export class Knight extends Piece {
 }
 
 export class Bishop extends Piece {
+	constructor() {
+		super(options);
+		Rider.call(this, 1, 1);
+	}
 	get brand() {
 		return BISHOP;
 	}
@@ -50,6 +66,10 @@ export class Bishop extends Piece {
 }
 
 export class King extends Piece {
+	constructor() {
+		super(options);
+		Royal.call(this);
+	}
 	get brand() {
 		return KING;
 	}
@@ -62,6 +82,11 @@ export class King extends Piece {
 }
 
 export class Queen extends Piece {
+	constructor() {
+		super(options);
+		Rider.call(this, 1, 0);
+		Rider.call(this, 1, 1);
+	}
 	get brand() {
 		return QUEEN;
 	}

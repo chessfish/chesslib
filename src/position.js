@@ -1,8 +1,3 @@
-// VENDOR
-const identity = require('lodash.identity');
-const WeakMap = require('weakmap');
-
-// LIBRARY
 import {
 	WHITE,
 	BLACK,
@@ -14,7 +9,7 @@ import {
 	PAWN,
 } from './constants';
 import { Cursor } from './cursor';
-import { entries } from './util';
+import { entries, identity } from './util';
 
 // MODULE
 export class Position {
@@ -44,7 +39,6 @@ export class Position {
 		this.pieces[BISHOP] = new Set();
 		this.pieces[ROOK] = new Set();
 		this.pieces[PAWN] = new Set();
-		this.positions = new WeakMap();
 		this.arr2d = arr2d;
 	}
 
@@ -68,9 +62,6 @@ export class Position {
 		this.board[rank][file] = piece;
 		this.pieces.add(piece);
 		this.pieces[piece.brand].add(piece);
-		const golden = Position.golden(rank, file);
-		this.positions.set(golden, piece);
-		this.positions.set(piece, golden);
 	}
 
 	squareName(rank, file) {
@@ -155,28 +146,8 @@ export class Position {
 				}
 				return piece.unicode;
 			}).
-			map((rank) => rank.join('\t')).
+			map((rank) => rank.join('')).
 			join('\n')
 		;
 	}
-
-	static golden(rank, file) {
-		return goldenPosition(rank, file);
-	}
-}
-
-var golden = new Map();
-
-function goldenPosition(rank, file) {
-	var r = golden.get(rank);
-	if (r == null) {
-		r = new Map();
-		golden.set(rank, r);
-	}
-	var f = r.get(file);
-	if (f == null) {
-		f = { rank, file };
-		r.set(r, f);
-	}
-	return f;
 }

@@ -8,3 +8,5 @@ export function* entries(collection) {
     yield [collection[k], k];
   }
 }
+
+export const identity = (it) => it

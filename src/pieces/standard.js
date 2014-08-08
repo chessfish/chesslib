@@ -4,7 +4,6 @@ import { Leaper } from './traits/leaper'
 import { Rider } from './traits/rider'
 import { Royal } from './traits/royal'
 
-
 export class Pawn extends Piece {
 	get brand() {
 		return PAWN;
@@ -34,7 +33,7 @@ export class Rook extends Piece {
 }
 
 export class Knight extends Piece {
-	constructor() {
+	constructor(options) {
 		super(options);
 		Leaper.call(this, 1, 2);
 	}
@@ -50,7 +49,7 @@ export class Knight extends Piece {
 }
 
 export class Bishop extends Piece {
-	constructor() {
+	constructor(options) {
 		super(options);
 		Rider.call(this, 1, 1);
 	}
@@ -66,7 +65,7 @@ export class Bishop extends Piece {
 }
 
 export class King extends Piece {
-	constructor() {
+	constructor(options) {
 		super(options);
 		Royal.call(this);
 	}
@@ -82,7 +81,7 @@ export class King extends Piece {
 }
 
 export class Queen extends Piece {
-	constructor() {
+	constructor(options) {
 		super(options);
 		Rider.call(this, 1, 0);
 		Rider.call(this, 1, 1);

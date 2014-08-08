@@ -10,19 +10,19 @@ var source = require('vinyl-source-stream');
 gulp.task('default', ['core', 'codecs', 'pieces', 'ui']);
 
 gulp.task('core', function () {
-	return esify('./src/*.es');
+	return esify('./src/*.js');
 });
 
 gulp.task('codecs', function () {
-	return esify('./src/codecs/*.es');
+	return esify('./src/codecs/*.js');
 });
 
 gulp.task('pieces', function () {
-	return esify('./src/pieces/*.es');
+	return esify('./src/pieces/*.js');
 });
 
 gulp.task('ui', function () {
-	return esify('./src/ui/*/*.es');
+	return esify('./src/ui/*/*.js');
 });
 
 gulp.task('browserify', ['default'], function () {

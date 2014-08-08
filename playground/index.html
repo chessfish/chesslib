@@ -85,12 +85,10 @@ var fenCodes = [
 <script>
 (function () {
   var mercury = require('mercury');
-  var Fen = require('chessview').Fen;
+  var FEN = require('chessview').FEN;
   var render = require('chessview').render;
 
-  var game = mercury.value(
-    randomPosition()
-  );
+  var game = mercury.value(randomPosition());
 
   setInterval(function () {
     game.set(randomPosition());

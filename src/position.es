@@ -1,6 +1,5 @@
 // VENDOR
-import identity from 'lodash.identity';
-// traceur modules are failing me here:
+const identity = require('lodash.identity');
 const WeakMap = require('weakmap');
 
 // LIBRARY

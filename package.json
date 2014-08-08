@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "lodash.identity": "^2.4.1",
-    "weakmap": "0.0.6"
+    "weakmap": "0.0.6",
+    "mercury": "^6.0.1"
   },
   "devDependencies": {
     "gulp": "^3.8.7",
@@ -15,7 +16,9 @@
     "tape": "^2.14.0",
     "traceur": "0.0.55",
     "minimist": "^0.2.0",
-    "longjohn": "^0.2.4"
+    "longjohn": "^0.2.4",
+    "browserify": "^5.9.1",
+    "vinyl-source-stream": "^0.1.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/tape ./test/*.js"

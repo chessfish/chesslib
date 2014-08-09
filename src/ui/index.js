@@ -1,7 +1,7 @@
-import { render as simple } from './simple/positionview'
-import { render as playable } from './playable/positionview'
+import { simple } from './simple/positionview'
+import { playable } from './playable/positionview'
 
-export const render = {
+export const ui = {
   simple,
   playable,
 };

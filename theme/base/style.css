@@ -12,16 +12,27 @@
 
 .square {
   position: relative;
+  box-sizing:border-box;
   float: left;
   width: 12.5%;
   height: 100%;
 }
 
+.square.dragenter {
+  border: solid 2px #ccc;
+}
+
 .piece {
-  position:absolute;
+  cursor: pointer;
+  z-index: 1;
+  position: absolute;
   width: 100%;
   height: 100%;
   background-size:100%;
+}
+
+.piece.dragstart {
+  display: none;
 }
 
 .rank:nth-child(odd) .square:nth-child(even),

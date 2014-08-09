@@ -11,16 +11,16 @@
 (function () {
   var mercury = require('mercury');
   var FEN = require('chessview').FEN;
-  var render = require('chessview').render.playable;
+  var playable = require('chessview').ui.playable;
 
-  var game = mercury.value(
+  var state = playable(
     FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
   );
 
-  mercury.app(
+  var app = mercury.app(
     document.getElementsByClassName('chessview')[0],
-    game,
-    render
+    state,
+    playable.render
   );
 }());
 </script>

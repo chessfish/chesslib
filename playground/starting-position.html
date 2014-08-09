@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<title>Chess view</title>
+<body>
+<style>
+
+.rank {
+  clear: both;
+}
+
+.square {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+.piece {
+  position:relative;
+  width: 100%;
+  height: 100%;
+  background-size:100%;
+}
+
+.rank:nth-child(odd) .square:nth-child(even),
+.rank:nth-child(even) .square:nth-child(odd) {
+  background-color: #eee;
+}
+
+.piece.K {
+  background-image: url('./images/wk.png');
+}
+.piece.Q {
+  background-image: url('./images/wq.png');
+}
+.piece.N {
+  background-image: url('./images/wn.png');
+}
+.piece.B {
+  background-image: url('./images/wb.png');
+}
+.piece.R {
+  background-image: url('./images/wr.png');
+}
+.piece.P {
+  background-image: url('./images/wp.png');
+}
+
+.piece.k {
+  background-image: url('./images/bk.png');
+}
+.piece.q {
+  background-image: url('./images/bq.png');
+}
+.piece.n {
+  background-image: url('./images/bn.png');
+}
+.piece.b {
+  background-image: url('./images/bb.png');
+}
+.piece.r {
+  background-image: url('./images/br.png');
+}
+.piece.p {
+  background-image: url('./images/bp.png');
+}
+
+</style>
+<div class="chessview"></div>
+<script src="../node_modules/traceur/bin/traceur-runtime.js"></script>
+<script src="../browser/bundle.js"></script>
+
+<script>
+(function () {
+  var mercury = require('mercury');
+  var FEN = require('chessview').FEN;
+  var render = require('chessview').render;
+
+  var game = mercury.value(
+    FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+  );
+
+  mercury.app(
+    document.getElementsByClassName('chessview')[0],
+    game,
+    render
+  );
+}());
+</script>

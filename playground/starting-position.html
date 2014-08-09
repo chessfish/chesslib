@@ -11,7 +11,7 @@
 (function () {
   var mercury = require('mercury');
   var FEN = require('chessview').FEN;
-  var render = require('chessview').render;
+  var render = require('chessview').render.playable;
 
   var game = mercury.value(
     FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')

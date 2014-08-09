@@ -1,13 +1,20 @@
 
+.board {
+  width: 450px;
+  height: 450px;
+}
+
 .rank {
   clear: both;
+  width: 100%;
+  height: 12.5%;
 }
 
 .square {
   position: relative;
   float: left;
-  width: 50px;
-  height: 50px;
+  width: 12.5%;
+  height: 100%;
 }
 
 .piece {

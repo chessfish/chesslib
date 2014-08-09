@@ -19,7 +19,7 @@
     "vinyl-source-stream": "^0.1.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/tape ./test/*.js"
+    "test": "node ./test/all.js"
   },
   "author": "Christopher Thorn <morphcham@gmail.com>",
   "license": "MIT"

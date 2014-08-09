@@ -1,4 +1,4 @@
-# chess view
+# chess view [![Build Status](https://travis-ci.org/humanchimp/chessview.svg?branch=master)](https://travis-ci.org/humanchimp/chessview)
 
 This is a library for chess positions. It is a work in progress.
 

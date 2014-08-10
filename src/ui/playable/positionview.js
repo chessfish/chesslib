@@ -1,5 +1,7 @@
 import { h, input, event, struct, value } from 'mercury';
 
+import { Point } from '../../point'
+
 const dragEvent = require('./drag-handler.js');
 
 const ranks = '87654321'.split('');
@@ -25,6 +27,7 @@ export function playable(position) {
 		boardWidth,
 		boardHeight
 	}) => {
+		state.registeredPiece.set(null);
 		state.draggingPiece.set(piece);
 		state.offset.set({ x, y });
 		state.targetSquare.set(getTargetSquare({
@@ -42,7 +45,10 @@ export function playable(position) {
 	});
 
 	state.events.dropPiece(({ piece }) => {
-		state.position.set(state.position().move(piece, state.targetSquare()));
+		const targetSquare = state.targetSquare();
+		if (targetSquare != null) {
+			state.position.set(state.position().move(piece, targetSquare));
+		}
 		state.draggingPiece.set(null);
 		state.registeredPiece.set(null);
 		state.targetSquare.set(null);
@@ -59,17 +65,18 @@ playable.render = (state) =>
 			), renderPiece(state, i, j))))));
 
 function renderPiece(state, rank, file) {
-	const piece = state.position.getPiece(rank, file);
+	const piece = state.position.getPieceByCoords(new Point(file, rank));
 	if (piece == null) {
 		return null;
 	}
 	const options = { piece, rank, file };
 	const dragging = piece === state.draggingPiece;
+	const registered = piece === state.registeredPiece;
 	return h(`div.piece.${piece.fenEncoding}`, {
 		'ev-mousedown': dragEvent(state.events.dragPiece, options),
 		'ev-click': event(state.events.registerPiece, options),
 		'ev-mouseup': event(state.events.dropPiece, options),
-		'className': dragging ? 'dragging' : null,
+		'className': dragging ? 'dragging' : registered ? 'registered' : null,
 		'style': (
 			dragging ? {
 				'top': state.offset.y + 'px',

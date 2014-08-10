@@ -8,8 +8,9 @@ import {
 	ROOK,
 	PAWN,
 } from './constants';
-import { entries, identity, squareName } from './util';
+import { entries, identity, squareName, squareCoords } from './util';
 import { Move } from './move';
+import { Point } from './point';
 
 // MODULE
 export class Position {
@@ -27,7 +28,7 @@ export class Position {
 		this.ranks = ranks;
 		this.files = files;
 		this.board = createBoard(ranks, files);
-		this.activeColor = activeColor;
+		this.activeColor = activeColor || WHITE;
 		this.castling = castling;
 		this.enPassantTarget = enPassantTarget;
 		this.halfmoveClock = halfmoveClock;
@@ -53,8 +54,33 @@ export class Position {
 		return brand == null ? this.pieces : this.pieces[brand];
 	}
 
-	getPiece(rank, file) {
+	getPiece(squareName) {
+		return this.getPieceByCoords(squareCoords(squareName));
+	}
+
+	getPieceSquare(piece) {
+		const coords = this.getPieceCoords(piece);
+		if (coords) {
+			return squareName(coords);
+		}
+		return null;
+	}
+
+	getPieceByCoords({ x: file, y: rank }) {
 		return this.board[rank][file];
+	}
+
+	getPieceCoords(piece) {
+		for (var i = 0; i < this.board.length; i++) {
+			var rank = this.board[i];
+			for (var j = 0; j < rank.length; j++) {
+				var p = rank[j];
+				if (p === piece) {
+					return new Point(j, i);
+				}
+			}
+		}
+		return null;
 	}
 
 	queryAll(selector={}) {
@@ -85,6 +111,9 @@ export class Position {
 	}
 
 	move(piece, targetSquare) {
+		if (targetSquare == null) {
+			throw new Error("target square is null");
+		}
 		if (!Move.isLegal({ position: this, piece, targetSquare })) {
 			return this;
 		}
@@ -101,7 +130,7 @@ export class Position {
 				if (p === piece) {
 					return null;
 				}
-				if (squareName(i, j) === targetSquare) {
+				if (squareName(new Point(j, i)) === targetSquare) {
 					return piece;
 				}
 				return p;

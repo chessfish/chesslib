@@ -2,6 +2,7 @@ import { WHITE, BLACK } from '../constants'
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../pieces/standard'
 import { Position } from '../position'
 import { Castling } from '../castling'
+import { Point } from '../point'
 
 export const FEN = {
 
@@ -103,7 +104,7 @@ function stringifyRanks(position) {
 	var ranks = '';
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0, count = 0; j < 8; j++) {
-			var piece = position.getPiece(i, j);
+			var piece = position.getPieceByCoords(new Point(j, i));
 			if (piece == null) {
 				count += 1;
 				if (j === 7) {

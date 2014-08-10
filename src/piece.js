@@ -3,6 +3,18 @@ import { WHITE, BLACK } from './constants'
 export class Piece {
 	constructor({ color } = {}) {
 		this.color = color;
+		this.mobility = [];
+	}
+
+	canMove(from, to) {
+		const m = this.mobility;
+		for (var i = 0, len = m.length; i < len; i++) {
+			const success = m[i].test(from, to);
+			if (success) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	toString() {

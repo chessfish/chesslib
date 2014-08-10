@@ -1,3 +1,5 @@
+import { Point } from './point'
+
 export function* entries(collection) {
   if (Array.isArray(collection)) {
     for (var i = 0; i < collection.length; i++) {
@@ -11,7 +13,7 @@ export function* entries(collection) {
 
 export const identity = (it) => it
 
-export const squareName = (rank, file) => {
+export const squareName = ({ x: file, y: rank }) => {
   // console.log({ rank, file })
   return `${fileName(file)}${rankName(rank)}`
 }
@@ -23,3 +25,8 @@ export const rankName = (rank, top=8) =>  String(top - rank);
 export const fileIndex = (fileName) => 'abcdefgh'.indexOf(fileName);
 
 export const rankIndex = (rankName, top=8) => top - Number(rankName);
+
+export const squareCoords = (squareName) => {
+  const [fileName, rankName] = squareName.split('');
+  return new Point(fileIndex(fileName), rankIndex(rankName));
+}

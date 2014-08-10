@@ -25,11 +25,14 @@ DragEventHandler.prototype.handleEvent = function (ev) {
 	const board = ev.currentTarget.parentNode.parentNode.parentNode;
 
 	function onmove(ev) {
+		const absX = ev.clientX - initialX;
+		const absY = ev.clientY - initialY;
+
 		const offset = {
-			x: ev.clientX - initialX - left,
-			y: ev.clientY - initialY - top,
-			absX: ev.clientX - initialX,
-			absY: ev.clientY - initialY,
+			absX,
+			absY,
+			x: absX - left,
+			y: absY - top,
 			boardWidth: board.offsetWidth,
 			boardHeight: board.offsetHeight,
 		}

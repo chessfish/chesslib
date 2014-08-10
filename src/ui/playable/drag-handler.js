@@ -1,42 +1,47 @@
-var window = require("global/window")
-var extend = require("lodash.assign")
+var window = require("global/window");
+var extend = require("lodash.assign");
 
-module.exports = DragEventHandler
+module.exports = DragEventHandler;
 
 function DragEventHandler(fn, value) {
-    if (!(this instanceof DragEventHandler)) {
-        return new DragEventHandler(fn, value)
-    }
+	if (!(this instanceof DragEventHandler)) {
+		return new DragEventHandler(fn, value);
+	}
 
-    this.fn = fn
-    this.value = value || {}
+	this.fn = fn;
+	this.value = value || {};
 }
 
 DragEventHandler.prototype.handleEvent = function (ev) {
-    var fn = this.fn
-    var value = this.value
+	const fn = this.fn;
+	const value = this.value;
 
-    var initialX = ev.offsetX || ev.layerX
-    var initialY = ev.offsetY || ev.layerY
+	const initialX = ev.offsetX || ev.layerX;
+	const initialY = ev.offsetY || ev.layerY;
 
-    var top = ev.currentTarget.parentNode.offsetTop;
-    var left = ev.currentTarget.parentNode.offsetLeft;
+	const top = ev.currentTarget.parentNode.offsetTop;
+	const left = ev.currentTarget.parentNode.offsetLeft;
 
-    function onmove(ev) {
-        var offset = {
-            x: ev.clientX - initialX - left,
-            y: ev.clientY - initialY - top,
-        }
+	const board = ev.currentTarget.parentNode.parentNode.parentNode;
 
-        fn(extend(value, offset))
+	function onmove(ev) {
+		const offset = {
+			x: ev.clientX - initialX - left,
+			y: ev.clientY - initialY - top,
+			absX: ev.clientX - initialX,
+			absY: ev.clientY - initialY,
+			boardWidth: board.offsetWidth,
+			boardHeight: board.offsetHeight,
+		}
 
-    }
+		fn(extend(value, offset));
+	}
 
-    function onup(ev) {
-        window.removeEventListener("mousemove", onmove)
-        window.removeEventListener("mouseup", onup)
-    }
+	function onup(ev) {
+		window.removeEventListener("mousemove", onmove);
+		window.removeEventListener("mouseup", onup);
+	}
 
-    window.addEventListener("mousemove", onmove)
-    window.addEventListener("mouseup", onup)
+	window.addEventListener("mousemove", onmove);
+	window.addEventListener("mouseup", onup);
 }

@@ -1,79 +1,84 @@
 
 .board {
-  width: 450px;
-  height: 450px;
+	cursor: default;
+	width: 450px;
+	height: 450px;
 }
 
 .rank {
-  clear: both;
-  width: 100%;
-  height: 12.5%;
+	clear: both;
+	width: 100%;
+	height: 12.5%;
 }
 
 .square {
-  position: relative;
-  box-sizing:border-box;
-  float: left;
-  width: 12.5%;
-  height: 100%;
+	position: relative;
+	box-sizing:border-box;
+	float: left;
+	width: 12.5%;
+	height: 100%;
 }
 
-.square.dragenter {
-  border: solid 2px #ccc;
+.square.active {
+	border: solid 2px #ccc;
 }
 
 .piece {
-  cursor: pointer;
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size:100%;
+	cursor: default;
+	z-index: 1;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-size:100%;
 }
 
 .piece.dragstart {
-  display: none;
+	display: none;
 }
 
 .rank:nth-child(odd) .square:nth-child(even),
 .rank:nth-child(even) .square:nth-child(odd) {
-  background-color: #eee;
+	background-color: #eee;
+}
+
+.piece.dragging {
+	cursor: none;
 }
 
 .piece.K {
-  background-image: url('./images/wk.png');
+	background-image: url('./images/wk.png');
 }
 .piece.Q {
-  background-image: url('./images/wq.png');
+	background-image: url('./images/wq.png');
 }
 .piece.N {
-  background-image: url('./images/wn.png');
+	background-image: url('./images/wn.png');
 }
 .piece.B {
-  background-image: url('./images/wb.png');
+	background-image: url('./images/wb.png');
 }
 .piece.R {
-  background-image: url('./images/wr.png');
+	background-image: url('./images/wr.png');
 }
 .piece.P {
-  background-image: url('./images/wp.png');
+	background-image: url('./images/wp.png');
 }
 
 .piece.k {
-  background-image: url('./images/bk.png');
+	background-image: url('./images/bk.png');
 }
 .piece.q {
-  background-image: url('./images/bq.png');
+	background-image: url('./images/bq.png');
 }
 .piece.n {
-  background-image: url('./images/bn.png');
+	background-image: url('./images/bn.png');
 }
 .piece.b {
-  background-image: url('./images/bb.png');
+	background-image: url('./images/bb.png');
 }
 .piece.r {
-  background-image: url('./images/br.png');
+	background-image: url('./images/br.png');
 }
 .piece.p {
-  background-image: url('./images/bp.png');
+	background-image: url('./images/bp.png');
 }

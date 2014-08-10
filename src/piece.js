@@ -1,7 +1,6 @@
 import { WHITE, BLACK } from './constants'
 
 export class Piece {
-
 	constructor({ color } = {}) {
 		this.color = color;
 	}

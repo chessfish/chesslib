@@ -42,6 +42,7 @@ export function playable(position) {
 	});
 
 	state.events.dropPiece(({ piece }) => {
+		state.position.set(state.position().move(piece, state.targetSquare()));
 		state.draggingPiece.set(null);
 		state.registeredPiece.set(null);
 		state.targetSquare.set(null);

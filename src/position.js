@@ -9,6 +9,7 @@ import {
 	PAWN,
 } from './constants';
 import { entries, identity } from './util';
+import { Move } from './move';
 
 // MODULE
 export class Position {
@@ -25,7 +26,7 @@ export class Position {
 	} = {}) {
 		this.ranks = ranks;
 		this.files = files;
-		this.board = this.createBoard(ranks, files);
+		this.board = createBoard(ranks, files);
 		this.activeColor = activeColor;
 		this.castling = castling;
 		this.enPassantTarget = enPassantTarget;
@@ -38,53 +39,14 @@ export class Position {
 		this.pieces[BISHOP] = new Set();
 		this.pieces[ROOK] = new Set();
 		this.pieces[PAWN] = new Set();
-		this.arr2d = arr2d;
-	}
-
-	createBoard(ranks=8, files=8) {
-		// ugly imperative way to create a board:
-		const board = [];
-		for (var i = 0; i < ranks; i++) {
-			var rank = [];
-			for (var j = 0; j < files; j++) {
-				rank.push(null);
-			}
-			board.push(rank);
+		if (arr2d) {
+			convertArr2d(this, arr2d);
 		}
-		return board;
-	}
-
-	placePiece(piece, rank, file) {
-		if (this.board[rank][file] != null) {
-			throw new Error(this.squareName(rank, file) + " occupied!")
-		}
-		this.board[rank][file] = piece;
-		this.pieces.add(piece);
-		this.pieces[piece.brand].add(piece);
-	}
-
-	squareName(rank, file) {
-		return `${rankName(rank)}{fileName(file)}`
-	}
-
-	rankName(rank) {
-		return 'abcdefgh'.charAt(rank)
-	}
-
-	fileName(file) {
-		return "" + (file + 1);
-	}
-
-	rankIndex(rankName) {
-		return 'abcdefgh'.indexOf(rankName);
-	}
-
-	fileIndex(fileName) {
-		return Number(fileName) - 1;
 	}
 
 	map(fn) {
-		return this.board.map((rank) => rank.map((piece) => fn(piece)));
+		return this.board.map((rank, i) =>
+			rank.map((piece, j) => fn(piece, i, j)));
 	}
 
 	getPieces(brand) {
@@ -122,31 +84,57 @@ export class Position {
 		return null;
 	}
 
-	set arr2d(arr2d) {
-		arr2d.forEach((rank, i) => {
-			rank.forEach((file, j) => {
-				const piece = arr2d[i][j];
-				if (piece != null) {
-					this.placePiece(piece, i, j);
+	move(piece, targetSquare) {
+		if (!Move.isLegal({ position: this, piece, targetSquare })) {
+			return this;
+		}
+		return new Position({
+			ranks: this.ranks,
+			files: this.files,
+			// swap the active color:
+			activeColor: this.activeColor === WHITE ? BLACK : WHITE,
+			castling: this.castling,
+			enPassantTarget: null,
+			halfmoveClock: this.halfmoveClock + 1,
+			fullmoveClock: this.fullmoveClock,
+			arr2d: this.board.map((p, i, j)=> {
+				console.log(p, piece);
+				if (p === piece) {
+					console.log("its the piece");
+					return null;
 				}
-			});
+				return p;
+			}),
+		})
+	}
+}
+
+function createBoard(ranks=8, files=8) {
+	// ugly imperative way to create a board:
+	const board = [];
+	for (var i = 0; i < ranks; i++) {
+		var rank = [];
+		for (var j = 0; j < files; j++) {
+			rank.push(null);
+		}
+		board.push(rank);
+	}
+	return board;
+}
+
+function placePiece(position, piece, i, j) {
+	position.board[i][j] = piece;
+	position.pieces.add(piece);
+	position.pieces[piece.brand].add(piece);
+}
+
+function convertArr2d (position, arr2d) {
+	arr2d.forEach((rank, i) => {
+		rank.forEach((file, j) => {
+			const piece = arr2d[i][j];
+			if (piece != null) {
+				placePiece(position, piece, i, j);
+			}
 		});
-	}
-
-	get arr2d() {
-		return this.map(identity);
-	}
-
-	get readableText() {
-		return this.
-			map((piece) => {
-				if (piece == null) {
-					return ' ';
-				}
-				return piece.unicode;
-			}).
-			map((rank) => rank.join('')).
-			join('\n')
-		;
-	}
+	});
 }

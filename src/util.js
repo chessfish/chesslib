@@ -10,3 +10,13 @@ export function* entries(collection) {
 }
 
 export const identity = (it) => it
+
+export const squareName = (rank, file) => `${rankName(rank)}{fileName(file)}`
+
+export const rankName = (rank) => 'abcdefgh'.charAt(rank)
+
+export const fileName = (file) =>  "" + (file + 1);
+
+export const rankIndex = (rankName) => 'abcdefgh'.indexOf(rankName);
+
+export const fileIndex = (fileName) => Number(fileName) - 1;

@@ -17,6 +17,7 @@
 	float: left;
 	width: 12.5%;
 	height: 100%;
+	border: solid 2px transparent;
 }
 
 .square.active {

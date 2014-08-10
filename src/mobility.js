@@ -10,9 +10,7 @@ export class Mobility {
 	}
 
 	test(src, dest) {
-		const a = this.adjacentPoints(src);
-		const s = a.map((coords) => squareName(coords));
-		return a.some((adj) => deepEqual(dest, adj));
+		return this.adjacentPoints(src).some((adj) => deepEqual(dest, adj));
 	}
 
 	adjacentPoints(coords) {

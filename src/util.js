@@ -11,12 +11,15 @@ export function* entries(collection) {
 
 export const identity = (it) => it
 
-export const squareName = (rank, file) => `${rankName(rank)}{fileName(file)}`
+export const squareName = (rank, file) => {
+  // console.log({ rank, file })
+  return `${fileName(file)}${rankName(rank)}`
+}
 
-export const rankName = (rank) => 'abcdefgh'.charAt(rank)
+export const fileName = (file) => 'abcdefgh'.charAt(file)
 
-export const fileName = (file) =>  "" + (file + 1);
+export const rankName = (rank, top=8) =>  String(top - rank);
 
-export const rankIndex = (rankName) => 'abcdefgh'.indexOf(rankName);
+export const fileIndex = (fileName) => 'abcdefgh'.indexOf(fileName);
 
-export const fileIndex = (fileName) => Number(fileName) - 1;
+export const rankIndex = (rankName, top=8) => top - Number(rankName);

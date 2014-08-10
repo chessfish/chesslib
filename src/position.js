@@ -8,7 +8,7 @@ import {
 	ROOK,
 	PAWN,
 } from './constants';
-import { entries, identity } from './util';
+import { entries, identity, squareName } from './util';
 import { Move } from './move';
 
 // MODULE
@@ -97,11 +97,12 @@ export class Position {
 			enPassantTarget: null,
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			arr2d: this.board.map((p, i, j)=> {
-				console.log(p, piece);
+			arr2d: this.map((p, i, j)=> {
 				if (p === piece) {
-					console.log("its the piece");
 					return null;
+				}
+				if (squareName(i, j) === targetSquare) {
+					return piece;
 				}
 				return p;
 			}),

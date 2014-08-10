@@ -1,5 +1,3 @@
-const deepEqual = require('deep-equal');
-
 import { squareName } from './util'
 import { Point } from './point'
 
@@ -10,7 +8,7 @@ export class Mobility {
 	}
 
 	test(src, dest) {
-		return this.adjacentPoints(src).some((adj) => deepEqual(dest, adj));
+		return this.adjacentPoints(src).some((adj) => dest.equal(adj));
 	}
 
 	adjacentPoints(coords) {

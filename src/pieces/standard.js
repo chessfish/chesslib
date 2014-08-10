@@ -1,20 +1,10 @@
-import { KING, QUEEN, KNIGHT, BISHOP, ROOK, PAWN } from '../constants'
+import { KING, QUEEN, KNIGHT, BISHOP, ROOK } from '../constants'
 import { Piece } from '../piece'
 import { Leaper } from './traits/leaper'
 import { Rider } from './traits/rider'
 import { Royal } from './traits/royal'
 
-export class Pawn extends Piece {
-	get brand() {
-		return PAWN;
-	}
-	get unicode() {
-		return this.isWhite ? '♙' : '♟';
-	}
-	get fenEncoding() {
-		return this.isWhite ? 'P' : 'p';
-	}
-}
+export { Pawn } from './pawn'
 
 export class Rook extends Piece {
 	constructor(options) {

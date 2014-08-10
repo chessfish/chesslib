@@ -4,6 +4,10 @@ export class Point {
     this.y = y;
   }
 
+  equal({ x, y }) {
+    return this.x === x && this.y === y;
+  }
+
   add({ x, y }) {
     return new Point(this.x + x, this.y + y);
   }

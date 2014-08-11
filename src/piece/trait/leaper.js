@@ -1,10 +1,9 @@
 import { Point } from '../../point'
 import { Mobility, quadrants } from '../mobility';
-import { squareName } from '../../util';
 
 class LeaperMobility extends Mobility {
 
-	*adjacentPoints(p0) {
+	*adjacentPoints(position, p0) {
 		const { m, n } = this;
 
 		for (var p1 of quadrants) {

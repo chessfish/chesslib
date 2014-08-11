@@ -1,12 +1,23 @@
 <!doctype html>
 <html>
 <title>Chess view</title>
+<head>
+<style>
+
+.fenCode {
+  font-size:12px;
+  width: 420px;
+}
+
+</style>
+</head>
 <body>
 <link rel="stylesheet" href="../theme/base/style.css">
-<div class="chessview"></div>
+<div id="chessview"></div>
+<h3>FEN:</h3>
+<div id="fenCode"></div>
 <script src="../node_modules/traceur/bin/traceur-runtime.js"></script>
 <script src="../browser/bundle.js"></script>
-
 <script>
 (function () {
   var mercury = require('mercury');
@@ -18,9 +29,22 @@
   );
 
   mercury.app(
-    document.getElementsByClassName('chessview')[0],
+    document.getElementById('chessview'),
     state,
-    playable.render
+    playable.board
+  );
+
+  // example of hacking together an ad-hoc component
+  mercury.app(
+    document.getElementById('fenCode'),
+    state,
+    function (state) {
+      return mercury.h('input.fenCode', {
+        'type': 'text',
+        'readonly': true,
+        'value': FEN.stringify(state.position)
+      })
+    }
   );
 }());
 </script>

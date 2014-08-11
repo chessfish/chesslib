@@ -60,14 +60,12 @@ export class Position {
 
 	getPieceSquare(piece) {
 		const coords = this.getPieceCoords(piece);
-		if (coords) {
-			return squareName(coords);
-		}
-		return null;
+		return coords == null ? null : squareName(coords);
 	}
 
-	getPieceByCoords({ x: file, y: rank }) {
-		return this.board[rank][file];
+	getPieceByCoords({ x, y }) {
+		const rank = this.board[y];
+		return rank == null ? null : rank[x];
 	}
 
 	getPieceCoords(piece) {

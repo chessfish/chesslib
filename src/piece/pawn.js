@@ -23,7 +23,7 @@ export class Pawn extends Piece {
 		return this.isWhite ? -1 : 1;
 	}
 
-	canMove(from, to) {
+	canMove(position, from, to) {
 		// pawns can only move forwards:
 		if (from.x !== to.x) {
 			return false;
@@ -36,7 +36,7 @@ export class Pawn extends Piece {
 		return to.y === from.y + reach;
 	}
 
-	canCapture(from, to) {
+	canCapture(position, from, to) {
 		return (
 			from.x === to.x + 1 || from.x === to.x -1 &&
 			to.y === from.y + this.reach

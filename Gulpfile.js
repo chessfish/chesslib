@@ -55,7 +55,6 @@ gulp.task('browserify', ['default'], function () {
 	);
 });
 
-
 function esify(src) {
 	var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '').replace('*', '');
 	var stream = gulp.src(src);
@@ -67,7 +66,7 @@ function esify(src) {
 	return stream.
 		pipe(traceur({
 			experimental: true,
-			sourceMaps: true
+			sourceMap: true
 		})).
 		pipe(rename({
 			extname: '.js'

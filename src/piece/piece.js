@@ -7,10 +7,10 @@ export class Piece {
 		this.mobility = [];
 	}
 
-	canMove(from, to) {
+	canMove(position, from, to) {
 		const m = this.mobility;
 		for (var i = 0, len = m.length; i < len; i++) {
-			const success = m[i].test(from, to);
+			const success = m[i].test(position, from, to);
 			if (success) {
 				return true;
 			}
@@ -18,9 +18,9 @@ export class Piece {
 		return false;
 	}
 
-	canCapture(from, to) {
+	canCapture(position, from, to) {
 		// most pieces capture the same way they move:
-		return this.canMove(from, to);
+		return this.canMove(position, from, to);
 	}
 
 	toString() {

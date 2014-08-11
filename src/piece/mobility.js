@@ -9,8 +9,8 @@ export class Mobility {
 		this.n = n;
 	}
 
-	test(src, dest) {
-		for (var adj of this.adjacentPoints(src)) {
+	test(position, src, dest) {
+		for (var adj of this.adjacentPoints(position, src)) {
 			if (dest.equal(adj)) {
 				return true;
 			}
@@ -18,7 +18,7 @@ export class Mobility {
 		return false;
 	}
 
-	*adjacentPoints(coords) {
+	*adjacentPoints(position, coords) {
 		throw new Error("subclass must override Mobility#adjacentPoints");
 	}
 
@@ -55,6 +55,6 @@ export const quadrants = [
 function legally(method, position, piece, targetSquare) {
 	const from = position.getPieceCoords(piece);
 	const to = squareCoords(targetSquare);
-	return piece[method](from, to);
+	return piece[method](position, from, to);
 }
 

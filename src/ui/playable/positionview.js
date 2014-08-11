@@ -57,7 +57,7 @@ export function playable(position) {
 	return state;
 }
 
-playable.render = (state) =>
+playable.board = (state) =>
 	h('div.board', ranks.map((r, i) =>
 		h(`div.rank.r${r}`, files.map((f, j) =>
 			h(`div.square.${f}${r}`, (

@@ -2,7 +2,7 @@ require('traceur/bin/traceur-runtime.js');
 require('longjohn');
 
 var test = require('tape');
-var FEN = require('../lib/codecs/fen.js').FEN;
+var FEN = require('../lib/codec/fen.js').FEN;
 var brands = require('../lib/brands.js');
 var PAWN = brands.PAWN;
 var WHITE = brands.WHITE;

@@ -1,3 +1,3 @@
 export { Position } from './position'
-export { FEN } from './codecs/fen'
+export { FEN } from './codec/fen'
 export { ui } from './ui'

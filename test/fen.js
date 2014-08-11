@@ -3,7 +3,7 @@ require('traceur/bin/traceur-runtime.js');
 require('longjohn');
 
 var test = require('tape');
-var FEN = require('../lib/codecs/fen.js').FEN;
+var FEN = require('../lib/codec/fen.js').FEN;
 
 var fenCodes = [
 	'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',

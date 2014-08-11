@@ -38,12 +38,7 @@ export class Mobility {
 				return false;
 			}
 			// a piece must be able to legally capture at the square.
-			return legally(
-				'canCapture',
-				position,
-				piece,
-				targetSquare
-			);
+			return legally('canCapture', position, piece, targetSquare);
 		}
 		// a piece must be able to legally move to the vacant square;
 		return legally('canMove', position, piece, targetSquare);

@@ -3,6 +3,7 @@
 	cursor: default;
 	width: 450px;
 	height: 450px;
+	border: solid black 1px;
 }
 
 .rank {
@@ -37,9 +38,14 @@
 	display: none;
 }
 
+.rank:nth-child(even) .square:nth-child(even),
+.rank:nth-child(odd) .square:nth-child(odd) {
+	background-color: #FFCE9E;
+}
+
 .rank:nth-child(odd) .square:nth-child(even),
 .rank:nth-child(even) .square:nth-child(odd) {
-	background-color: #eee;
+	background-color: #D18B47;
 }
 
 .piece.dragging {

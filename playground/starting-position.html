@@ -17,7 +17,7 @@
     FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
   );
 
-  var app = mercury.app(
+  mercury.app(
     document.getElementsByClassName('chessview')[0],
     state,
     playable.render

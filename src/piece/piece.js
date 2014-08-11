@@ -17,10 +17,10 @@ export class Piece {
 		return false;
 	}
 
-  canCapture(from, to) {
-    // most pieces capture the same way they move:
-    return this.canMove(from, to);
-  }
+	canCapture(from, to) {
+		// most pieces capture the same way they move:
+		return this.canMove(from, to);
+	}
 
 	toString() {
 		return this.constructor.name;

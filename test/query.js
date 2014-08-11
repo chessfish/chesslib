@@ -3,13 +3,13 @@ require('longjohn');
 
 var test = require('tape');
 var FEN = require('../lib/codecs/fen.js').FEN;
-var constants = require('../lib/constants.js');
-var PAWN = constants.PAWN;
-var WHITE = constants.WHITE;
-var BLACK = constants.BLACK;
-var KING = constants.KING;
-var BISHOP = constants.BISHOP;
-var ROOK = constants.ROOK;
+var brands = require('../lib/brands.js');
+var PAWN = brands.PAWN;
+var WHITE = brands.WHITE;
+var BLACK = brands.BLACK;
+var KING = brands.KING;
+var BISHOP = brands.BISHOP;
+var ROOK = brands.ROOK;
 
 var startingPosition =
 	FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');

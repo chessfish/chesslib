@@ -7,7 +7,7 @@ import {
 	BISHOP,
 	ROOK,
 	PAWN,
-} from './constants';
+} from './brands';
 import { entries, identity, squareName, squareCoords } from './util';
 import { Move } from './move';
 import { Point } from './point';

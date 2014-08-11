@@ -1,4 +1,4 @@
-import { WHITE, BLACK } from './constants'
+import { WHITE, BLACK } from './brands'
 
 export class Piece {
 	constructor({ color } = {}) {

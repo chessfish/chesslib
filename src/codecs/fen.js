@@ -1,4 +1,4 @@
-import { WHITE, BLACK } from '../constants'
+import { WHITE, BLACK } from '../brands'
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../pieces/standard'
 import { Position } from '../position'
 import { Castling } from '../castling'

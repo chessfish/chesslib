@@ -1,4 +1,4 @@
-import { PAWN } from './constants'
+import { PAWN } from './brands'
 import { squareCoords } from './util'
 
 export class Move {

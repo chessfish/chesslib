@@ -24,7 +24,7 @@ export class Position {
 		enPassantTarget=null,
 		halfmoveClock=0,
 		fullmoveClock=0,
-		arr2d=null,
+		board=null,
 	} = {}) {
 		this.ranks = ranks;
 		this.files = files;
@@ -41,8 +41,8 @@ export class Position {
 		this.pieces[BISHOP] = new Set();
 		this.pieces[ROOK] = new Set();
 		this.pieces[PAWN] = new Set();
-		if (arr2d) {
-			convertArr2d(this, arr2d);
+		if (board) {
+			decorateBoard(this, board);
 		}
 	}
 
@@ -152,7 +152,7 @@ export class Position {
 			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			arr2d: this.map((p, i, j) => {
+			board: this.map((p, i, j) => {
 				if (p === piece) {
 					return null;
 				}
@@ -189,10 +189,10 @@ function placePiece(position, piece, i, j) {
 	position.pieces[piece.brand].add(piece);
 }
 
-function convertArr2d(position, arr2d) {
-	arr2d.forEach((rank, i) => {
+function decorateBoard(position, board) {
+	board.forEach((rank, i) => {
 		rank.forEach((file, j) => {
-			const piece = arr2d[i][j];
+			const piece = board[i][j];
 			if (piece != null) {
 				placePiece(position, piece, i, j);
 			}

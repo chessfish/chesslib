@@ -16,7 +16,7 @@ export const FEN = {
 			fullmoveClock
 		] = fenStr.split(' ');
 		return new Position({
-			arr2d: parseRanks(ranks),
+			board: parseRanks(ranks),
 			activeColor: parseActiveColor(activeColor),
 			castling: parseCastling(castling),
 			enPassantTarget: parseEPTarget(enPassantTarget),

@@ -3,16 +3,22 @@ import { Point } from './point'
 import { squareName, squareCoords } from './util'
 
 export class Mobility {
+
 	constructor (m, n) {
 		this.m = m;
 		this.n = n;
 	}
 
 	test(src, dest) {
-		return this.adjacentPoints(src).some((adj) => dest.equal(adj));
+		for (var adj of this.adjacentPoints(src)) {
+			if (dest.equal(adj)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	adjacentPoints(coords) {
+	*adjacentPoints(coords) {
 		throw new Error("subclass must override Mobility#adjacentPoints");
 	}
 

@@ -1,6 +1,7 @@
 import { WHITE, BLACK } from '../brands'
 
 export class Piece {
+
 	constructor({ color } = {}) {
 		this.color = color;
 		this.mobility = [];

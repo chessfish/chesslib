@@ -1,11 +1,8 @@
 import { Mobility } from '../../mobility';
 
 class RiderMobility extends Mobility {
-  adjacentPoints() {
+  *adjacentPoints() {
     const { m, n } = this;
-
-    console.log(String(this));
-    return [];
   }
 
   toString() {

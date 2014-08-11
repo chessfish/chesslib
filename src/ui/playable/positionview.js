@@ -61,7 +61,7 @@ playable.render = (state) =>
 	h('div.board', ranks.map((r, i) =>
 		h(`div.rank.r${r}`, files.map((f, j) =>
 			h(`div.square.${f}${r}`, (
-				isTarget(state, r, f) ? { className: 'active' } : {}
+				isTarget(state, f, r) ? { className: 'active' } : {}
 			), renderPiece(state, i, j))))));
 
 function renderPiece(state, rank, file) {
@@ -89,7 +89,7 @@ function renderPiece(state, rank, file) {
 	});
 }
 
-function isTarget(state, rank, file) {
+function isTarget(state, file, rank) {
 	return state.targetSquare === `${file}${rank}`;
 }
 

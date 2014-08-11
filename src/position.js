@@ -126,7 +126,7 @@ export class Position {
 			enPassantTarget: null,
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			arr2d: this.map((p, i, j)=> {
+			arr2d: this.map((p, i, j) => {
 				if (p === piece) {
 					return null;
 				}

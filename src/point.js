@@ -12,7 +12,7 @@ export class Point {
 		return new Point(this.x + x, this.y + y);
 	}
 
-	mult({ x, y }) {
+	mul({ x, y }) {
 		return new Point(this.x * x, this.y * y);
 	}
 }

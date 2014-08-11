@@ -8,8 +8,8 @@ class LeaperMobility extends Mobility {
 		const { m, n } = this;
 
 		for (var p1 of quadrants) {
-			yield p0.add(p1.mult(new Point(m, n)));
-			yield p0.add(p1.mult(new Point(n, m)));
+			yield p0.add(p1.mul(new Point(m, n)));
+			yield p0.add(p1.mul(new Point(n, m)));
 		}
 	}
 

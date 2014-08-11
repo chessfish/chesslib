@@ -9,7 +9,7 @@ import {
 	PAWN,
 } from './brands';
 import { entries, identity, squareName, squareCoords } from './util';
-import { Move } from './move';
+import { Mobility } from './mobility';
 import { Point } from './point';
 
 // MODULE
@@ -114,7 +114,7 @@ export class Position {
 		if (targetSquare == null) {
 			throw new Error("target square is null");
 		}
-		if (!Move.isLegal({ position: this, piece, targetSquare })) {
+		if (!Mobility.isLegal({ position: this, piece, targetSquare })) {
 			return this;
 		}
 		return new Position({
@@ -158,7 +158,7 @@ function placePiece(position, piece, i, j) {
 	position.pieces[piece.brand].add(piece);
 }
 
-function convertArr2d (position, arr2d) {
+function convertArr2d(position, arr2d) {
 	arr2d.forEach((rank, i) => {
 		rank.forEach((file, j) => {
 			const piece = arr2d[i][j];

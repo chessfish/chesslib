@@ -1,5 +1,5 @@
 import { Point } from '../../point'
-import { Mobility, quadrants } from '../../mobility';
+import { Mobility, quadrants } from '../mobility';
 import { squareName } from '../../util';
 
 class LeaperMobility extends Mobility {

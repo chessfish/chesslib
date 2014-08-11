@@ -9,7 +9,7 @@ import {
 	PAWN,
 } from './brands';
 import { entries, identity, squareName, squareCoords } from './util';
-import { Mobility } from './mobility';
+import { Mobility } from './piece/mobility';
 import { Point } from './point';
 
 // MODULE

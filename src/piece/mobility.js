@@ -1,6 +1,6 @@
-import { PAWN } from './brands'
-import { Point } from './point'
-import { squareName, squareCoords } from './util'
+import { PAWN } from '../brands'
+import { Point } from '../point'
+import { squareName, squareCoords } from '../util'
 
 export class Mobility {
 

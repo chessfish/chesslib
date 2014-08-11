@@ -1,4 +1,4 @@
-import { Mobility } from '../../mobility';
+import { Mobility } from '../mobility';
 
 class RiderMobility extends Mobility {
   *adjacentPoints() {

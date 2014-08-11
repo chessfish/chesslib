@@ -7,7 +7,7 @@ var argv = require('minimist')(process.argv);
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 
-gulp.task('default', ['core', 'codecs', 'pieces', 'ui core', 'ui modules', 'traits']);
+gulp.task('default', ['core', 'codecs', 'piece', 'ui core', 'ui modules', 'traits']);
 
 gulp.task('core', function () {
 	return esify('./src/*.js');
@@ -17,8 +17,8 @@ gulp.task('codecs', function () {
 	return esify('./src/codecs/*.js');
 });
 
-gulp.task('pieces', function () {
-	return esify('./src/pieces/*.js');
+gulp.task('piece', function () {
+	return esify('./src/piece/*.js');
 });
 
 gulp.task('ui core', function () {
@@ -30,7 +30,7 @@ gulp.task('ui modules', function () {
 });
 
 gulp.task('traits', function () {
-	return esify('./src/pieces/traits/*.js');
+	return esify('./src/piece/traits/*.js');
 });
 
 gulp.task('browserify', ['default'], function () {

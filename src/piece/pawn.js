@@ -1,5 +1,5 @@
 import { PAWN } from '../brands'
-import { Piece } from '../piece'
+import { Piece } from './piece'
 
 export class Pawn extends Piece {
 	get brand() {

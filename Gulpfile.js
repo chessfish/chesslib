@@ -11,6 +11,7 @@ gulp.task('default', [
 	'core',
 	'codec',
 	'piece',
+	'pawn',
 	'ui core',
 	'ui modules',
 	'trait'
@@ -26,6 +27,10 @@ gulp.task('codec', function () {
 
 gulp.task('piece', function () {
 	return esify('./src/piece/*.js');
+});
+
+gulp.task('pawn', function () {
+	return esify('./src/piece/pawn/*.js');
 });
 
 gulp.task('ui core', function () {

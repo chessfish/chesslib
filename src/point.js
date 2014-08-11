@@ -8,11 +8,15 @@ export class Point {
 		return this.x === x && this.y === y;
 	}
 
-	add({ x, y }) {
+	sum({ x, y }) {
 		return new Point(this.x + x, this.y + y);
 	}
 
-	mul({ x, y }) {
+	difference({ x, y }) {
+		return new Point(this.x - x, this.y - y);
+	}
+
+	product({ x, y }) {
 		return new Point(this.x * x, this.y * y);
 	}
 }

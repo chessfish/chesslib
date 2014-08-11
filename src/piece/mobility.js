@@ -26,13 +26,18 @@ export class Mobility {
 		return [this.m, this.n];
 	}
 
-	static isLegal({ position, piece, targetSquare }) {
+	static isLegal({
+		position,
+		piece,
+		targetSquare,
+		targetPiece,
+	}) {
 		// a piece cannot move out of turn.
 		if (position.activeColor !== piece.color) {
 			return false;
 		}
-		const targetPiece = position.getPiece(targetSquare);
-		if (targetPiece) {
+
+		if (targetPiece != null) {
 			// a piece cannot move to a square occupied by a piece of its color.
 			if (piece.color === targetPiece.color) {
 				return false;
@@ -48,7 +53,7 @@ export class Mobility {
 export const quadrants = [
 	new Point(1, 1),
 	new Point(1, -1),
-	new Point(-1,	1),
+	new Point(-1, 1),
 	new Point(-1, -1),
 ];
 

@@ -10,6 +10,7 @@ import {
 } from './brands';
 import { entries, identity, squareName, squareCoords } from './util';
 import { Mobility } from './piece/mobility';
+import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
 
 // MODULE
@@ -30,7 +31,7 @@ export class Position {
 		this.board = createBoard(ranks, files);
 		this.activeColor = activeColor || WHITE;
 		this.castling = castling;
-		this.enPassantTarget = enPassantTarget;
+		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
 		this.pieces = new Set();
@@ -56,6 +57,24 @@ export class Position {
 
 	getPiece(squareName) {
 		return this.getPieceByCoords(squareCoords(squareName));
+	}
+
+	getCapturablePiece(squareNameP, capturerBrand=null) {
+		if (capturerBrand !== PAWN || !this.enPassantTarget.equal(squareNameP)) {
+			return [this.getPiece(squareNameP), squareNameP, false];
+		}
+		const coords = squareCoords(squareNameP);
+		const epCoords = this.enPassantTarget.coords();
+		if (coords.equal(epCoords)) {
+			const captureSquare = coords.sum(new Point(0, coords.y === 2 ? 1 : -1));
+			const capturedPiece = this.getPieceByCoords(captureSquare);
+			return [
+				capturedPiece,
+				capturedPiece && squareName(captureSquare),
+				!!capturedPiece
+			];
+		}
+		return [null, null, false];
 	}
 
 	getPieceSquare(piece) {
@@ -112,7 +131,16 @@ export class Position {
 		if (targetSquare == null) {
 			throw new Error("target square is null");
 		}
-		if (!Mobility.isLegal({ position: this, piece, targetSquare })) {
+
+		const [targetPiece, captureSquare, wasEnPassant]
+			= this.getCapturablePiece(targetSquare, piece.brand);
+
+		if (!Mobility.isLegal({
+			position: this,
+			piece,
+			targetSquare,
+			targetPiece,
+		})) {
 			return this;
 		}
 		return new Position({
@@ -121,14 +149,19 @@ export class Position {
 			// swap the active color:
 			activeColor: this.activeColor === WHITE ? BLACK : WHITE,
 			castling: this.castling,
-			enPassantTarget: null,
+			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
 			arr2d: this.map((p, i, j) => {
 				if (p === piece) {
 					return null;
 				}
-				if (squareName(new Point(j, i)) === targetSquare) {
+				const sq = new Point(j, i);
+				if (wasEnPassant && sq.equal(squareCoords(captureSquare))) {
+					// it was just captured en passant.
+					return null;
+				}
+				if (squareName(sq) === targetSquare) {
 					return piece;
 				}
 				return p;

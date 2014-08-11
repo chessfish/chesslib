@@ -1,5 +1,6 @@
-import { PAWN } from '../brands'
-import { Piece } from './piece'
+import { PAWN } from '../../brands'
+import { Piece } from '../piece'
+import { squareName } from '../../util'
 
 export class Pawn extends Piece {
 
@@ -39,7 +40,10 @@ export class Pawn extends Piece {
 	canCapture(position, from, to) {
 		return (
 			from.x === to.x + 1 || from.x === to.x -1 &&
-			to.y === from.y + this.reach
+			(
+				to.y === from.y + this.reach ||
+				position.enPassantTarget.equal(squareName(to))
+			)
 		);
 	}
 }

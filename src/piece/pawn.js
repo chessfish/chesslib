@@ -28,12 +28,12 @@ export class Pawn extends Piece {
 		if (from.x !== to.x) {
 			return false;
 		}
-		const offset = this.reach;
+		const reach = this.reach;
 		// pawns can move two squares on their first move.
 		if (from.y === this.startRow) {
-			return to.y === from.y + offset || to.y === from.y + offset * 2;
+			return to.y === from.y + reach || to.y === from.y + reach * 2;
 		}
-		return to.y === from.y + offset;
+		return to.y === from.y + reach;
 	}
 
 	canCapture(from, to) {

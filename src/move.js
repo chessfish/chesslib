@@ -14,28 +14,21 @@ export class Move {
 				return false;
 			}
 			// a piece must be able to legally capture at the square.
-			return isCaptureLegal(
+			return legally(
+				'canCapture',
 				position,
 				piece,
-				targetSquare,
-				targetPiece
+				targetSquare
 			);
 		}
 		// a piece must be able to legally move to the vacant square;
-		return isMoveLegal(position, piece, targetSquare);
+		return legally('canMove', position, piece, targetSquare);
 	}
 }
 
-function isCaptureLegal(position, piece, targetSquare, targetPiece) {
-	// pawns capture differently than they move. Not sure if this is the best approach.
-	if (piece.brand !== PAWN) {
-		return isMoveLegal(position, piece, targetSquare);
-	}
-	return true;
-}
-
-function isMoveLegal(position, piece, targetSquare) {
+function legally(method, position, piece, targetSquare) {
 	const from = position.getPieceCoords(piece);
 	const to = squareCoords(targetSquare);
-	return piece.canMove(from, to);
+	return piece[method](from, to);
 }
+

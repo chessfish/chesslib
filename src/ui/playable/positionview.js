@@ -47,7 +47,11 @@ export function playable(position) {
 	state.events.dropPiece(({ piece }) => {
 		const targetSquare = state.targetSquare();
 		if (targetSquare != null) {
-			state.position.set(state.position().move(piece, targetSquare));
+			const newPosition = state.position().tryMove(piece, targetSquare);
+			state.position.set(newPosition);
+			if (newPosition.isCheckmate()) {
+				alert('checkmate');
+			}
 		}
 		state.draggingPiece.set(null);
 		state.registeredPiece.set(null);

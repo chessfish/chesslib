@@ -18,6 +18,7 @@ import {
 import { Mobility } from './piece/mobility';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
+import { MobilityError, CheckError } from './error'
 
 // MODULE
 export class Position {
@@ -132,7 +133,7 @@ export class Position {
 		return null;
 	}
 
-	isCheck(color) {
+	wouldBeCheck(color, loc) {
 		const king = this.query({ brand: KING, color });
 		const enemies = this.queryAll({ color: oppositeColor(color) });
 
@@ -144,6 +145,34 @@ export class Position {
 			}
 		}
 		return false;
+	}
+
+	isCheck(color=this.activeColor) {
+		const king = this.query({ brand: KING, color });
+		return this.wouldBeCheck(color, this.getPieceCoords(king));
+	}
+
+	isCheckmate(color=this.activeColor) {
+		if (!this.isCheck(color)) {
+			// it can't be checkmate if it's not even check:
+			return false;
+		}
+		const king = this.query({ brand: KING, color });
+		for (var move of king.moves(this)) {
+			if (!this.wouldBeCheck(color, move)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	tryMove(piece, targetSquare) {
+		try {
+			return this.move(piece, targetSquare);
+		}
+		catch (e) {
+			return this;
+		}
 	}
 
 	move(piece, targetSquare) {
@@ -160,7 +189,7 @@ export class Position {
 			targetSquare,
 			targetPiece,
 		})) {
-			return this;
+			throw new MobilityError();
 		}
 		const position = new Position({
 			ranks: this.ranks,
@@ -188,7 +217,7 @@ export class Position {
 		});
 		if (position.isCheck(this.activeColor)) {
 			// this move is illegal, because it would put the king in check!
-			return this;
+			throw new CheckError();
 		}
 		return position;
 	}

@@ -7,10 +7,18 @@ export class Piece {
 		this.mobility = [];
 	}
 
+	*moves(position) {
+		const loc = position.getPieceCoords(this);
+		for (var m of this.mobility) {
+			for (var move of m.adjacentPoints(position, loc)) {
+				yield move;
+			}
+		}
+	}
+
 	canMove(position, from, to) {
-		const m = this.mobility;
-		for (var i = 0, len = m.length; i < len; i++) {
-			const success = m[i].test(position, from, to);
+		for (var m of this.mobility) {
+			const success = m.test(position, from, to);
 			if (success) {
 				return true;
 			}

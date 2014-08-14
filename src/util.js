@@ -1,3 +1,4 @@
+import { WHITE, BLACK } from './brands'
 import { Point } from './point'
 
 export function* entries(collection) {
@@ -28,3 +29,5 @@ export const squareCoords = (squareName) => {
   const [fileName, rankName] = squareName.split('');
   return new Point(fileIndex(fileName), rankIndex(rankName));
 }
+
+export const oppositeColor = (color) => color === WHITE ? BLACK : WHITE;

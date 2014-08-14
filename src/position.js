@@ -8,7 +8,13 @@ import {
 	ROOK,
 	PAWN,
 } from './brands';
-import { entries, identity, squareName, squareCoords } from './util';
+import {
+	entries,
+	identity,
+	squareName,
+	squareCoords,
+	oppositeColor,
+} from './util';
 import { Mobility } from './piece/mobility';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
@@ -126,6 +132,20 @@ export class Position {
 		return null;
 	}
 
+	isCheck(color) {
+		const king = this.query({ brand: KING, color });
+		const enemies = this.queryAll({ color: oppositeColor(color) });
+
+		for (var enemy of enemies) {
+			if (enemy.canCapture(this,
+				this.getPieceCoords(enemy),
+				this.getPieceCoords(king))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	move(piece, targetSquare) {
 		if (targetSquare == null) {
 			throw new Error("target square is null");
@@ -142,11 +162,11 @@ export class Position {
 		})) {
 			return this;
 		}
-		return new Position({
+		const position = new Position({
 			ranks: this.ranks,
 			files: this.files,
 			// swap the active color:
-			activeColor: this.activeColor === WHITE ? BLACK : WHITE,
+			activeColor: oppositeColor(this.activeColor),
 			castling: this.castling,
 			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
@@ -165,7 +185,12 @@ export class Position {
 				}
 				return p;
 			}),
-		})
+		});
+		if (position.isCheck(this.activeColor)) {
+			// this move is illegal, because it would put the king in check!
+			return this;
+		}
+		return position;
 	}
 }
 
@@ -173,7 +198,7 @@ function createBoard(ranks=8, files=8) {
 	// ugly imperative way to create a board:
 	const board = [];
 	for (var i = 0; i < ranks; i++) {
-		var rank = [];
+		const rank = [];
 		for (var j = 0; j < files; j++) {
 			rank.push(null);
 		}

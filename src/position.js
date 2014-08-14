@@ -16,6 +16,7 @@ import {
 	oppositeColor,
 } from './util';
 import { Mobility } from './piece/mobility';
+import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
 import { MobilityError, CheckError } from './error'
@@ -37,7 +38,7 @@ export class Position {
 		this.files = files;
 		this.board = createBoard(ranks, files);
 		this.activeColor = activeColor || WHITE;
-		this.castling = castling;
+		this.castling = new Castling(castling);
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
@@ -175,8 +176,11 @@ export class Position {
 		try {
 			return this.move(piece, targetSquare);
 		}
-		catch (e) {
-			return this;
+		catch (err) {
+			if (err instanceof MobilityError || err instanceof CheckError) {
+				return this;
+			}
+			throw err;
 		}
 	}
 

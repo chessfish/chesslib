@@ -1,7 +1,6 @@
 import { WHITE, BLACK } from '../brands'
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard'
 import { Position } from '../position'
-import { Castling } from '../castling'
 import { Point } from '../point'
 
 export const FEN = {
@@ -74,7 +73,7 @@ function parseActiveColor(activeColor) {switch (activeColor) {
 }}
 
 function parseCastling(castling) {
-	return new Castling(castling);
+	return castling;
 }
 
 function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {
@@ -128,7 +127,7 @@ function stringifyActiveColor(activeColor) {switch (activeColor) {
 }}
 
 function stringifyCastling(castling) {
-	return castling.castling;
+	return String(castling);
 }
 
 function stringifyEPTarget(enPassantTarget) {

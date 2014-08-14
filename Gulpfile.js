@@ -14,7 +14,7 @@ gulp.task('default', [
 	'pawn',
 	'ui core',
 	'ui modules',
-	'trait'
+	'mobility'
 ]);
 
 gulp.task('core', function () {
@@ -41,8 +41,8 @@ gulp.task('ui modules', function () {
 	return esify('./src/ui/*/*.js');
 });
 
-gulp.task('trait', function () {
-	return esify('./src/piece/trait/*.js');
+gulp.task('mobility', function () {
+	return esify('./src/piece/mobility/*.js');
 });
 
 gulp.task('browserify', ['default'], function () {

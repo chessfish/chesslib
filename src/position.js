@@ -158,8 +158,11 @@ export class Position {
 			try {
 				this.move(king, squareName(move));
 			}
-			catch (_) {
-				continue;
+			catch (err) {
+				if (err instanceof MobilityError || err instanceof CheckError) {
+					continue;
+				}
+				throw err;
 			}
 			if (!this.wouldBeCheck(color, move)) {
 				return false;

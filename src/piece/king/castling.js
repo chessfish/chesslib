@@ -16,7 +16,7 @@ export class Castling {
 			mode[WHITE][QUEENSIDE]  ? 'Q' : '',
 			mode[BLACK][KINGSIDE]   ? 'k' : '',
 			mode[BLACK][QUEENSIDE]  ? 'q' : '',
-		].join('');
+		].join('') || '-';
 	}
 }
 
@@ -26,6 +26,11 @@ const blankMode = () =>
 		[QUEENSIDE]: false,
 	});
 
+const sides = {
+	'q': QUEENSIDE,
+	'k': KINGSIDE,
+}
+
 function parseCastling(castling) {
 	const modes = {
 		[WHITE]: blankMode(),
@@ -33,9 +38,8 @@ function parseCastling(castling) {
 	};
 	String(castling).split('').forEach((mode) => {
 		const modeLower = mode.toLowerCase();
-		const color = modeLower === mode ? WHITE : BLACK;
-		const side = modeLower === 'k' ? KINGSIDE : QUEENSIDE;
-		modes[color][side] = true;
+		const color = modeLower === mode ? BLACK : WHITE;
+		modes[color][sides[modeLower]] = true;
 	})
 	return modes;
 }

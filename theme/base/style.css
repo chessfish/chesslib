@@ -40,12 +40,12 @@
 
 .rank:nth-child(even) .square:nth-child(even),
 .rank:nth-child(odd) .square:nth-child(odd) {
-	background-color: #FFCE9E;
+	background-color: #F0D9B5;
 }
 
 .rank:nth-child(odd) .square:nth-child(even),
 .rank:nth-child(even) .square:nth-child(odd) {
-	background-color: #D18B47;
+	background-color: #B58863;
 }
 
 .piece.dragging {

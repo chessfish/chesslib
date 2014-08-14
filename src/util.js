@@ -13,10 +13,8 @@ export function* entries(collection) {
 
 export const identity = (it) => it
 
-export const squareName = ({ x: file, y: rank }) => {
-  // console.log({ rank, file })
-  return `${fileName(file)}${rankName(rank)}`
-}
+export const squareName = ({ x: file, y: rank }) =>
+  `${fileName(file)}${rankName(rank)}`;
 
 export const fileName = (file) => 'abcdefgh'.charAt(file)
 

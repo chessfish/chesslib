@@ -39,11 +39,10 @@ export class Pawn extends Piece {
 
 	canCapture(position, from, to) {
 		return (
-			from.x === to.x + 1 || from.x === to.x -1 &&
-			(
-				to.y === from.y + this.reach ||
-				position.enPassantTarget.equal(squareName(to))
-			)
+			// it's one rank "below" the pawn to be captured:
+			to.y === from.y + this.reach &&
+			// it's a from a neighboring file:
+			(from.x === to.x + 1 || from.x === to.x - 1)
 		);
 	}
 }

@@ -95,9 +95,9 @@ export class Position {
 
 	getPieceCoords(piece) {
 		for (var i = 0; i < this.board.length; i++) {
-			var rank = this.board[i];
+			const rank = this.board[i];
 			for (var j = 0; j < rank.length; j++) {
-				var p = rank[j];
+				const p = rank[j];
 				if (p === piece) {
 					return new Point(j, i);
 				}
@@ -134,13 +134,9 @@ export class Position {
 	}
 
 	wouldBeCheck(color, loc) {
-		const king = this.query({ brand: KING, color });
 		const enemies = this.queryAll({ color: oppositeColor(color) });
-
 		for (var enemy of enemies) {
-			if (enemy.canCapture(this,
-				this.getPieceCoords(enemy),
-				this.getPieceCoords(king))) {
+			if (enemy.canCapture(this, this.getPieceCoords(enemy), loc)) {
 				return true;
 			}
 		}
@@ -159,6 +155,12 @@ export class Position {
 		}
 		const king = this.query({ brand: KING, color });
 		for (var move of king.moves(this)) {
+			try {
+				this.move(king, squareName(move));
+			}
+			catch (_) {
+				continue;
+			}
 			if (!this.wouldBeCheck(color, move)) {
 				return false;
 			}

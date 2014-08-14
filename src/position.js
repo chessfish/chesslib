@@ -64,8 +64,7 @@ export class Position {
 			return [this.getPiece(squareNameP), squareNameP, false];
 		}
 		const coords = squareCoords(squareNameP);
-		const epCoords = this.enPassantTarget.coords();
-		if (coords.equal(epCoords)) {
+		if (coords.equal(this.enPassantTarget)) {
 			const captureSquare = coords.sum(new Point(0, coords.y === 2 ? 1 : -1));
 			const capturedPiece = this.getPieceByCoords(captureSquare);
 			return [

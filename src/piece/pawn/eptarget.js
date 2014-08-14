@@ -2,25 +2,28 @@ import { PAWN } from '../../brands'
 import { Point } from '../../point'
 import { squareCoords, squareName } from '../../util'
 
-export class EnPassantTarget {
+export class EnPassantTarget extends Point {
 
 	constructor(fenEncoding) {
 		if (fenEncoding instanceof EnPassantTarget) {
 			return fenEncoding;
 		}
+		if (fenEncoding != null) {
+			const coords = squareCoords(fenEncoding);
+			super(coords.x, coords.y);
+		}
+		else {
+			super(-1, -1);
+		}
 		this.fenEncoding = fenEncoding;
 	}
 
-	coords() {
-		return this.fenEncoding && squareCoords(this.fenEncoding);
-	}
-
 	offset() {
-		return new Point(0, this.coords().y === 3 ? -1 : 1);
+		return new Point(0, this.y === 3 ? -1 : 1);
 	}
 
 	equal(squareNameP) {
-		return this.fenEncoding && this.coords().equal(squareCoords(squareNameP));
+		return this.fenEncoding && super.equal(squareCoords(squareNameP));
 	}
 
 	toString() {

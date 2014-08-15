@@ -20,22 +20,22 @@ export function *bounded({ files, ranks }, iterator) {
   }
 }
 
-export const identity = (it) => it
+export const identity = it => it;
 
 export const squareName = ({ x: file, y: rank }) =>
   `${fileName(file)}${rankName(rank)}`;
 
-export const fileName = (file) => 'abcdefgh'.charAt(file)
+export const fileName = file => 'abcdefgh'.charAt(file);
 
 export const rankName = (rank, top=8) =>  String(top - rank);
 
-export const fileIndex = (fileName) => 'abcdefgh'.indexOf(fileName);
+export const fileIndex = fileName => 'abcdefgh'.indexOf(fileName);
 
 export const rankIndex = (rankName, top=8) => top - Number(rankName);
 
-export const squareCoords = (squareName) => {
+export const squareCoords = squareName => {
   const [fileName, rankName] = squareName.split('');
   return new Point(fileIndex(fileName), rankIndex(rankName));
-}
+};
 
-export const oppositeColor = (color) => color === WHITE ? BLACK : WHITE;
+export const oppositeColor = color => color === WHITE ? BLACK : WHITE;

@@ -95,9 +95,9 @@ export class Position {
 	}
 
 	getPieceCoords(piece) {
-		for (var i = 0; i < this.board.length; i++) {
+		for (var i = 0, iLen = this.board.length; i < iLen; i++) {
 			const rank = this.board[i];
-			for (var j = 0; j < rank.length; j++) {
+			for (var j = 0, jLen = rank.length; j < jLen; j++) {
 				const p = rank[j];
 				if (p === piece) {
 					return new Point(j, i);

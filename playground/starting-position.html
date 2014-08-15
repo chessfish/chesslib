@@ -25,7 +25,11 @@
   var playable = require('chessview').ui.playable;
 
   var state = playable(
-    FEN.parse('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+    FEN.parse(
+      location.search ?
+      decodeURIComponent(location.search.replace('?', '')) :
+      'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    )
   );
 
   mercury.app(

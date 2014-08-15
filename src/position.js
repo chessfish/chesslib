@@ -16,6 +16,7 @@ import {
 	oppositeColor,
 	bounded,
 } from './util';
+import { Board } from './board'
 import { Mobility } from './piece/mobility';
 import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
@@ -36,31 +37,16 @@ export class Position {
 	} = {}) {
 		this.ranks = ranks;
 		this.files = files;
-		this.board = createBoard(ranks, files);
+		this.board = new Board(ranks, files, board);
 		this.activeColor = activeColor || WHITE;
 		this.castling = new Castling(castling);
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
-		this.pieces = new Set();
-		this.pieces[KING] = new Set();
-		this.pieces[QUEEN] = new Set();
-		this.pieces[KNIGHT] = new Set();
-		this.pieces[BISHOP] = new Set();
-		this.pieces[ROOK] = new Set();
-		this.pieces[PAWN] = new Set();
-		if (board) {
-			decorateBoard(this, board);
-		}
-	}
-
-	map(fn) {
-		return this.board.map((rank, i) =>
-			rank.map((piece, j) => fn(piece, i, j)));
 	}
 
 	getPieces(brand) {
-		return brand == null ? this.pieces : this.pieces[brand];
+		return this.board.getPieces(brand);
 	}
 
 	getPiece(squareName) {
@@ -90,21 +76,11 @@ export class Position {
 	}
 
 	getPieceCoords(piece) {
-		for (var i = 0, iLen = this.board.length; i < iLen; i++) {
-			const rank = this.board[i];
-			for (var j = 0, jLen = rank.length; j < jLen; j++) {
-				const p = rank[j];
-				if (p === piece) {
-					return new Point(j, i);
-				}
-			}
-		}
-		return null;
+		return this.board.getPieceCoords(piece);
 	}
 
-	getPieceByCoords({ x, y }) {
-		const rank = this.board[y];
-		return rank == null ? null : rank[x];
+	getPieceByCoords(point) {
+		return this.board.getPieceByCoords(point);
 	}
 
 	*queryAll(selector={}) {
@@ -201,7 +177,7 @@ export class Position {
 			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			board: this.map((p, i, j) => {
+			board: this.board.map((p, i, j) => {
 				if (p === piece) {
 					return null;
 				}
@@ -222,36 +198,6 @@ export class Position {
 		}
 		return position;
 	}
-}
-
-function createBoard(ranks=8, files=8) {
-	// ugly imperative way to create a board:
-	const board = [];
-	for (var i = 0; i < ranks; i++) {
-		const rank = [];
-		for (var j = 0; j < files; j++) {
-			rank.push(null);
-		}
-		board.push(rank);
-	}
-	return board;
-}
-
-function placePiece(position, piece, i, j) {
-	position.board[i][j] = piece;
-	position.pieces.add(piece);
-	position.pieces[piece.brand].add(piece);
-}
-
-function decorateBoard(position, board) {
-	board.forEach((rank, i) => {
-		rank.forEach((file, j) => {
-			const piece = board[i][j];
-			if (piece != null) {
-				placePiece(position, piece, i, j);
-			}
-		});
-	});
 }
 
 function ourError(err) {

@@ -155,7 +155,7 @@ export class Position {
 					}
 				}
 				catch (err) {
-					if (err instanceof MobilityError || err instanceof CheckError) {
+					if (ourError(err)) {
 						continue;
 					}
 					throw err;
@@ -170,7 +170,7 @@ export class Position {
 			return this.move(piece, targetSquare);
 		}
 		catch (err) {
-			if (err instanceof MobilityError || err instanceof CheckError) {
+			if (ourError(err)) {
 				return this;
 			}
 			throw err;
@@ -253,4 +253,8 @@ function decorateBoard(position, board) {
 			}
 		});
 	});
+}
+
+function ourError(err) {
+	return err instanceof MobilityError || err instanceof CheckError;
 }

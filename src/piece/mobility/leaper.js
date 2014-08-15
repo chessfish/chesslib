@@ -6,9 +6,10 @@ class LeaperMobility extends Mobility {
 	*adjacentPoints(position, p0) {
 		const { m, n } = this;
 
-		for (var p1 of quadrants) {
-			yield p0.sum(p1.product(new Point(m, n)));
-			yield p0.sum(p1.product(new Point(n, m)));
+		for (var o of [new Point(m, n), new Point(n, m)]) {
+			for (var p1 of quadrants) {
+				yield p0.sum(p1.product(o));
+			}
 		}
 	}
 

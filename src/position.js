@@ -107,29 +107,24 @@ export class Position {
 		return null;
 	}
 
-	queryAll(selector={}) {
-		const collection = this.getPieces(selector.brand);
-		const results = [];
-		pieces: for (var piece of collection) {
+	*queryAll(selector={}) {
+		pieces: for (var piece of this.getPieces(selector.brand)) {
 			for (var [val, key] of entries(selector)) {
 				if (piece[key] !== val) {
 					continue pieces;
 				}
 			}
-			results.push(piece);
+			yield piece;
 		}
-		return results;
 	}
 
-	query(selector={}) {
-		const collection = this.getPieces(selector.brand);
-		pieces: for (var piece of collection) {
-			for (var [val, key] of entries(selector)) {
-				if (piece[key] !== val) {
-					continue pieces;
-				}
-			}
-			return piece;
+	queryArray(selector) {
+		return [ ...this.queryAll(selector) ];
+	}
+
+	query(selector) {
+		for (var i of this.queryAll(selector)) {
+			return i;
 		}
 		return null;
 	}
@@ -138,8 +133,7 @@ export class Position {
 		color=this.activeColor,
 		loc=this.getPieceCoords(this.query({ brand: KING, color }))
 	) {
-		const enemies = this.queryAll({ color: oppositeColor(color) });
-		for (var enemy of enemies) {
+		for (var enemy of this.queryAll({ color: oppositeColor(color) })) {
 			if (enemy.canCapture(this, this.getPieceCoords(enemy), loc)) {
 				return true;
 			}
@@ -156,8 +150,7 @@ export class Position {
 		for (var ally of this.queryAll({ color })) {
 			for (var move of bounded(this, ally.moves(this))) {
 				try {
-					const h = this.move(ally, squareName(move));
-					if (!h.isCheck(color)) {
+					if (!this.move(ally, squareName(move)).isCheck(color)) {
 						return false;
 					}
 				}

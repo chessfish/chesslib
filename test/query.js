@@ -16,12 +16,12 @@ var startingPosition =
 
 test('can query all pieces', function (t) {
 	t.plan(1);
-	t.equal(startingPosition.queryAll().length, 32, 'there are 32 pieces');
+	t.equal(startingPosition.queryArray().length, 32, 'there are 32 pieces');
 })
 
 test('can query all pawns', function (t) {
 	t.plan(2);
-	var allPawns = startingPosition.queryAll({ brand: PAWN });
+	var allPawns = startingPosition.queryArray({ brand: PAWN });
 	t.equal(allPawns.length, 16, 'there are sixteen of them');
 	t.ok(allPawns.every(function (pawn) {
 		return pawn.brand === PAWN;
@@ -30,7 +30,7 @@ test('can query all pawns', function (t) {
 
 test('can query all white pawns', function (t) {
 	t.plan(2);
-	var whitePawns = startingPosition.queryAll({
+	var whitePawns = startingPosition.queryArray({
 		brand: PAWN,
 		color: WHITE
 	});
@@ -42,7 +42,7 @@ test('can query all white pawns', function (t) {
 
 test('can query all black pawns', function (t) {
 	t.plan(2);
-	var blackPawns = startingPosition.queryAll({
+	var blackPawns = startingPosition.queryArray({
 		brand: PAWN,
 		color: BLACK
 	});
@@ -54,7 +54,7 @@ test('can query all black pawns', function (t) {
 
 test('can query both kings', function (t) {
 	t.plan(2);
-	var kings = startingPosition.queryAll({
+	var kings = startingPosition.queryArray({
 		brand: KING
 	});
 	t.equal(kings.length, 2, 'there are two of them');
@@ -77,29 +77,29 @@ var morphyPuzzle = FEN.parse('kbK5/pp6/1P6/8/8/8/8/R7 w - - 0 1');
 
 test("morphy's puzzle features", function (t) {
 	t.plan(9);
-	t.equal(morphyPuzzle.queryAll().length, 7, 'there are seven pieces');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray().length, 7, 'there are seven pieces');
+	t.equal(morphyPuzzle.queryArray({
 		color: WHITE
 	}).length, 3, 'three of them are white');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		color: BLACK
 	}).length, 4, 'four of them are black');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		brand: PAWN,
 		color: BLACK
 	}).length, 2, 'two are black pawns');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		brand: KING
 	}).length, 2, 'two are kings');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		color: BLACK,
 		brand: BISHOP
 	}).length, 1, 'one is a black bishop');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		color: WHITE,
 		brand: PAWN
 	}).length, 1, 'one is a white pawn');
-	t.equal(morphyPuzzle.queryAll({
+	t.equal(morphyPuzzle.queryArray({
 		color: WHITE,
 		brand: ROOK
 	}).length, 1, 'the remaining piece is a white rook');

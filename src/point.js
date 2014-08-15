@@ -19,4 +19,20 @@ export class Point {
 	product({ x, y }) {
 		return new Point(this.x * x, this.y * y);
 	}
+
+	lt({ x, y }) {
+		return this.x < x && this.y < y;
+	}
+
+	lte({ x, y }) {
+		return this.x <= x && this.y <= y;
+	}
+
+	gt({ x, y }) {
+		return this.x > x && this.y > y;
+	}
+
+	gte({ x, y }) {
+		return this.x >= x && this.y >= y;
+	}
 }

@@ -20,7 +20,6 @@ import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
 import { MobilityError, CheckError } from './error'
-
 // MODULE
 export class Position {
 
@@ -134,7 +133,10 @@ export class Position {
 		return null;
 	}
 
-	wouldBeCheck(color, loc) {
+	isCheck(
+		color=this.activeColor,
+		loc=this.getPieceCoords(this.query({ brand: KING, color }))
+	) {
 		const enemies = this.queryAll({ color: oppositeColor(color) });
 		for (var enemy of enemies) {
 			if (enemy.canCapture(this, this.getPieceCoords(enemy), loc)) {
@@ -144,29 +146,26 @@ export class Position {
 		return false;
 	}
 
-	isCheck(color=this.activeColor) {
-		const king = this.query({ brand: KING, color });
-		return this.wouldBeCheck(color, this.getPieceCoords(king));
-	}
-
 	isCheckmate(color=this.activeColor) {
 		if (!this.isCheck(color)) {
 			// it can't be checkmate if it's not even check:
 			return false;
 		}
 		const king = this.query({ brand: KING, color });
-		for (var move of king.moves(this)) {
-			try {
-				this.move(king, squareName(move));
-			}
-			catch (err) {
-				if (err instanceof MobilityError || err instanceof CheckError) {
-					continue;
+		for (var ally of this.queryAll({ color })) {
+			for (var move of this.bounded(ally.moves(this))) {
+				try {
+					const h = this.move(ally, squareName(move));
+					if (!h.isCheck(color)) {
+						return false;
+					}
 				}
-				throw err;
-			}
-			if (!this.wouldBeCheck(color, move)) {
-				return false;
+				catch (err) {
+					if (err instanceof MobilityError || err instanceof CheckError) {
+						continue;
+					}
+					throw err;
+				}
 			}
 		}
 		return true;
@@ -229,6 +228,13 @@ export class Position {
 			throw new CheckError();
 		}
 		return position;
+	}
+
+	*bounded(iterator) {
+		for (var pt of iterator) {
+			if (new Point(0, 0).lte(pt) &&
+				new Point(this.files, this.ranks).gt(pt)) { yield pt; }
+		}
 	}
 }
 

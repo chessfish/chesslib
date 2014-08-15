@@ -4,6 +4,8 @@ import { Point } from './point'
 export class Board {
 
 	constructor(files=8, ranks=8, board) {
+		this.files = files;
+		this.ranks = ranks;
 		this.storage = createStorage(files, ranks);
 		this.pieces = new Set();
 		this.pieces[KING] = new Set();

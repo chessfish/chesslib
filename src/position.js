@@ -1,13 +1,10 @@
-import {
-	WHITE,
-	BLACK,
-	KING,
-	QUEEN,
-	KNIGHT,
-	BISHOP,
-	ROOK,
-	PAWN,
-} from './brands';
+import { WHITE, KING, PAWN } from './brands';
+import { Board } from './board'
+import { Mobility } from './piece/mobility';
+import { Castling } from './piece/king/castling';
+import { EnPassantTarget } from './piece/pawn/eptarget'
+import { Point } from './point';
+import { MobilityError, CheckError } from './error'
 import {
 	entries,
 	identity,
@@ -16,12 +13,6 @@ import {
 	oppositeColor,
 	bounded,
 } from './util';
-import { Board } from './board'
-import { Mobility } from './piece/mobility';
-import { Castling } from './piece/king/castling';
-import { EnPassantTarget } from './piece/pawn/eptarget'
-import { Point } from './point';
-import { MobilityError, CheckError } from './error'
 // MODULE
 export class Position {
 
@@ -35,14 +26,20 @@ export class Position {
 		fullmoveClock=0,
 		board=null,
 	} = {}) {
-		this.ranks = ranks;
-		this.files = files;
 		this.board = new Board(ranks, files, board);
 		this.activeColor = activeColor || WHITE;
 		this.castling = new Castling(castling);
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
+	}
+
+	get files() {
+		return this.board.files;
+	}
+
+	get ranks() {
+		return this.board.ranks;
 	}
 
 	getPieces(brand) {
@@ -123,7 +120,7 @@ export class Position {
 			return false;
 		}
 		for (var ally of this.queryAll({ color })) {
-			for (var move of bounded(this, ally.moves(this))) {
+			for (var move of bounded(this.board, ally.moves(this))) {
 				try {
 					if (!this.move(ally, squareName(move)).isCheck(color)) {
 						return false;

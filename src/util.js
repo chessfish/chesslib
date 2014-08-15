@@ -1,7 +1,7 @@
 import { WHITE, BLACK } from './brands'
 import { Point } from './point'
 
-export function* entries(collection) {
+export function *entries(collection) {
   if (Array.isArray(collection)) {
     for (var i = 0; i < collection.length; i++) {
       yield [collection[i], i];
@@ -9,6 +9,14 @@ export function* entries(collection) {
   }
   for (var k in collection) {
     yield [collection[k], k];
+  }
+}
+
+export function *bounded({ files, ranks }, iterator) {
+  for (var pt of iterator) {
+    if (new Point(0, 0).lte(pt) && new Point(files, ranks).gt(pt)) {
+      yield pt;
+    }
   }
 }
 

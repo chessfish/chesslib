@@ -14,6 +14,7 @@ import {
 	squareName,
 	squareCoords,
 	oppositeColor,
+	bounded,
 } from './util';
 import { Mobility } from './piece/mobility';
 import { Castling } from './piece/king/castling';
@@ -153,7 +154,7 @@ export class Position {
 		}
 		const king = this.query({ brand: KING, color });
 		for (var ally of this.queryAll({ color })) {
-			for (var move of this.bounded(ally.moves(this))) {
+			for (var move of bounded(this, ally.moves(this))) {
 				try {
 					const h = this.move(ally, squareName(move));
 					if (!h.isCheck(color)) {
@@ -228,13 +229,6 @@ export class Position {
 			throw new CheckError();
 		}
 		return position;
-	}
-
-	*bounded(iterator) {
-		for (var pt of iterator) {
-			if (new Point(0, 0).lte(pt) &&
-				new Point(this.files, this.ranks).gt(pt)) { yield pt; }
-		}
 	}
 }
 

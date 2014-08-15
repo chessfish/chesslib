@@ -146,7 +146,6 @@ export class Position {
 			// it can't be checkmate if it's not even check:
 			return false;
 		}
-		const king = this.query({ brand: KING, color });
 		for (var ally of this.queryAll({ color })) {
 			for (var move of bounded(this, ally.moves(this))) {
 				try {

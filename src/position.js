@@ -89,11 +89,6 @@ export class Position {
 		return coords == null ? null : squareName(coords);
 	}
 
-	getPieceByCoords({ x, y }) {
-		const rank = this.board[y];
-		return rank == null ? null : rank[x];
-	}
-
 	getPieceCoords(piece) {
 		for (var i = 0, iLen = this.board.length; i < iLen; i++) {
 			const rank = this.board[i];
@@ -105,6 +100,11 @@ export class Position {
 			}
 		}
 		return null;
+	}
+
+	getPieceByCoords({ x, y }) {
+		const rank = this.board[y];
+		return rank == null ? null : rank[x];
 	}
 
 	*queryAll(selector={}) {

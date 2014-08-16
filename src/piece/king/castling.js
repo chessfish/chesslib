@@ -39,13 +39,12 @@ export class Castling {
 		if (!isValid(position, color, side)) {
 			throw new CheckError();
 		}
-		const c = new Castling({
+		return new Castling({
 			rook: Castling.rook(position, color, side),
 			square: position.pieceCoords(king).
 				sum(Castling.rookOffset(color, side)),
 			modes: blankModes(),
 		});
-		return c;
 	}
 
 	static side(position, king, coords) {

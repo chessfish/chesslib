@@ -1,6 +1,6 @@
 import { Point } from '../../point'
 import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from '../../brands'
-import { CastlingError } from '../../error'
+import { CheckError } from '../../error'
 
 export class Castling {
 
@@ -37,7 +37,7 @@ export class Castling {
 			return new Castling({ modes: castling.modes });
 		}
 		if (!isValid(position, color, side)) {
-			throw new CastlingError();
+			throw new CheckError();
 		}
 		const c = new Castling({
 			rook: Castling.rook(position, color, side),

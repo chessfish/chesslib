@@ -4,7 +4,7 @@ import { Mobility } from './piece/mobility';
 import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
-import { MobilityError, CheckError, CastlingError } from './error'
+import { MobilityError, CheckError } from './error'
 import {
 	entries,
 	identity,
@@ -215,7 +215,6 @@ export class Position {
 function ourError(err) {
 	return (
 		err instanceof MobilityError ||
-		err instanceof CheckError ||
-		err instanceof CastlingError
+		err instanceof CheckError
 	);
 }

@@ -1,5 +1,6 @@
 import { Point } from '../../point'
 import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from '../../brands'
+import { CastlingError } from '../../error'
 
 export class Castling {
 
@@ -31,20 +32,23 @@ export class Castling {
 	static analyze(position, king, coords) {
 		const { brand, color } = king;
 		const { castling } = position;
-		const side = Castling.castlingSide(position, king, coords);
+		const side = Castling.side(position, king, coords);
 		if (side == null || !castling.isLegal(color, side)) {
 			return new Castling({ modes: castling.modes });
 		}
-		return new Castling({
+		if (!isValid(position, color, side)) {
+			throw new CastlingError();
+		}
+		const c = new Castling({
 			rook: Castling.rook(position, color, side),
 			square: position.pieceCoords(king).
-				sum(Castling.kingOffset(color, side).
-				sum(Castling.rookOffset(color, side))),
+				sum(Castling.rookOffset(color, side)),
 			modes: blankModes(),
 		});
+		return c;
 	}
 
-	static castlingSide(position, king, coords) {
+	static side(position, king, coords) {
 		if (king.brand !== KING) {
 			return null;
 		}
@@ -54,6 +58,21 @@ export class Castling {
 			}
 		}
 		return null;
+	}
+
+	static rook(position, color, side) {
+		const { x: kingX }
+			= position.pieceCoords(position.query({ brand: KING, color }));
+
+		for (var rook of position.queryAll({ brand: ROOK, color })) {
+			const { x: rookX } = position.pieceCoords(rook);
+			if (
+				(rookX > kingX && side === KINGSIDE) ||
+				(rookX < kingX && side === QUEENSIDE)
+			) {
+				return rook;
+			}
+		}
 	}
 
 	static isCastlingMove(position, king, side, coords) {
@@ -70,22 +89,8 @@ export class Castling {
 	}
 
 	static rookOffset(color, side) {
-		return new Point(xOffset(color, side, -1), 0);
-	}
-
-	static rook(position, color, side) {
-		const { x: kingX }
-			= position.pieceCoords(position.query({ brand: KING, color }));
-
-		for (var rook of position.queryAll({ brand: ROOK, color })) {
-			const { x: rookX } = position.pieceCoords(rook);
-			if (
-				(rookX > kingX && side === KINGSIDE) ||
-				(rookX < kingX && side === QUEENSIDE)
-			) {
-				return rook;
-			}
-		}
+		return new Point(xOffset(color, side, -1), 0).
+			sum(Castling.kingOffset(color, side));
 	}
 }
 
@@ -131,4 +136,14 @@ function xOffset(color, side, m=1) {
 			return m;
 		}
 	}
+}
+
+function isValid(position, color, side) {
+	const loc = position.pieceCoords(position.query({ brand: KING, color }));
+	for (var pt of loc.to(loc.sum(Castling.kingOffset(color, side)))) {
+		if (position.isCheck(color, pt)) {
+			return false;
+		}
+	}
+	return true;
 }

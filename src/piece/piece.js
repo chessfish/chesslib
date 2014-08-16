@@ -8,7 +8,7 @@ export class Piece {
 	}
 
 	*moves(position) {
-		const loc = position.getPieceCoords(this);
+		const loc = position.pieceCoords(this);
 		for (var m of this.mobility) {
 			for (var move of m.adjacentPoints(position, loc)) {
 				yield move;

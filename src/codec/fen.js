@@ -103,7 +103,7 @@ function stringifyRanks(position) {
 	var ranks = '';
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0, count = 0; j < 8; j++) {
-			var piece = position.getPieceByCoords(new Point(j, i));
+			var piece = position.pieceByCoords(new Point(j, i));
 			if (piece == null) {
 				count += 1;
 				if (j === 7) {

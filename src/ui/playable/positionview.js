@@ -72,7 +72,7 @@ playable.board = (state) =>
 
 function renderPiece(state, rank, file) {
 	const piece
-		= state.position.getPieceByCoords(new Point(file, rank), state.rotated);
+		= state.position.pieceByCoords(new Point(file, rank), state.rotated);
 	if (piece == null) {
 		return null;
 	}

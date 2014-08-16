@@ -58,7 +58,7 @@ export const quadrants = [
 ];
 
 function legally(method, position, piece, targetSquare) {
-	const from = position.getPieceCoords(piece);
+	const from = position.pieceCoords(piece);
 	const to = squareCoords(targetSquare);
 	return piece[method](position, from, to);
 }

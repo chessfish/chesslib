@@ -35,10 +35,10 @@ export class EnPassantTarget extends Point {
 			return null;
 		}
 		const target = squareCoords(targetSquare);
-		const { y: thrust } = target.difference(position.getPieceCoords(piece));
+		const { y: thrust } = target.difference(position.pieceCoords(piece));
 
 		if (Math.abs(thrust) === 2) {
-			return squareName(target.difference(new Point(0, piece.reach)));
+			return squareName(target.sum(new Point(0, -piece.reach)));
 		}
 		return null;
 	}

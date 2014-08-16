@@ -44,47 +44,24 @@ export class Position {
 		return this.board.ranks;
 	}
 
-	getPieces(brand) {
+	pieces(brand) {
 		return this.board.getPieces(brand);
 	}
 
-	getPiece(squareName) {
-		return this.getPieceByCoords(squareCoords(squareName));
+	piece(squareName) {
+		return this.pieceByCoords(squareCoords(squareName));
 	}
 
-	getCapturablePiece(squareNameP, capturer) {
-		if (capturer.brand !== PAWN ||
-			!this.enPassantTarget.equal(squareNameP)) {
-			return [this.getPiece(squareNameP), squareNameP, false];
-		}
-		const coords = squareCoords(squareNameP);
-		if (coords.equal(this.enPassantTarget)) {
-			const captureSquare = coords.sum(new Point(0, -capturer.reach));
-			const capturedPiece = this.getPieceByCoords(captureSquare);
-			return [
-				capturedPiece,
-				capturedPiece && squareName(captureSquare),
-				!!capturedPiece
-			];
-		}
-		return [null, null, false];
-	}
-
-	getPieceSquare(piece) {
-		const coords = this.getPieceCoords(piece);
-		return coords == null ? null : squareName(coords);
-	}
-
-	getPieceCoords(piece) {
+	pieceCoords(piece) {
 		return this.board.getPieceCoords(piece);
 	}
 
-	getPieceByCoords(point, rotated=false) {
+	pieceByCoords(point, rotated=false) {
 		return this.board.getPieceByCoords(point, rotated);
 	}
 
 	*queryAll(selector={}) {
-		pieces: for (var piece of this.getPieces(selector.brand)) {
+		pieces: for (var piece of this.pieces(selector.brand)) {
 			for (var [val, key] of entries(selector)) {
 				if (piece[key] !== val) {
 					continue pieces;
@@ -107,10 +84,10 @@ export class Position {
 
 	*checks(
 		color=this.activeColor,
-		loc=this.getPieceCoords(this.query({ brand: KING, color }))
+		loc=this.pieceCoords(this.query({ brand: KING, color }))
 	) {
 		for (var enemy of this.queryAll({ color: oppositeColor(color) })) {
-			if (enemy.canCapture(this, this.getPieceCoords(enemy), loc)) {
+			if (enemy.canCapture(this, this.pieceCoords(enemy), loc)) {
 				yield enemy;
 			}
 		}
@@ -158,13 +135,31 @@ export class Position {
 		}
 	}
 
+	capturablePiece(squareNameP, capturer) {
+		if (capturer.brand !== PAWN ||
+			!this.enPassantTarget.equal(squareNameP)) {
+			return [this.piece(squareNameP), squareNameP, false];
+		}
+		const coords = squareCoords(squareNameP);
+		if (coords.equal(this.enPassantTarget)) {
+			const captureSquare = coords.sum(new Point(0, -capturer.reach));
+			const capturedPiece = this.pieceByCoords(captureSquare);
+			return [
+				capturedPiece,
+				capturedPiece && squareName(captureSquare),
+				!!capturedPiece
+			];
+		}
+		return [null, null, false];
+	}
+
 	move(piece, targetSquare) {
 		if (targetSquare == null) {
 			throw new Error("target square is null");
 		}
 
 		const [targetPiece, captureSquare, wasEnPassant]
-			= this.getCapturablePiece(targetSquare, piece);
+			= this.capturablePiece(targetSquare, piece);
 
 		if (!Mobility.isLegal({
 			position: this,

@@ -12,7 +12,7 @@ class RiderMobility extends Mobility {
 					const pN = p0.sum(p1.product(o.product(new Point(r, r))));
 					yield pN;
 
-					if (position.getPieceByCoords(pN) != null) {
+					if (position.pieceByCoords(pN) != null) {
 						continue rotation;
 					}
 				}

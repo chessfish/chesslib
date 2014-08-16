@@ -23,3 +23,7 @@ This is a library for chess positions. It is a work in progress.
   - [ ] anaylsis
   - [ ] lessons
 - _and more_
+
+## License
+
+The MIT License (MIT)

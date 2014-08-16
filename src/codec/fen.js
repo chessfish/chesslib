@@ -1,8 +1,9 @@
-import { WHITE, BLACK } from '../brands'
-import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard'
-import { Castling } from '../piece/king/castling'
-import { Position } from '../position'
-import { Point } from '../point'
+import { WHITE, BLACK } from '../brands';
+import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard';
+import { Castling } from '../piece/king/castling';
+import { Position } from '../position';
+import { Board } from '../board';
+import { Point } from '../point';
 
 export const FEN = {
 
@@ -32,25 +33,26 @@ export const FEN = {
 }
 
 function parseRanks(ranks) {
-	return ranks.split('/').map(parseRank);
+	const board = new Board();
+	ranks.split('/').forEach((rank, i) => {
+		parseRank(rank, board, i);
+	});
+	return board;
 }
 
-function parseRank(rank) {
+function parseRank(rank, board, i) {
 	const cells = rank.split('');
-	const row = [];
-	for (var i = 0, c = 0; i < 8; c++) {
+	for (var j = 0, c = 0; j < board.files; c++) {
 		var cell = rank[c];
 		if (!isNaN(Number(cell))) {
-			i += Number(cell);
+			// In FEN, a number means "skip this many squares":
+			j += Number(cell);
 			continue;
 		}
-		var piece = createPiece(cell);
-		if (piece != null) {
-			row[i] = piece;
-		}
-		i += 1;
+		board.placePiece(createPiece(cell), new Point(j, i));
+		// not getting too fancy:
+		j += 1;
 	}
-	return row;
 }
 
 function createPiece(piece='') {

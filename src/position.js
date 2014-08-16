@@ -28,9 +28,9 @@ export class Position {
 		enPassantTarget=null,
 		halfmoveClock=0,
 		fullmoveClock=0,
-		board=null,
+		board=new Board(ranks, files),
 	} = {}) {
-		this.board = new Board(ranks, files, board);
+		this.board = board;
 		this.activeColor = activeColor;
 		this.castling = castling;
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);

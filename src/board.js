@@ -3,7 +3,7 @@ import { Point } from './point'
 
 export class Board {
 
-	constructor(files=8, ranks=8, board) {
+	constructor(files=8, ranks=8, boardArr) {
 		this.files = files;
 		this.ranks = ranks;
 		this.storage = createStorage(files, ranks);
@@ -14,14 +14,14 @@ export class Board {
 		this.pieces[BISHOP] = new Set();
 		this.pieces[ROOK] = new Set();
 		this.pieces[PAWN] = new Set();
-		if (board) {
-			this.decorate(board);
+		if (boardArr != null) {
+			this.decorate(boardArr);
 		}
 	}
 
 	map(fn) {
-		return this.storage.map((rank, i) =>
-			rank.map((piece, j) => fn(piece, new Point(j, i))));
+		return new Board(this.ranks, this.files, this.storage.map((rank, i) =>
+			rank.map((piece, j) => fn(piece, new Point(j, i)))));
 	}
 
 	getPieces(brand) {
@@ -46,7 +46,7 @@ export class Board {
 		return rank == null ? null : rank[rotated ? this.files - x - 1 : x];
 	}
 
-	placePiece(piece, file, rank) {
+	placePiece(piece, { x: file, y: rank }) {
 		this.storage[rank][file] = piece;
 		this.pieces.add(piece);
 		this.pieces[piece.brand].add(piece);
@@ -57,7 +57,7 @@ export class Board {
 			rank.forEach((file, j) => {
 				const piece = board[i][j];
 				if (piece != null) {
-					this.placePiece(piece, j, i);
+					this.placePiece(piece, new Point(j, i));
 				}
 			});
 		});

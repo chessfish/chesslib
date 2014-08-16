@@ -18,6 +18,11 @@ export class Castling {
 			mode[BLACK][QUEENSIDE]  ? 'q' : '',
 		].join('') || '-';
 	}
+
+	static analyze(position, piece, coords) {
+		// TODO: implement
+		return position.castling;
+	}
 }
 
 const blankMode = () =>

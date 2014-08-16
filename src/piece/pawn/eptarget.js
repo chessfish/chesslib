@@ -30,7 +30,7 @@ export class EnPassantTarget extends Point {
 		return this.fenEncoding || '-';
 	}
 
-	static get(position, piece, targetSquare) {
+	static analyze(position, piece, targetSquare) {
 		if (piece.brand !== PAWN) {
 			return null;
 		}

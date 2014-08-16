@@ -21,7 +21,7 @@ export class Board {
 
 	map(fn) {
 		return this.storage.map((rank, i) =>
-			rank.map((piece, j) => fn(piece, i, j)));
+			rank.map((piece, j) => fn(piece, new Point(j, i))));
 	}
 
 	getPieces(brand) {

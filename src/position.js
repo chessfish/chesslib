@@ -14,6 +14,8 @@ import {
 	bounded,
 } from './util';
 
+const assign = require('lodash.assign');
+
 export class Position {
 
 	constructor({
@@ -172,19 +174,20 @@ export class Position {
 		})) {
 			throw new MobilityError();
 		}
-		const position = new Position({
-			ranks: this.ranks,
-			files: this.files,
+
+		const castling = Castling.analyze(this, piece, squareCoords(targetSquare));
+
+		const position = this.beget({
 			activeColor: oppositeColor(this.activeColor),
-			castling: this.castling,
-			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),
+			castling,
+			enPassantTarget: EnPassantTarget.analyze(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			board: this.board.map((p, i, j) => {
+			board: this.board.map((p, sq) => {
+				// do stuff with castling information.
 				if (p === piece) {
 					return null;
 				}
-				const sq = new Point(j, i);
 				if (wasEnPassant && sq.equal(squareCoords(captureSquare))) {
 					// it was just captured en passant.
 					return null;
@@ -200,6 +203,10 @@ export class Position {
 			throw new CheckError();
 		}
 		return position;
+	}
+
+	beget(options) {
+		return new Position(assign({}, this, options));
 	}
 }
 

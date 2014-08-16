@@ -57,7 +57,7 @@ export class Position {
 		}
 		const coords = squareCoords(squareNameP);
 		if (coords.equal(this.enPassantTarget)) {
-			const captureSquare = coords.sum(new Point(0, -piece.reach));
+			const captureSquare = coords.sum(new Point(0, -capturer.reach));
 			const capturedPiece = this.getPieceByCoords(captureSquare);
 			return [
 				capturedPiece,
@@ -77,8 +77,8 @@ export class Position {
 		return this.board.getPieceCoords(piece);
 	}
 
-	getPieceByCoords(point) {
-		return this.board.getPieceByCoords(point);
+	getPieceByCoords(point, rotated=false) {
+		return this.board.getPieceByCoords(point, rotated);
 	}
 
 	*queryAll(selector={}) {
@@ -175,7 +175,6 @@ export class Position {
 		const position = new Position({
 			ranks: this.ranks,
 			files: this.files,
-			// swap the active color:
 			activeColor: oppositeColor(this.activeColor),
 			castling: this.castling,
 			enPassantTarget: EnPassantTarget.get(this, piece, targetSquare),

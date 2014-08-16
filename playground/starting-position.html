@@ -38,16 +38,37 @@
     playable.board
   );
 
+  var h = mercury.h;
+
+  var rotated = mercury.input();
+  rotated(function (value) {
+    state.rotated.set(value.rotated);
+  });
+
   // example of hacking together an ad-hoc component
   mercury.app(
     document.getElementById('fenCode'),
     state,
     function (state) {
-      return mercury.h('input.fenCode', {
-        'type': 'text',
-        'readonly': true,
-        'value': FEN.stringify(state.position)
-      })
+      return h('div', [
+        h('div', h('input.fenCode', {
+          'type': 'text',
+          'readonly': true,
+          'value': FEN.stringify(state.position)
+        })),
+        h('div', h('label', {
+          'for': 'rotated',
+        }, [
+          h('input', {
+            'type': 'checkbox',
+            'name': 'rotated',
+            'id': 'rotated',
+            'checked': state.rotated,
+            'ev-change': mercury.valueEvent(rotated),
+          }),
+          "Rotate board"
+        ]))
+      ]);
     }
   );
 }());

@@ -15,6 +15,7 @@ export function playable(position) {
 		registeredPiece: value(null),
 		targetSquare: value(null),
 		offset: value(null),
+		rotated: value(false),
 		events: input(['dragPiece', 'registerPiece', 'dropPiece']),
 	});
 
@@ -37,6 +38,7 @@ export function playable(position) {
 			boardHeight,
 			x: absX,
 			y: absY,
+			rotated: state.rotated(),
 		}));
 	});
 
@@ -62,14 +64,15 @@ export function playable(position) {
 }
 
 playable.board = (state) =>
-	h('div.board', ranks.map((r, i) =>
-		h(`div.rank.r${r}`, files.map((f, j) =>
+	h('div.board', rotate(ranks, state.rotated).map((r, i) =>
+		h(`div.rank.r${r}`, rotate(files, state.rotated).map((f, j) =>
 			h(`div.square.${f}${r}`, (
 				isTarget(state, f, r) ? { className: 'active' } : {}
 			), renderPiece(state, i, j))))));
 
 function renderPiece(state, rank, file) {
-	const piece = state.position.getPieceByCoords(new Point(file, rank));
+	const piece
+		= state.position.getPieceByCoords(new Point(file, rank), state.rotated);
 	if (piece == null) {
 		return null;
 	}
@@ -97,9 +100,16 @@ function isTarget(state, file, rank) {
 	return state.targetSquare === `${file}${rank}`;
 }
 
-function getTargetSquare({ rs, fs, boardWidth, boardHeight, x, y }) {
+function getTargetSquare({ rs, fs, boardWidth, boardHeight, x, y, rotated }) {
 	return [
-		files[Math.floor(x / boardHeight * fs)],
-		ranks[Math.floor(y / boardWidth * rs)],
+		rotate(files, rotated)[Math.floor(x / boardHeight * fs)],
+		rotate(ranks, rotated)[Math.floor(y / boardWidth * rs)],
 	].join('');
+}
+
+function rotate(arr, rotated) {
+	if (rotated) {
+		return [ ...arr ].reverse();
+	}
+	return arr;
 }

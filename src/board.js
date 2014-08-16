@@ -41,9 +41,9 @@ export class Board {
 		return null;
 	}
 
-	getPieceByCoords({ x, y }/*, rotated=false*/) {
-		const rank = this.storage[y];
-		return rank == null ? null : rank[x];
+	getPieceByCoords({ x, y }, rotated=false) {
+		const rank = this.storage[rotated ? this.ranks - y - 1 : y];
+		return rank == null ? null : rank[rotated ? this.files - x - 1 : x];
 	}
 
 	placePiece(piece, file, rank) {

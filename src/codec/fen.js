@@ -1,5 +1,6 @@
 import { WHITE, BLACK } from '../brands'
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard'
+import { Castling } from '../piece/king/castling'
 import { Position } from '../position'
 import { Point } from '../point'
 
@@ -73,7 +74,7 @@ function parseActiveColor(activeColor) {switch (activeColor) {
 }}
 
 function parseCastling(castling) {
-	return castling;
+	return new Castling({ fenEncoding: castling });
 }
 
 function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {

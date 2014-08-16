@@ -1,6 +1,7 @@
 import { KINGSIDE, QUEENSIDE } from '../../brands'
 import { Point } from '../../point'
 import { Mobility, quadrants } from '../mobility'
+import { Castling } from '../king/castling'
 
 class RoyalMobility extends Mobility {
 
@@ -21,18 +22,19 @@ class RoyalMobility extends Mobility {
 
 class CastlingMobility extends Mobility {
 
-	constructor(side) {
+	constructor(color, side) {
+		this.color = color;
 		this.side = side;
 	}
 
 	*adjacentPoints(position, p0) {
-		// implement the rules of castling.
+		yield p0.sum(Castling.kingOffset(this.color, this.side));
 	}
 }
 
 export function Royal() {
 	this.mobility.push(new RoyalMobility(1, 0));
 	this.mobility.push(new RoyalMobility(1, 1));
-	this.mobility.push(new CastlingMobility(QUEENSIDE));
-	this.mobility.push(new CastlingMobility(KINGSIDE));
+	this.mobility.push(new CastlingMobility(this.color, KINGSIDE));
+	this.mobility.push(new CastlingMobility(this.color, QUEENSIDE));
 }

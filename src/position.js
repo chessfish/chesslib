@@ -22,18 +22,22 @@ export class Position {
 		ranks=8,
 		files=8,
 		activeColor=WHITE,
-		castling=true,
+		castling=null,
 		enPassantTarget=null,
 		halfmoveClock=0,
 		fullmoveClock=0,
 		board=null,
 	} = {}) {
 		this.board = new Board(ranks, files, board);
-		this.activeColor = activeColor || WHITE;
-		this.castling = new Castling(castling);
+		this.activeColor = activeColor;
+		this.castling = castling;
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
+	}
+
+	beget(overrides) {
+		return new Position(assign({}, this, overrides));
 	}
 
 	get files() {
@@ -170,7 +174,8 @@ export class Position {
 			throw new MobilityError();
 		}
 
-		const castling = Castling.analyze(this, piece, squareCoords(targetSquare));
+		const castling
+			= Castling.analyze(this, piece, squareCoords(targetSquare));
 
 		const position = this.beget({
 			activeColor: oppositeColor(this.activeColor),
@@ -187,6 +192,12 @@ export class Position {
 					// it was just captured en passant.
 					return null;
 				}
+				if (p && p === castling.rook) {
+					return null;
+				}
+				if (castling.square && square.equal(castling.square)) {
+					return castling.rook;
+				}
 				if (squareName(square) === targetSquare) {
 					return piece;
 				}
@@ -198,10 +209,6 @@ export class Position {
 			throw new CheckError();
 		}
 		return position;
-	}
-
-	beget(overrides) {
-		return new Position(assign({}, this, overrides));
 	}
 }
 

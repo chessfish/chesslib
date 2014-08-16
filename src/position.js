@@ -13,7 +13,7 @@ import {
 	oppositeColor,
 	bounded,
 } from './util';
-// MODULE
+
 export class Position {
 
 	constructor({
@@ -50,13 +50,14 @@ export class Position {
 		return this.getPieceByCoords(squareCoords(squareName));
 	}
 
-	getCapturablePiece(squareNameP, capturerBrand=null) {
-		if (capturerBrand !== PAWN || !this.enPassantTarget.equal(squareNameP)) {
+	getCapturablePiece(squareNameP, capturer) {
+		if (capturer.brand !== PAWN ||
+			!this.enPassantTarget.equal(squareNameP)) {
 			return [this.getPiece(squareNameP), squareNameP, false];
 		}
 		const coords = squareCoords(squareNameP);
 		if (coords.equal(this.enPassantTarget)) {
-			const captureSquare = coords.sum(new Point(0, coords.y === 2 ? 1 : -1));
+			const captureSquare = coords.sum(new Point(0, -piece.reach));
 			const capturedPiece = this.getPieceByCoords(captureSquare);
 			return [
 				capturedPiece,
@@ -102,14 +103,20 @@ export class Position {
 		return null;
 	}
 
-	isCheck(
+	*checks(
 		color=this.activeColor,
 		loc=this.getPieceCoords(this.query({ brand: KING, color }))
 	) {
 		for (var enemy of this.queryAll({ color: oppositeColor(color) })) {
 			if (enemy.canCapture(this, this.getPieceCoords(enemy), loc)) {
-				return true;
+				yield enemy;
 			}
+		}
+	}
+
+	isCheck(color, loc) {
+		for (var _ of this.checks(color, loc)) {
+			return true;
 		}
 		return false;
 	}
@@ -155,7 +162,7 @@ export class Position {
 		}
 
 		const [targetPiece, captureSquare, wasEnPassant]
-			= this.getCapturablePiece(targetSquare, piece.brand);
+			= this.getCapturablePiece(targetSquare, piece);
 
 		if (!Mobility.isLegal({
 			position: this,

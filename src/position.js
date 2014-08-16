@@ -183,16 +183,16 @@ export class Position {
 			enPassantTarget: EnPassantTarget.analyze(this, piece, targetSquare),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
-			board: this.board.map((p, sq) => {
+			board: this.board.map((p, square) => {
 				// do stuff with castling information.
 				if (p === piece) {
 					return null;
 				}
-				if (wasEnPassant && sq.equal(squareCoords(captureSquare))) {
+				if (wasEnPassant && square.equal(squareCoords(captureSquare))) {
 					// it was just captured en passant.
 					return null;
 				}
-				if (squareName(sq) === targetSquare) {
+				if (squareName(square) === targetSquare) {
 					return piece;
 				}
 				return p;
@@ -205,8 +205,8 @@ export class Position {
 		return position;
 	}
 
-	beget(options) {
-		return new Position(assign({}, this, options));
+	beget(overrides) {
+		return new Position(assign({}, this, overrides));
 	}
 }
 

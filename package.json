@@ -4,9 +4,10 @@
   "description": "A view for chess positions",
   "main": "index.js",
   "dependencies": {
-    "mercury": "^6.0.1",
     "global": "^4.2.1",
-    "lodash.assign": "^2.4.1"
+    "lodash.assign": "^2.4.1",
+    "lodash.contains": "^2.4.1",
+    "mercury": "^6.0.1"
   },
   "devDependencies": {
     "gulp": "^3.8.7",

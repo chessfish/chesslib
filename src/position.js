@@ -4,7 +4,8 @@ import { Mobility } from './piece/mobility';
 import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
-import { MobilityError, CheckError } from './error'
+import { MobilityError, CheckError, PromotionError } from './error'
+import { Promotion } from './promotion'
 import {
 	entries,
 	identity,
@@ -15,6 +16,7 @@ import {
 } from './util';
 
 const assign = require('lodash.assign');
+const contains = require('lodash.contains');
 
 export class Position {
 
@@ -34,6 +36,7 @@ export class Position {
 		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
+		this.promotionSquare = Promotion.square(this);
 	}
 
 	beget(overrides) {
@@ -213,11 +216,27 @@ export class Position {
 		}
 		return position;
 	}
+
+	promote(prize) {
+		if (this.promotionSquare == null) {
+			throw new PromotionError();
+		}
+		return this.beget({
+			board: this.board.map((p, square) => {
+				if (p.brand === PAWN && Promotion.rank(square)) {
+					// it is the piece that is replacing a promoted pawn.
+					return prize;
+				}
+				return p;
+			})
+		});
+	}
 }
 
 function ourError(err) {
 	return (
 		err instanceof MobilityError ||
-		err instanceof CheckError
+		err instanceof CheckError ||
+		err instanceof PromotionError
 	);
 }

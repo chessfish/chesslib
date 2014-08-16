@@ -13,6 +13,7 @@ gulp.task('default', [
 	'piece',
 	'pawn',
 	'king',
+	'innovation',
 	'ui core',
 	'ui modules',
 	'mobility'
@@ -37,6 +38,10 @@ gulp.task('pawn', function () {
 gulp.task('king', function () {
 	return esify('./src/piece/king/*.js');
 });
+
+gulp.task('innovation', function () {
+	return esify('./src/innovation/*.js');
+})
 
 gulp.task('ui core', function () {
 	return esify('./src/ui/*.js');

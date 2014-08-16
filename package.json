@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "global": "^4.2.1",
+    "jsdice": "^1.1.0",
     "lodash.assign": "^2.4.1",
     "lodash.contains": "^2.4.1",
+    "lodash.isnumber": "^2.4.1",
     "mercury": "^6.0.1"
   },
   "devDependencies": {

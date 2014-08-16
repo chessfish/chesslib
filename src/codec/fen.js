@@ -28,9 +28,12 @@ export const FEN = {
 
 	stringify(position) {
 		return stringifyPosition(position);
-	}
+	},
 
-}
+	get standard() {
+		return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+	},
+};
 
 function parseRanks(ranks) {
 	const board = new Board();

@@ -1,5 +1,6 @@
 import { WHITE, BLACK } from './brands'
 import { Point } from './point'
+const isNumber = require('lodash.isnumber');
 
 export function *entries(collection) {
   if (Array.isArray(collection)) {
@@ -39,3 +40,7 @@ export const squareCoords = squareName => {
 };
 
 export const oppositeColor = color => color === WHITE ? BLACK : WHITE;
+
+export const isEven = n => isNumber(n) && n % 2 === 0;
+
+export const isOdd = n => !isEven(n);

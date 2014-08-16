@@ -8,3 +8,5 @@ export const KNIGHT = Symbol();
 export const BISHOP = Symbol();
 export const ROOK = Symbol();
 export const PAWN = Symbol();
+export const DARK = Symbol();
+export const LIGHT = Symbol();

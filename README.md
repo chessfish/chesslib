@@ -9,7 +9,7 @@ This is a library for chess positions. It is a work in progress.
 - [x] decoupled views
 - [x] easily themeable 2d board
 - [ ] 3d board
-- [ ] detect legal moves, checks, checkmates
+- [x] detect legal moves, checks, checkmates
 - [ ] UCI codec, support for kibitzers
 - [ ] support for fairy pieces, and in general, a compositional approach to implementing piece mobility
 - [ ] non-standard board sizes (e.g. 8x10 Capablanca chess)

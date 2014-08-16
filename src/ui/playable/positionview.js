@@ -1,6 +1,7 @@
 import { h, input, event, struct, value } from 'mercury';
 
 import { Point } from '../../point'
+import { Queen } from '../../piece/standard'
 
 const dragEvent = require('./drag-handler.js');
 
@@ -50,7 +51,14 @@ export function playable(position) {
 		const targetSquare = state.targetSquare();
 		if (targetSquare != null) {
 			const newPosition = state.position().tryMove(piece, targetSquare);
-			state.position.set(newPosition);
+			if (newPosition.promotionSquare != null) {
+				// auto-promoting for now:
+				state.position.set(
+					newPosition.promote(new Queen({ color: piece.color })));
+			}
+			else {
+				state.position.set(newPosition);
+			}
 			if (newPosition.isCheckmate()) {
 				alert('checkmate');
 			}

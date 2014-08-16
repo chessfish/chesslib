@@ -221,14 +221,17 @@ export class Position {
 		if (this.promotionSquare == null) {
 			throw new PromotionError();
 		}
+		const color = oppositeColor(this.activeColor);
 		return this.beget({
 			board: this.board.map((p, square) => {
-				if (p.brand === PAWN && Promotion.rank(square)) {
+				if (p && p.brand === PAWN && Promotion.rank(color) === square.y) {
 					// it is the piece that is replacing a promoted pawn.
 					return prize;
 				}
 				return p;
-			})
+			}),
+			// that we we've promoted, unset the promotion square.
+			promotionSquare: null,
 		});
 	}
 }

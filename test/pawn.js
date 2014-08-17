@@ -28,39 +28,39 @@ test('pawn movement: WHITE', function (t) {
 		var coords = p1.pieceCoords(pawn);
 
 		t.doesNotThrow(function () {
-			p1.move(pawn, coords.sum(new Point(0, pawn.reach)));
+			p1.movePiece(pawn, coords.sum(new Point(0, pawn.reach)));
 		});
 
 		t.doesNotThrow(function () {
-			p1.move(pawn, coords.sum(new Point(0, pawn.reach * 2)));
+			p1.movePiece(pawn, coords.sum(new Point(0, pawn.reach * 2)));
 		});
 	});
 
 	t.doesNotThrow(function () {
-		p2.move(p2.piece('e4'), squareCoords('d5'));
+		p2.movePiece(p2.piece('e4'), squareCoords('d5'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.move(p3.piece('d4'), squareCoords('e5'));
+		p3.movePiece(p3.piece('d4'), squareCoords('e5'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.move(p3.piece('d4'), squareCoords('d5'));
+		p3.movePiece(p3.piece('d4'), squareCoords('d5'));
 	});
 
 	t.throws(function () {
-		p3.move(p3.piece('d4'), squareCoords('e6'));
+		p3.movePiece(p3.piece('d4'), squareCoords('e6'));
 	});
 
 	t.throws(function () {
-		p3.move(p3.piece('a2'), squareCoords('h3'));
+		p3.movePiece(p3.piece('a2'), squareCoords('h3'));
 	});
 
 	t.doesNotThrow(function () {
 		var p4 = FEN.parse(
 			'rbbnqknr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RBBNQKNR w KQkq f6'
 		);
-		p4.move(p4.piece('e5'), squareCoords('f6'));
+		p4.movePiece(p4.piece('e5'), squareCoords('f6'));
 	}, 'can capture en passant');
 });
 
@@ -72,7 +72,7 @@ test('pawn movement: BLACK', function (t) {
 	var whiteP = p.query({ brand: brands.PAWN, color: brands.WHITE });
 	var coords = p.pieceCoords(whiteP);
 	// move any old white pawn forward one:
-	var p1 = p.move(whiteP, coords.sum(new Point(0, whiteP.reach)));
+	var p1 = p.movePiece(whiteP, coords.sum(new Point(0, whiteP.reach)));
 	var p2 = FEN.parse(
 		'rnbqkbnr/ppp1pppp/8/3p4/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq -'
 	);
@@ -87,20 +87,20 @@ test('pawn movement: BLACK', function (t) {
 		var coords = p1.pieceCoords(pawn);
 
 		t.doesNotThrow(function () {
-			p1.move(pawn, coords.sum(new Point(0, pawn.reach)));
+			p1.movePiece(pawn, coords.sum(new Point(0, pawn.reach)));
 		});
 
 		t.doesNotThrow(function () {
-			p1.move(pawn, coords.sum(new Point(0, pawn.reach * 2)));
+			p1.movePiece(pawn, coords.sum(new Point(0, pawn.reach * 2)));
 		});
 	});
 
 	t.doesNotThrow(function () {
-		p2.move(p2.piece('d5'), squareCoords('e4'));
+		p2.movePiece(p2.piece('d5'), squareCoords('e4'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.move(p3.piece('e5'), squareCoords('d4'));
+		p3.movePiece(p3.piece('e5'), squareCoords('d4'));
 	});
 });
 

@@ -51,7 +51,7 @@ export function playable(position) {
 	state.events.dropPiece(({ piece }) => {
 		const target = squareCoords(state.targetSquare());
 		if (target != null) {
-			const newPosition = state.position().tryMove(piece, target);
+			const newPosition = state.position().tryMovePiece(piece, target);
 			if (newPosition.promotionSquare != null) {
 				// auto-promoting for now:
 				state.position.set(

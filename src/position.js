@@ -120,7 +120,7 @@ export class Position {
 		for (var ally of this.queryAll({ color })) {
 			for (var move of bounded(this.board, ally.moves(this))) {
 				try {
-					if (!this.move(ally, move).isCheck(color)) {
+					if (!this.movePiece(ally, move).isCheck(color)) {
 						return false;
 					}
 				}
@@ -135,9 +135,9 @@ export class Position {
 		return true;
 	}
 
-	tryMove(piece, target) {
+	tryMovePiece(piece, target) {
 		try {
-			return this.move(piece, target);
+			return this.movePiece(piece, target);
 		}
 		catch (err) {
 			if (err instanceof ChessError) {
@@ -147,7 +147,7 @@ export class Position {
 		}
 	}
 
-	move(piece, target) {
+	movePiece(piece, target) {
 		if (target == null || piece == null) {
 			throw new Error("Argument error");
 		}

@@ -78,15 +78,15 @@ test('shortcuts', function (t) {
 	t.equal(FEN.standardPosition.files, 8);
 });
 
-test('tryMove', function (t) {
+test('tryMovePiece', function (t) {
 	t.plan(2);
-	t.equal(p, p.tryMove(p.pieceByCoords(new Point(4, 7)), squareCoords('e4')));
-	t.notEqual(p, p.tryMove(p.pieceByCoords(new Point(4, 6)), squareCoords('e4')));
+	t.equal(p, p.tryMovePiece(p.pieceByCoords(new Point(4, 7)), squareCoords('e4')));
+	t.notEqual(p, p.tryMovePiece(p.pieceByCoords(new Point(4, 6)), squareCoords('e4')));
 });
 
 test('move', function (t) {
 	t.plan(1);
 	t.throws(function () {
-		p.move(p.piece('a4'), null);
+		p.movePiece(p.piece('a4'), null);
 	}, 'when you pass null as targetSquare');
 });

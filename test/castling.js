@@ -24,7 +24,7 @@ test('legal castling positions', function (t) {
       equal(new Point(7, 7)));
     t.doesNotThrow(function () {
       var king = position.query({ brand: brands.KING, color: brands.WHITE })
-      position.move(king, position.pieceCoords(king).sum(new Point(2, 0)));
+      position.movePiece(king, position.pieceCoords(king).sum(new Point(2, 0)));
     })
   });
 });

@@ -25,9 +25,7 @@
   var playable = require('chessview').ui.playable;
   var innovation = require('chessview').innovation;
 
-  var state = playable(
-    FEN.parse(fromQuery())
-  );
+  var state = playable(fromQuery());
 
   mercury.app(
     document.getElementById('chessview'),
@@ -71,19 +69,19 @@
 
   function fromQuery() {
       var search = location.search;
-      if (!search /* falsey exotic object */) {
-        return FEN.standard;
+      if (!search) {
+        return FEN.parse(FEN.standard);
       }
       var plainSearch = decodeURIComponent(location.search.replace('?', ''));
       switch (plainSearch.toLowerCase()) {
       case '960':
       case 'ninesixty':
       case 'fischerandom':
-        return FEN.stringify(innovation.fischerandom());
+        return innovation.fischerandom();
       case 'doublefischerandom':
-        return FEN.stringify(innovation.doubleFischerandom());
+        return innovation.doubleFischerandom();
       default:
-        return plainSearch;
+        return FEN.parse(plainSearch);
       }
   }
 }());

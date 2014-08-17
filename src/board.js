@@ -24,11 +24,6 @@ export class Board {
 			rank.map((piece, j) => fn(piece, new Point(j, i)))));
 	}
 
-	forEach(fn) {
-		// TODO: make this work like #map(), use this abstraction everywhere.
-		return this.storage.forEach(fn);
-	}
-
 	getPieces(brand) {
 		return brand == null ? this.pieces : this.pieces[brand];
 	}

@@ -12,7 +12,7 @@ export class Pawn extends Piece {
 		return this.isWhite ? 'P' : 'p';
 	}
 
-	get startRow() {
+	get homeRank() {
 		return this.isWhite ? 6 : 1;
 	}
 
@@ -27,7 +27,7 @@ export class Pawn extends Piece {
 		}
 		const reach = this.reach;
 		// pawns can move two squares on their first move.
-		if (from.y === this.startRow) {
+		if (from.y === this.homeRank) {
 			return to.y === from.y + reach || to.y === from.y + reach * 2;
 		}
 		return to.y === from.y + reach;

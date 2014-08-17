@@ -50,4 +50,3 @@ export const quadrants = [
 function legally(method, position, piece, target) {
 	return piece[method](position, position.pieceCoords(piece), target);
 }
-

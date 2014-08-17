@@ -1,8 +1,9 @@
-import { PAWN } from '../../brands'
-import { Point } from '../../point'
-import { squareCoords, squareName } from '../../util'
+import { PAWN } from './brands'
+import { Point } from './point'
+import { squareCoords, squareName } from './util'
 
 export class EnPassantTarget extends Point {
+
 	offset() {
 		return new Point(0, this.y === 3 ? -1 : 1);
 	}

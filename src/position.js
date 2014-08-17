@@ -2,7 +2,7 @@ import { WHITE, KING, PAWN } from './brands';
 import { Board } from './board'
 import { Mobility } from './piece/mobility';
 import { Castling } from './castling';
-import { EnPassantTarget } from './piece/pawn/eptarget'
+import { EnPassantTarget } from './eptarget'
 import { Point } from './point';
 import { Promotion } from './promotion'
 import {

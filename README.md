@@ -2,28 +2,32 @@
 
 This is a library for chess positions. It is a work in progress.
 
-# planned features:
-- [x] FEN codec
-- [ ] PGN codec
-- [x] queryable position model
-- [x] decoupled views
+# feature overview
+_Checked items are implemented_
+
+- [x] FEN
+- [ ] PGN
+- [ ] UCI
+- [x] queryable position model with a simple API
+- [x] decoupled views (unopinionated about frontend frameworks, although the ui samples are using mercury)
 - [x] easily themeable 2d board
-- [ ] 3d board
 - [x] detect legal moves, checks, checkmates
-- [ ] UCI codec, support for kibitzers
-- [ ] support for fairy pieces, and in general, a compositional approach to implementing piece mobility
-- [ ] non-standard board sizes (e.g. 8x10 Capablanca chess)
-- [ ] support for chess varaints, 960
-- [ ] WebRTC
+- [x] compositional approach to piece mobility
+, support for kibitzers
+- [ ] support for chess variants:
+  - [x] Chess960 (Fischerandom)
+  - [ ] fairy pieces
+  - [ ] non-standard board sizes (e.g. 8x10 Capablanca chess)
 - [ ] support for various use-cases:
-  - [ ] figures
+  - [x] figures
   - [ ] puzzles
   - [ ] person-vs-person live
   - [ ] person-vs-computer
-  - [ ] anaylsis
+  - [ ] analysis
   - [ ] lessons
-- _and more_
+- [ ] 3d board
+- [x] good test coverage
 
-## License
+## license
 
-The MIT License (MIT)
+MIT (See LICENCE)

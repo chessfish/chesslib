@@ -103,5 +103,5 @@ function rollDie(signature) {
 }
 
 function position(board) {
-	return FEN.parse(FEN.standard).beget({ board });
+	return FEN.standardPosition.beget({ board });
 }

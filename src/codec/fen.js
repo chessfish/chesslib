@@ -31,9 +31,18 @@ export const FEN = {
 	},
 
 	get standard() {
-		return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+		return standard;
 	},
+
+	get standardPosition() {
+		return standardPosition;
+	}
 };
+
+export const standard
+	= 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+export const standardPosition = FEN.parse(standard);
 
 function parseRanks(ranks) {
 	const board = new Board();

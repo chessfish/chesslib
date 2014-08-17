@@ -33,7 +33,7 @@ export class Board {
 			const rank = this.storage[i];
 			for (var j = 0, jLen = rank.length; j < jLen; j++) {
 				const p = rank[j];
-				if (p === piece) {
+				if (p && p === piece) {
 					return new Point(j, i);
 				}
 			}

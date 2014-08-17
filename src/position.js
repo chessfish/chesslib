@@ -207,15 +207,10 @@ export class Position {
 		if (this.promotionSquare == null) {
 			throw new PromotionError();
 		}
-		const color = oppositeColor(this.activeColor);
 		return this.beget({
-			board: this.board.map((p, square) => {
-				if (p && p.brand === PAWN && Promotion.rank(color) === square.y) {
-					// it is the piece that is replacing a promoted pawn.
-					return prize;
-				}
-				return p;
-			}),
+			board: this.board.map((p, square) =>
+				// replace the promoted pawn with the new piece:
+				square.equal(this.promotionSquare) ? prize : p),
 			// that we we've promoted, unset the promotion square.
 			promotionSquare: null,
 		});

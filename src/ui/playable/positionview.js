@@ -2,6 +2,7 @@ import { h, input, event, struct, value } from 'mercury';
 
 import { Point } from '../../point'
 import { Queen } from '../../piece/standard'
+import { squareCoords } from '../../util'
 
 const dragEvent = require('./drag-handler.js');
 
@@ -48,9 +49,9 @@ export function playable(position) {
 	});
 
 	state.events.dropPiece(({ piece }) => {
-		const targetSquare = state.targetSquare();
-		if (targetSquare != null) {
-			const newPosition = state.position().tryMove(piece, targetSquare);
+		const target = squareCoords(state.targetSquare());
+		if (target != null) {
+			const newPosition = state.position().tryMove(piece, target);
 			if (newPosition.promotionSquare != null) {
 				// auto-promoting for now:
 				state.position.set(

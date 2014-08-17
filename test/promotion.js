@@ -1,3 +1,6 @@
+require('traceur/bin/traceur-runtime.js');
+require('longjohn');
+
 var test = require('tape');
 
 var FEN = require('../lib/codec/fen.js').FEN;
@@ -6,14 +9,14 @@ var brands = require('../lib/brands.js');
 var squareCoords = require('../lib/util.js').squareCoords;
 
 test('Pawn promotion', function (t) {
-	t.plan(4);
+	t.end()//plan(4);
 
 	var p1 = FEN.parse(
-		'rnbq1bnr/pppkpPpp/8/8/8/3p4/PPPP1PPP/RNBQKBNR%20w%20KQkq'
+		'rnbq1bnr/pppkpPpp/8/8/8/3p4/PPPP1PPP/RNBQKBNR w KQkq 0 2'
 	);
 	var p2;
 	t.doesNotThrow(function () {
-		p2 = p1.move(p1.pieceByCoords(squareCoords('f7')), 'g8');
+		p2 = p1.move(p1.piece('f7'), squareCoords('g8'));
 	}, 'position can be pending promotion');
 
 	t.doesNotThrow(function () {

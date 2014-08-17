@@ -1,9 +1,11 @@
 import { WHITE, BLACK } from '../brands';
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard';
 import { Castling } from '../piece/king/castling';
+import { EnPassantTarget } from '../piece/pawn/eptarget';
 import { Position } from '../position';
 import { Board } from '../board';
 import { Point } from '../point';
+import { squareCoords } from '../util';
 
 export const FEN = {
 
@@ -90,8 +92,10 @@ function parseCastling(castling) {
 }
 
 function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {
-	case '-': return null;
-	default: return enPassantTarget;
+	case '-':
+		return EnPassantTarget.null();
+	default:
+		return EnPassantTarget.fromPoint(squareCoords(enPassantTarget));
 }}
 
 function parseClock(clock) {

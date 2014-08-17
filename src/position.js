@@ -33,7 +33,7 @@ export class Position {
 		this.board = board;
 		this.activeColor = activeColor;
 		this.castling = castling;
-		this.enPassantTarget = new EnPassantTarget(enPassantTarget);
+		this.enPassantTarget = enPassantTarget;
 		this.halfmoveClock = halfmoveClock;
 		this.fullmoveClock = fullmoveClock;
 		this.promotionSquare = Promotion.square(this);
@@ -115,7 +115,7 @@ export class Position {
 		for (var ally of this.queryAll({ color })) {
 			for (var move of bounded(this.board, ally.moves(this))) {
 				try {
-					if (!this.move(ally, squareName(move)).isCheck(color)) {
+					if (!this.move(ally, move).isCheck(color)) {
 						return false;
 					}
 				}
@@ -130,9 +130,9 @@ export class Position {
 		return true;
 	}
 
-	tryMove(piece, targetSquare) {
+	tryMove(piece, target) {
 		try {
-			return this.move(piece, targetSquare);
+			return this.move(piece, target);
 		}
 		catch (err) {
 			if (ourError(err)) {
@@ -142,48 +142,29 @@ export class Position {
 		}
 	}
 
-	capturablePiece(squareNameP, capturer) {
-		if (capturer.brand !== PAWN ||
-			!this.enPassantTarget.equal(squareNameP)) {
-			return [this.piece(squareNameP), squareNameP, false];
-		}
-		const coords = squareCoords(squareNameP);
-		if (coords.equal(this.enPassantTarget)) {
-			const captureSquare = coords.sum(new Point(0, -capturer.reach));
-			const capturedPiece = this.pieceByCoords(captureSquare);
-			return [
-				capturedPiece,
-				capturedPiece && squareName(captureSquare),
-				!!capturedPiece
-			];
-		}
-		return [null, null, false];
-	}
-
-	move(piece, targetSquare) {
-		if (targetSquare == null) {
-			throw new Error("target square is null");
+	move(piece, target) {
+		if (target == null || piece == null) {
+			throw new Error("Argument error");
 		}
 
-		const [targetPiece, captureSquare, wasEnPassant]
-			= this.capturablePiece(targetSquare, piece);
+		const { capturePiece, captureTarget, wasEnPassant }
+			= EnPassantTarget.capturablePiece(this, piece, target);
 
 		if (!Mobility.isLegal({
 			position: this,
 			piece,
-			targetSquare,
-			targetPiece,
+			target,
+			capturePiece,
 		})) {
 			throw new MobilityError();
 		}
 
-		const castling
-			= Castling.analyze(this, piece, squareCoords(targetSquare));
+		const castling = Castling.analyze(this, piece, target);
 
 		const position = this.beget({
 			activeColor: oppositeColor(this.activeColor),
 			castling,
-			enPassantTarget: EnPassantTarget.analyze(this, piece, targetSquare),
+			enPassantTarget: EnPassantTarget.analyze(this, piece, target),
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
 			board: this.board.map((p, square) => {
@@ -191,7 +172,7 @@ export class Position {
 					// is it the square being vacated by the piece.
 					return null;
 				}
-				if (wasEnPassant && square.equal(squareCoords(captureSquare))) {
+				if (wasEnPassant && square.equal(captureTarget)) {
 					// it was just captured en passant.
 					return null;
 				}
@@ -203,7 +184,7 @@ export class Position {
 					// it is the square that the rook is being moved to during castling.
 					return castling.rook;
 				}
-				if (squareName(square) === targetSquare) {
+				if (square.equal(target)) {
 					// it is the square that the piece is being moved to.
 					return piece;
 				}

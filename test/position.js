@@ -1,5 +1,9 @@
+require('traceur/bin/traceur-runtime.js');
+require('longjohn');
+
 var test = require('tape');
 var FEN = require('../lib/codec/fen.js').FEN;
+var EnPassantTarget = require('../lib/piece/pawn/eptarget').EnPassantTarget;
 var Point = require('../lib/point.js').Point;
 var brands = require('../lib/brands.js');
 var squareCoords = require('../lib/util.js').squareCoords;
@@ -76,22 +80,13 @@ test('shortcuts', function (t) {
 
 test('tryMove', function (t) {
 	t.plan(2);
-	t.equal(p, p.tryMove(p.pieceByCoords(new Point(4, 7)), 'e4'));
-	t.notEqual(p, p.tryMove(p.pieceByCoords(new Point(4, 6)), 'e4'));
+	t.equal(p, p.tryMove(p.pieceByCoords(new Point(4, 7)), squareCoords('e4')));
+	t.notEqual(p, p.tryMove(p.pieceByCoords(new Point(4, 6)), squareCoords('e4')));
 });
 
 test('move', function (t) {
 	t.plan(1);
 	t.throws(function () {
-		p.move(p.pieceByCoords(squareCoords('a4')), null);
+		p.move(p.piece('a4'), null);
 	}, 'when you pass null as targetSquare');
 });
-
-test('capturablePiece', function (t) {
-	t.plan(1);
-	var p = FEN.parse(
-		'rkbbrnqn/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RKBBRNQN w KQkq f6'
-	);
-	var c = p.capturablePiece('f6', p.pieceByCoords(squareCoords('d5')));
-	t.deepEqual([null, null, false], c);
-})

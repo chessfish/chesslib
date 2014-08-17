@@ -22,27 +22,21 @@ export class Mobility {
 		throw new Error("subclass must override Mobility#adjacentPoints");
 	}
 
-	static isLegal({
-		position,
-		piece,
-		targetSquare,
-		targetPiece,
-	}) {
+	static isLegal({ position, piece, target, capturePiece }) {
 		// a piece cannot move out of turn.
 		if (position.activeColor !== piece.color) {
 			return false;
 		}
-
-		if (targetPiece != null) {
+		if (capturePiece != null) {
 			// a piece cannot move to a square occupied by a piece of its color.
-			if (piece.color === targetPiece.color) {
+			if (piece.color === capturePiece.color) {
 				return false;
 			}
 			// a piece must be able to legally capture at the square.
-			return legally('canCapture', position, piece, targetSquare);
+			return legally('canCapture', position, piece, target);
 		}
 		// a piece must be able to legally move to the vacant square;
-		return legally('canMove', position, piece, targetSquare);
+		return legally('canMove', position, piece, target);
 	}
 }
 
@@ -53,9 +47,7 @@ export const quadrants = [
 	new Point(-1, -1),
 ];
 
-function legally(method, position, piece, targetSquare) {
-	const from = position.pieceCoords(piece);
-	const to = squareCoords(targetSquare);
-	return piece[method](position, from, to);
+function legally(method, position, piece, target) {
+	return piece[method](position, position.pieceCoords(piece), target);
 }
 

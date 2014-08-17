@@ -1,3 +1,6 @@
+require('traceur/bin/traceur-runtime.js');
+require('longjohn');
+
 var test = require('tape');
 
 var board = require('../lib/codec/fen.js').standardPosition.board;

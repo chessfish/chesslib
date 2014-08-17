@@ -28,7 +28,9 @@ class CastlingMobility extends Mobility {
 	}
 
 	*adjacentPoints(position, p0) {
-		yield p0.sum(Castling.kingOffset(this.color, this.side));
+		if (position.castling.isLegal(this.color, this.side)) {
+			yield p0.sum(Castling.kingOffset(this.color, this.side));
+		}
 	}
 }
 

@@ -50,13 +50,12 @@ test('not checks', function (t) {
 
 test('checkmates', function (t) {
   var checkmates = [
-    // TODO: these tests should pass. But I'm commenting them out for now.
-    // {
-    //   fen: 'r2qrk2/pp1bpQ2/3p4/8/2BnP1p1/2N2P2/PPP5/2KR4 b - -',
-    // },
-    // {
-    //   fen: 'r1b1k2r/pppp2pp/8/4N3/2B1n3/4P3/PP3qPP/RNB2K1R w kq -',
-    // },
+    {
+      fen: 'r2qrk2/pp1bpQ2/3p4/8/2BnP1p1/2N2P2/PPP5/2KR4 b - -',
+    },
+    {
+      fen: 'r1b1k2r/pppp2pp/8/4N3/2B1n3/4P3/PP3qPP/RNB2K1R w kq -',
+    },
     {
       fen: 'rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 4 1',
     }

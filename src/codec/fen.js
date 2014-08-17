@@ -1,6 +1,6 @@
 import { WHITE, BLACK } from '../brands';
 import { Pawn, Rook, Knight, Bishop, King, Queen } from '../piece/standard';
-import { Castling } from '../piece/king/castling';
+import { Castling } from '../innovation/castling';
 import { EnPassantTarget } from '../piece/pawn/eptarget';
 import { Position } from '../position';
 import { Board } from '../board';

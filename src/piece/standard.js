@@ -1,11 +1,23 @@
-import { QUEEN, KNIGHT, BISHOP, ROOK } from '../brands'
-import { Piece } from './piece'
-import { Leaper } from './mobility/leaper'
-import { Rider } from './mobility/rider'
-import { Royal } from './mobility/royal'
+import { KING, QUEEN, KNIGHT, BISHOP, ROOK } from '../brands';
+import { Piece } from './piece';
+import { Leaper } from './mobility/leaper';
+import { Rider } from './mobility/rider';
+import { Royal } from './mobility/royal';
 
-export { Pawn } from './pawn'
-export { King } from './king'
+export { Pawn } from './pawn';
+
+export class King extends Piece {
+	constructor(options) {
+		super(options);
+		Royal.call(this);
+	}
+	get brand() {
+		return KING;
+	}
+	get fenEncoding() {
+		return this.isWhite ? 'K' : 'k';
+	}
+}
 
 export class Queen extends Piece {
 	constructor(options) {

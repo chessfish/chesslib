@@ -86,3 +86,12 @@ test('move', function (t) {
 		p.move(p.pieceByCoords(squareCoords('a4')), null);
 	}, 'when you pass null as targetSquare');
 });
+
+test('capturablePiece', function (t) {
+	t.plan(1);
+	var p = FEN.parse(
+		'rkbbrnqn/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RKBBRNQN w KQkq f6'
+	);
+	var c = p.capturablePiece('f6', p.pieceByCoords(squareCoords('d5')));
+	t.deepEqual([null, null, false], c);
+})

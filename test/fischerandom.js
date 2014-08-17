@@ -7,7 +7,7 @@ var FEN = require('../lib/codec/fen').FEN;
 var Chess960 = require('../lib/innovation/fischerandom.js');
 
 test('fischerandom', function (t) {
-  t.plan(201);
+  t.plan(2001);
 
   times(1000, function () {
     var position = Chess960.fischerandom();

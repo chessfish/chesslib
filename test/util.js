@@ -72,3 +72,4 @@ test('oppositeColor', function (t) {
   t.equal(brands.WHITE, util.oppositeColor(brands.BLACK));
   t.equal(brands.BLACK, util.oppositeColor(brands.WHITE));
 });
+

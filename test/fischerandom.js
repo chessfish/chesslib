@@ -35,7 +35,7 @@ test('fischerandom', function (t) {
       counter += 1;
       if (FEN.standard === FEN.stringify(fischerandom())) {
         console.timeEnd('# ' + t.name);
-        t.ok(true, 'found it in ' + counter + 'tries');
+        t.ok(true, 'found it in ' + counter + ' tries');
         console.log('# not trying that for doubleFischerandom!');
         break;
       }

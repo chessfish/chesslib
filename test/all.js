@@ -6,3 +6,4 @@ require('./castling.js');
 require('./fen.js');
 require('./query.js');
 require('./fischerandom.js');
+require('./mobility.js');

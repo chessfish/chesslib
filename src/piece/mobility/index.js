@@ -22,10 +22,6 @@ export class Mobility {
 		throw new Error("subclass must override Mobility#adjacentPoints");
 	}
 
-	get scope() {
-		return [this.m, this.n];
-	}
-
 	static isLegal({
 		position,
 		piece,

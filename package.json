@@ -13,10 +13,12 @@
   },
   "devDependencies": {
     "browserify": "^5.9.1",
+    "coveralls": "^2.11.1",
     "gulp": "^3.8.7",
     "gulp-rename": "^1.2.0",
     "gulp-traceur": "^0.11.0",
     "gulp-watch": "^0.6.9",
+    "istanbul": "^0.3.0",
     "lodash.times": "^2.4.1",
     "longjohn": "^0.2.4",
     "minimist": "^0.2.0",
@@ -25,7 +27,7 @@
     "vinyl-source-stream": "^0.1.1"
   },
   "scripts": {
-    "test": "node ./test/all.js"
+    "test": "./node_modules/.bin/istanbul cover ./test/all.js --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "author": "Christopher Thorn <morphcham@gmail.com>",
   "repository": {

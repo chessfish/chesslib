@@ -70,7 +70,7 @@
   function fromQuery() {
       var search = location.search;
       if (!search) {
-        return FEN.parse(FEN.standard);
+        return FEN.standardPosition;
       }
       var plainSearch = decodeURIComponent(location.search.replace('?', ''));
       switch (plainSearch.toLowerCase()) {

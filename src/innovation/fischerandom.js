@@ -67,7 +67,8 @@ function copySide(board, color=BLACK) {
 	const rank = colorRank(color);
 	const oppRank = colorRank(oppositeColor(color));
 	for (var j = 0; j < board.files; j++) {
-		const Brand = board.getPieceByCoords(new Point(j, oppRank)).constructor;
+		const { constructor: Brand }
+			= board.getPieceByCoords(new Point(j, oppRank));
 		board.placePiece(
 			new Brand({ color }),
 			new Point(j, rank)

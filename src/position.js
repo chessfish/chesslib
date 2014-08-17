@@ -4,7 +4,6 @@ import { Mobility } from './piece/mobility';
 import { Castling } from './piece/king/castling';
 import { EnPassantTarget } from './piece/pawn/eptarget'
 import { Point } from './point';
-import { MobilityError, CheckError, PromotionError } from './error'
 import { Promotion } from './promotion'
 import {
 	entries,
@@ -14,6 +13,12 @@ import {
 	oppositeColor,
 	bounded,
 } from './util';
+import {
+	ChessError,
+	MobilityError,
+	CheckError,
+	PromotionError
+} from './error'
 
 const assign = require('lodash.assign');
 const contains = require('lodash.contains');
@@ -120,7 +125,7 @@ export class Position {
 					}
 				}
 				catch (err) {
-					if (ourError(err)) {
+					if (err instanceof ChessError) {
 						continue;
 					}
 					throw err;
@@ -135,7 +140,7 @@ export class Position {
 			return this.move(piece, target);
 		}
 		catch (err) {
-			if (ourError(err)) {
+			if (err instanceof ChessError) {
 				return this;
 			}
 			throw err;
@@ -215,12 +220,4 @@ export class Position {
 			promotionSquare: null,
 		});
 	}
-}
-
-function ourError(err) {
-	return (
-		err instanceof MobilityError ||
-		err instanceof CheckError ||
-		err instanceof PromotionError
-	);
 }

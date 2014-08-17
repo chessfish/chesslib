@@ -7,3 +7,4 @@ require('./fen.js');
 require('./query.js');
 require('./fischerandom.js');
 require('./mobility.js');
+require('./board.js');

@@ -6,7 +6,7 @@ var FEN = require('../lib/codec/fen.js').FEN;
 var Point = require('../lib/point.js').Point;
 var brands = require('../lib/brands.js');
 var Point = require('../lib/point.js').Point;
-var Castling = require('../lib/innovation/castling.js').Castling;
+var Castling = require('../lib/castling.js').Castling;
 var squareName = require('../lib/util.js').squareName;
 
 test('legal castling positions', function (t) {

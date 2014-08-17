@@ -1,6 +1,6 @@
-import { Point } from '../point'
-import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from '../brands'
-import { CheckError } from '../error'
+import { Point } from './point'
+import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from './brands'
+import { CheckError } from './error'
 
 export class Castling {
 

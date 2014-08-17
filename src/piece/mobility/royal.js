@@ -1,7 +1,7 @@
 import { KINGSIDE, QUEENSIDE } from '../../brands';
 import { Point } from '../../point';
 import { Mobility, quadrants } from '../mobility';
-import { Castling } from '../../innovation/castling';
+import { Castling } from '../../castling';
 
 class RoyalMobility extends Mobility {
 

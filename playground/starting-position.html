@@ -21,9 +21,9 @@
 <script>
 (function () {
   var mercury = require('mercury');
-  var FEN = require('chessview').FEN;
-  var playable = require('chessview').ui.playable;
-  var innovation = require('chessview').innovation;
+  var chess = require('chessview');
+  var FEN = chess.FEN;
+  var playable = chess.ui.playable;
 
   var state = playable(fromQuery());
 
@@ -77,9 +77,9 @@
       case '960':
       case 'ninesixty':
       case 'fischerandom':
-        return innovation.fischerandom();
+        return chess.fischerandom();
       case 'doublefischerandom':
-        return innovation.doubleFischerandom();
+        return chess.doubleFischerandom();
       default:
         return FEN.parse(plainSearch);
       }

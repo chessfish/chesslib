@@ -67,7 +67,7 @@ function parseRank(rank, board, i) {
 	}
 }
 
-function createPiece(piece='') {
+function createPiece(piece) {
 	const lowered = piece.toLowerCase();
 	const options = { color: lowered === piece ? BLACK : WHITE };
 	switch (lowered) {
@@ -77,8 +77,6 @@ function createPiece(piece='') {
 	case 'b': return new Bishop(options);
 	case 'k': return new King(options);
 	case 'q': return new Queen(options);
-	case '': return null;
-	default: throw new SyntaxError('Unparseable: ' + piece);
 	}
 }
 
@@ -146,9 +144,6 @@ function stringifyCastling(castling) {
 }
 
 function stringifyEPTarget(enPassantTarget) {
-	if (enPassantTarget == null) {
-		return '-';
-	}
 	return String(enPassantTarget);
 }
 

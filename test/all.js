@@ -8,3 +8,4 @@ require('./query.js');
 require('./fischerandom.js');
 require('./mobility.js');
 require('./board.js');
+require('./promotion.js');

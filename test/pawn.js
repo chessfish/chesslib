@@ -11,7 +11,7 @@ var squareCoords = util.squareCoords;
 
 test('pawn movement: WHITE', function (t) {
 
-	t.plan(18);
+	t.plan(21);
 
 	var p1 = FEN.standardPosition;
 	var p2 = FEN.parse(
@@ -44,6 +44,18 @@ test('pawn movement: WHITE', function (t) {
 
 	t.doesNotThrow(function () {
 		p3.move(p3.pieceByCoords(squareCoords('d4')), 'e5'); // capture at d5
+	});
+
+	t.doesNotThrow(function () {
+		p3.move(p3.pieceByCoords(squareCoords('d4')), 'd5');
+	});
+
+	t.throws(function () {
+		p3.move(p3.pieceByCoords(squareCoords('d4')), 'e6');
+	});
+
+	t.throws(function () {
+		p3.move(p3.pieceByCoords(squareCoords('a2')), 'h3');
 	});
 });
 

@@ -13,7 +13,7 @@ _Checked items are implemented_
 - [x] easily themeable 2d board
 - [x] detect legal moves, checks, checkmates
 - [x] compositional approach to piece mobility
-, support for kibitzers
+- [ ] support for kibitzers
 - [ ] support for chess variants:
   - [x] Chess960 (Fischerandom)
   - [ ] fairy pieces

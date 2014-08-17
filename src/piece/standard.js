@@ -16,9 +16,6 @@ export class Queen extends Piece {
 	get brand() {
 		return QUEEN;
 	}
-	get unicode() {
-		return this.isWhite ? '♕' : '♛';
-	}
 	get fenEncoding() {
 		return this.isWhite ? 'Q' : 'q';
 	}
@@ -31,9 +28,6 @@ export class Rook extends Piece {
 	}
 	get brand() {
 		return ROOK;
-	}
-	get unicode() {
-		return this.isWhite ? '♖' : '♜';
 	}
 	get fenEncoding() {
 		return this.isWhite ? 'R' : 'r';
@@ -48,9 +42,6 @@ export class Bishop extends Piece {
 	get brand() {
 		return BISHOP;
 	}
-	get unicode() {
-		return this.isWhite ? '♗' : '♝';
-	}
 	get fenEncoding() {
 		return this.isWhite ? 'B' : 'b';
 	}
@@ -63,9 +54,6 @@ export class Knight extends Piece {
 	}
 	get brand() {
 		return KNIGHT;
-	}
-	get unicode() {
-		return this.isWhite ? '♘' : '♞';
 	}
 	get fenEncoding() {
 		return this.isWhite ? 'N' : 'n';

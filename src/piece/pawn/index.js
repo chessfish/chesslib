@@ -8,10 +8,6 @@ export class Pawn extends Piece {
 		return PAWN;
 	}
 
-	get unicode() {
-		return this.isWhite ? '♙' : '♟';
-	}
-
 	get fenEncoding() {
 		return this.isWhite ? 'P' : 'p';
 	}

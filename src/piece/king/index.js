@@ -10,9 +10,6 @@ export class King extends Piece {
 	get brand() {
 		return KING;
 	}
-	get unicode() {
-		return this.isWhite ? '♔' : '♚';
-	}
 	get fenEncoding() {
 		return this.isWhite ? 'K' : 'k';
 	}

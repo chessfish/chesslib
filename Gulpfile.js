@@ -9,7 +9,6 @@ var source = require('vinyl-source-stream');
 
 gulp.task('default', [
 	'core',
-	'codec',
 	'piece',
 	'pawn',
 	'ui core',
@@ -19,10 +18,6 @@ gulp.task('default', [
 
 gulp.task('core', function () {
 	return esify('./src/*.js');
-});
-
-gulp.task('codec', function () {
-	return esify('./src/codec/*.js');
 });
 
 gulp.task('piece', function () {

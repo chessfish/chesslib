@@ -1,5 +1,5 @@
 export { Position } from './position'
 export { Castling } from './castling'
-export { FEN } from './codec/fen'
+export { FEN } from './fen'
 export { ui } from './ui'
 export { fischerandom, doubleFischerandom, ninesixty } from './fischerandom'

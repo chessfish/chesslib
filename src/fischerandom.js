@@ -2,7 +2,7 @@ import { WHITE, BLACK, DARK, LIGHT } from './brands';
 import { King, Queen, Rook, Bishop, Knight, Pawn } from './piece/standard';
 import { Point } from './point';
 import { Board } from './board';
-import { FEN } from './codec/fen';
+import { FEN } from './fen';
 import { isEven, isOdd, oppositeColor } from './util';
 const Die = require('jsdice');
 

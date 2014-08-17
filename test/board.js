@@ -3,7 +3,7 @@ require('longjohn');
 
 var test = require('tape');
 
-var board = require('../lib/codec/fen.js').standardPosition.board;
+var board = require('../lib/fen.js').standardPosition.board;
 var Point = require('../lib/point.js').Point;
 
 test('Board#getPieceByCoords', function (t) {

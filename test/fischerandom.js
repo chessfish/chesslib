@@ -3,7 +3,7 @@ require('longjohn');
 
 var test = require('tape');
 var times = require('lodash.times');
-var FEN = require('../lib/codec/fen').FEN;
+var FEN = require('../lib/fen').FEN;
 var Chess960 = require('../lib/fischerandom.js');
 
 test('fischerandom', function (t) {

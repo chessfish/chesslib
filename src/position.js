@@ -21,7 +21,6 @@ import {
 } from './error'
 
 const assign = require('lodash.assign');
-const contains = require('lodash.contains');
 
 export class Position {
 

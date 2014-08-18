@@ -1,7 +1,7 @@
 import { WHITE, BLACK } from './brands';
 import { Pawn, Rook, Knight, Bishop, King, Queen } from './piece/standard';
 import { Castling } from './castling';
-import { EnPassantTarget } from './eptarget';
+import { EnPassantTarget, NullEnPassantTarget } from './eptarget';
 import { Position } from './position';
 import { Board } from './board';
 import { Point } from './point';
@@ -148,6 +148,11 @@ function stringifyCastling(castling) {
 }
 
 function stringifyEPTarget(enPassantTarget) {
+	if (enPassantTarget == null ||
+		enPassantTarget instanceof NullEnPassantTarget) {
+		return '-';
+
+	}
 	return String(enPassantTarget);
 }
 

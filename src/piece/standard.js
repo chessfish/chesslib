@@ -11,7 +11,7 @@ export class King extends Piece {
 		super(options);
 		Royal.call(this);
 	}
-	get brand() {
+	static get brand() {
 		return KING;
 	}
 	get fenEncoding() {
@@ -25,7 +25,7 @@ export class Queen extends Piece {
 		Rider.call(this, 1, 0);
 		Rider.call(this, 1, 1);
 	}
-	get brand() {
+	static get brand() {
 		return QUEEN;
 	}
 	get fenEncoding() {
@@ -38,7 +38,7 @@ export class Rook extends Piece {
 		super(options);
 		Rider.call(this, 1, 0);
 	}
-	get brand() {
+	static get brand() {
 		return ROOK;
 	}
 	get fenEncoding() {
@@ -51,7 +51,7 @@ export class Bishop extends Piece {
 		super(options);
 		Rider.call(this, 1, 1);
 	}
-	get brand() {
+	static get brand() {
 		return BISHOP;
 	}
 	get fenEncoding() {
@@ -64,7 +64,7 @@ export class Knight extends Piece {
 		super(options);
 		Leaper.call(this, 1, 2);
 	}
-	get brand() {
+	static get brand() {
 		return KNIGHT;
 	}
 	get fenEncoding() {

@@ -4,10 +4,6 @@ import { squareName } from '../util'
 
 export class Pawn extends Piece {
 
-	get brand() {
-		return PAWN;
-	}
-
 	get fenEncoding() {
 		return this.isWhite ? 'P' : 'p';
 	}
@@ -40,5 +36,9 @@ export class Pawn extends Piece {
 			// it's a from a neighboring file:
 			(from.x === to.x + 1 || from.x === to.x - 1)
 		);
+	}
+
+	static get brand() {
+		return PAWN;
 	}
 }

@@ -31,8 +31,11 @@ export const rankIndex = (rankName, top=8) => top - Number(rankName);
 
 export const squareCoords = squareName => {
   const [fileName, rankName] = squareName.split('');
-  return new Point(fileIndex(fileName), rankIndex(rankName));
+  return squareCoordsByName(fileName, rankName);
 };
+
+export const squareCoordsByName = (fileName, rankName) =>
+  new Point(fileIndex(fileName), rankIndex(rankName));
 
 export const oppositeColor = color => color === WHITE ? BLACK : WHITE;
 

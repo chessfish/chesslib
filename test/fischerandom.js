@@ -11,13 +11,13 @@ test('fischerandom', function (t) {
 
   times(1000, function () {
     var position = Chess960.fischerandom();
-    t.ok(position.queryArray({}).length === 32,
+    t.ok(position.queryAll({}).length === 32,
       'fischerandom: all 32 pieces accounted-for');
   });
 
   times(1000, function () {
     var position = Chess960.doubleFischerandom();
-    t.ok(position.queryArray({}).length === 32,
+    t.ok(position.queryAll({}).length === 32,
       'doubleFischerandom: all 32 pieces accounted-for');
   });
 

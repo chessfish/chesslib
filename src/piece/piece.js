@@ -42,4 +42,8 @@ export class Piece {
 	get isBlack() {
 		return this.color === BLACK;
 	}
+
+	get brand() {
+		return this.constructor.brand;
+	}
 }

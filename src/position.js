@@ -1,10 +1,10 @@
 import { WHITE, KING, PAWN } from './brands';
-import { Board } from './board'
+import { Board } from './board';
 import { Mobility } from './piece/mobility';
 import { Castling } from './castling';
-import { EnPassantTarget } from './eptarget'
+import { EnPassantTarget } from './eptarget';
 import { Point } from './point';
-import { Promotion } from './promotion'
+import { Promotion } from './promotion';
 import {
 	entries,
 	identity,
@@ -72,7 +72,7 @@ export class Position {
 		return this.board.getPieceByCoords(point, rotated);
 	}
 
-	*queryAll(selector={}) {
+	*query(selector={}) {
 		pieces: for (var piece of this.pieces(selector.brand)) {
 			for (var [val, key] of entries(selector)) {
 				if (piece[key] !== val) {
@@ -83,12 +83,12 @@ export class Position {
 		}
 	}
 
-	queryArray(selector) {
-		return [ ...this.queryAll(selector) ];
+	queryAll(selector) {
+		return [ ...this.query(selector) ];
 	}
 
-	query(selector) {
-		for (var i of this.queryAll(selector)) {
+	queryOne(selector) {
+		for (var i of this.query(selector)) {
 			return i;
 		}
 		return null;
@@ -96,9 +96,9 @@ export class Position {
 
 	*checks(
 		color=this.activeColor,
-		loc=this.pieceCoords(this.query({ brand: KING, color }))
+		loc=this.pieceCoords(this.queryOne({ brand: KING, color }))
 	) {
-		for (var enemy of this.queryAll({ color: oppositeColor(color) })) {
+		for (var enemy of this.query({ color: oppositeColor(color) })) {
 			if (enemy.canCapture(this, this.pieceCoords(enemy), loc)) {
 				yield enemy;
 			}
@@ -117,7 +117,7 @@ export class Position {
 			// it can't be checkmate if it's not even check:
 			return false;
 		}
-		for (var ally of this.queryAll({ color })) {
+		for (var ally of this.query({ color })) {
 			for (var move of bounded(this.board, ally.moves(this))) {
 				try {
 					if (!this.movePiece(ally, move).isCheck(color)) {
@@ -152,7 +152,7 @@ export class Position {
 			throw new Error("Argument error");
 		}
 
-		const { capturePiece, captureTarget, wasEnPassant }
+		const { capturePiece, captureTarget, isEnPassant }
 			= EnPassantTarget.capturablePiece(this, piece, target);
 
 		if (!Mobility.isLegal({
@@ -177,7 +177,7 @@ export class Position {
 					// is it the square being vacated by the piece.
 					return null;
 				}
-				if (wasEnPassant && square.equal(captureTarget)) {
+				if (isEnPassant && square.equal(captureTarget)) {
 					// it was just captured en passant.
 					return null;
 				}
@@ -214,5 +214,11 @@ export class Position {
 			// that we we've promoted, unset the promotion square.
 			promotionSquare: null,
 		});
+	}
+
+	move(notation) {
+		const { Algebraic } = require('./algebraic');
+		const { piece, target } = Algebraic.parse(notation, this);
+		return this.movePiece(piece, target);
 	}
 }

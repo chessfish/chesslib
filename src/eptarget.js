@@ -18,7 +18,7 @@ export class EnPassantTarget extends Point {
 
 	static analyze(position, piece, target) {
 		if (piece.brand !== PAWN) {
-			return null;
+			return new NullEnPassantTarget();
 		}
 		const { y: thrust } = target.difference(position.pieceCoords(piece));
 
@@ -33,7 +33,7 @@ export class EnPassantTarget extends Point {
 			return {
 				capturePiece: position.pieceByCoords(target),
 				captureTarget: target,
-				wasEnPassant: false,
+				isEnPassant: false,
 			};
 		}
 		const captureTarget = target.sum(new Point(0, -capturer.reach));
@@ -42,7 +42,7 @@ export class EnPassantTarget extends Point {
 			return {
 				capturePiece,
 				captureTarget,
-				wasEnPassant: true,
+				isEnPassant: true,
 			};
 		}
 	}
@@ -52,7 +52,7 @@ export class EnPassantTarget extends Point {
 	}
 }
 
-class NullEnPassantTarget extends EnPassantTarget {
+export class NullEnPassantTarget extends EnPassantTarget {
 
 	constructor() {}
 

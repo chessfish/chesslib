@@ -19,70 +19,77 @@
 <script src="../node_modules/traceur/bin/traceur-runtime.js"></script>
 <script src="../browser/bundle.js"></script>
 <script>
-(function () {
-  var mercury = require('mercury');
-  var chess = require('chessview');
-  var FEN = chess.FEN;
-  var playable = chess.ui.playable;
+var mercury = require('mercury');
+var chess = require('chessview');
+var FEN = chess.FEN;
+var playable = chess.ui.playable;
 
-  var state = playable(fromQuery());
+var state = playable(fromQuery());
 
-  mercury.app(
-    document.getElementById('chessview'),
-    state,
-    playable.board
-  );
+mercury.app(
+  document.getElementById('chessview'),
+  state,
+  playable.board
+);
 
-  var h = mercury.h;
+var h = mercury.h;
 
-  var rotated = mercury.input();
-  rotated(function (value) {
-    state.rotated.set(value.rotated);
-  });
+var rotated = mercury.input();
+rotated(function (value) {
+  state.rotated.set(value.rotated);
+});
 
-  // example of hacking together an ad-hoc component
-  mercury.app(
-    document.getElementById('fenCode'),
-    state,
-    function (state) {
-      return h('div', [
-        h('div', h('input.fenCode', {
-          'type': 'text',
-          'readonly': true,
-          'value': FEN.stringify(state.position)
-        })),
-        h('div', h('label', {
-          'for': 'rotated',
-        }, [
-          h('input', {
-            'type': 'checkbox',
-            'name': 'rotated',
-            'id': 'rotated',
-            'checked': state.rotated,
-            'ev-change': mercury.valueEvent(rotated),
-          }),
-          "Rotate board"
-        ]))
-      ]);
-    }
-  );
-
-  function fromQuery() {
-      var search = location.search;
-      if (!search) {
-        return FEN.standardPosition;
-      }
-      var plainSearch = decodeURIComponent(location.search.replace('?', ''));
-      switch (plainSearch.toLowerCase()) {
-      case '960':
-      case 'ninesixty':
-      case 'fischerandom':
-        return chess.fischerandom();
-      case 'doublefischerandom':
-        return chess.doubleFischerandom();
-      default:
-        return FEN.parse(plainSearch);
-      }
+// example of hacking together an ad-hoc component
+mercury.app(
+  document.getElementById('fenCode'),
+  state,
+  function (state) {
+    return h('div', [
+      h('div', h('input.fenCode', {
+        'type': 'text',
+        'readonly': true,
+        'value': FEN.stringify(state.position)
+      })),
+      h('div', h('label', {
+        'for': 'rotated',
+      }, [
+        h('input', {
+          'type': 'checkbox',
+          'name': 'rotated',
+          'id': 'rotated',
+          'checked': state.rotated,
+          'ev-change': mercury.valueEvent(rotated),
+        }),
+        "Rotate board"
+      ]))
+    ]);
   }
-}());
+);
+
+function fromQuery() {
+    var search = location.search;
+    if (!search) {
+      return FEN.standardPosition;
+    }
+    var plainSearch = decodeURIComponent(location.search.replace('?', ''));
+    switch (plainSearch.toLowerCase()) {
+    case '960':
+    case 'ninesixty':
+    case 'fischerandom':
+      return chess.fischerandom();
+    case 'doublefischerandom':
+      return chess.doubleFischerandom();
+    default:
+      return FEN.parse(plainSearch);
+    }
+}
+
+function position(p) {
+    if (p == null) {
+      return state.position();
+    }
+    else {
+      state.position.set(p);
+    }
+}
 </script>

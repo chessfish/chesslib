@@ -21,7 +21,7 @@ test('pawn movement: WHITE', function (t) {
 		'rnbqkbnr/pppp1ppp/8/4p3/3P4/8/PPP1PPPP/RNBQKBNR w KQkq e6'
 	);
 
-	p1.queryAll({
+	p1.all({
 		brand: brands.PAWN,
 		color: brands.WHITE,
 	}).forEach(function (pawn) {
@@ -69,7 +69,7 @@ test('pawn movement: BLACK', function (t) {
 	t.plan(18);
 
 	var p = FEN.standardPosition;
-	var whiteP = p.queryOne({ brand: brands.PAWN, color: brands.WHITE });
+	var whiteP = p.one({ brand: brands.PAWN, color: brands.WHITE });
 	var coords = p.pieceCoords(whiteP);
 	// move any old white pawn forward one:
 	var p1 = p.movePiece(whiteP, coords.sum(new Point(0, whiteP.reach)));
@@ -80,7 +80,7 @@ test('pawn movement: BLACK', function (t) {
 		'rnbqkbnr/pppp1ppp/8/4p3/3P4/5N2/PPP1PPPP/RNBQKB1R b KQkq -'
 	);
 
-	p1.queryAll({
+	p1.all({
 		brand: brands.PAWN,
 		color: brands.BLACK,
 	}).forEach(function (pawn) {

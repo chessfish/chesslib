@@ -83,11 +83,11 @@ export class Position {
 		}
 	}
 
-	queryAll(selector) {
+	all(selector) {
 		return [ ...this.query(selector) ];
 	}
 
-	queryOne(selector) {
+	one(selector) {
 		for (var i of this.query(selector)) {
 			return i;
 		}
@@ -96,7 +96,7 @@ export class Position {
 
 	*checks(
 		color=this.activeColor,
-		loc=this.pieceCoords(this.queryOne({ brand: KING, color }))
+		loc=this.pieceCoords(this.one({ brand: KING, color }))
 	) {
 		for (var enemy of this.query({ color: oppositeColor(color) })) {
 			if (enemy.canCapture(this, this.pieceCoords(enemy), loc)) {

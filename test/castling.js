@@ -23,7 +23,7 @@ test('legal castling positions', function (t) {
       Castling.rook(position, brands.WHITE, brands.KINGSIDE)).
       equal(new Point(7, 7)));
     t.doesNotThrow(function () {
-      var king = position.queryOne({ brand: brands.KING, color: brands.WHITE });
+      var king = position.one({ brand: brands.KING, color: brands.WHITE });
       position.movePiece(king, position.pieceCoords(king).sum(new Point(2, 0)));
     })
   });

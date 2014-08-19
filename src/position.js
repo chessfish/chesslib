@@ -5,6 +5,7 @@ import { Castling } from './castling';
 import { EnPassantTarget } from './eptarget';
 import { Point } from './point';
 import { Promotion } from './promotion';
+import { Algebraic } from './algebraic';
 import {
 	entries,
 	identity,
@@ -216,7 +217,6 @@ export class Position {
 	}
 
 	move(notation) {
-		const { Algebraic } = require('./algebraic');
 		const { piece, target } = Algebraic.parse(notation, this);
 		return this.movePiece(piece, target);
 	}

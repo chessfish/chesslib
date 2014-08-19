@@ -173,24 +173,22 @@ export class Position {
 			halfmoveClock: this.halfmoveClock + 1,
 			fullmoveClock: this.fullmoveClock,
 			board: this.board.map((p, square) => {
-				if (p === piece) {
-					// is it the square being vacated by the piece.
-					return null;
-				}
-				if (isEnPassant && square.equal(captureTarget)) {
-					// it was just captured en passant.
-					return null;
-				}
-				if (p && p === castling.rook) {
-					// it is the rook that is being moved during castling.
+				if (// it is...
+					// ...the square vacated by the piece:
+					(p === piece) ||
+					// ...a pawn just captured en passant:
+					(isEnPassant && square.equal(captureTarget)) ||
+					// ...the square vacated by the rook during castling:
+					(p && p === castling.rook)
+				) {
 					return null;
 				}
 				if (castling.square && square.equal(castling.square)) {
-					// it is the square that the rook is being moved to during castling.
+					// it is the target square for the rook during castling.
 					return castling.rook;
 				}
 				if (square.equal(target)) {
-					// it is the square that the piece is being moved to.
+					// it is the target square for the piece
 					return piece;
 				}
 				return p;

@@ -66,8 +66,13 @@ export class Castling {
 		for (var rook of position.query({ brand: ROOK, color })) {
 			const { x: rookX } = position.pieceCoords(rook);
 			if (
-				(rookX > kingX && side === KINGSIDE) ||
-				(rookX < kingX && side === QUEENSIDE)
+				color === WHITE ? (
+					(rookX > kingX && side === KINGSIDE) ||
+					(rookX < kingX && side === QUEENSIDE)
+				) : (
+					(rookX > kingX && side === QUEENSIDE) ||
+					(rookX < kingX && side === KINGSIDE)
+				)
 			) {
 				return rook;
 			}

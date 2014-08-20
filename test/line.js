@@ -15,6 +15,6 @@ test('Line class', function (t) {
 	;
 
 	t.equal(line.plyLength, 5);
-	t.equal(line.length, 2);
+	t.equal(line.length, 3);
 
 });

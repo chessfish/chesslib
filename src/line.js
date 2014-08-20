@@ -22,7 +22,7 @@ export class Line {
 	}
 
 	get length() {
-		return Math.floor(this.ply.length / 2);
+		return Math.ceil(this.ply.length / 2);
 	}
 }
 

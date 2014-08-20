@@ -9,18 +9,12 @@ var source = require('vinyl-source-stream');
 
 gulp.task('default', [
 	'core',
-	'piece',
 	'ui core',
 	'ui modules',
-	'mobility'
 ]);
 
 gulp.task('core', function () {
 	return esify('./src/*.js');
-});
-
-gulp.task('piece', function () {
-	return esify('./src/piece/*.js');
 });
 
 gulp.task('ui core', function () {
@@ -29,10 +23,6 @@ gulp.task('ui core', function () {
 
 gulp.task('ui modules', function () {
 	return esify('./src/ui/*/*.js');
-});
-
-gulp.task('mobility', function () {
-	return esify('./src/piece/mobility/*.js');
 });
 
 gulp.task('browserify', ['default'], function () {

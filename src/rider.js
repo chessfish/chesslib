@@ -1,5 +1,5 @@
-import { Point } from '../../point'
-import { Mobility, quadrants } from '../mobility';
+import { Point } from './point'
+import { Mobility, quadrants } from './mobility';
 
 class RiderMobility extends Mobility {
 

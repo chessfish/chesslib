@@ -1,5 +1,5 @@
 import { WHITE, BLACK } from './brands';
-import { Pawn, Rook, Knight, Bishop, King, Queen } from './piece/standard';
+import { Pawn, Rook, Knight, Bishop, King, Queen } from './standard';
 import { Castling } from './castling';
 import { EnPassantTarget, NullEnPassantTarget } from './eptarget';
 import { Position } from './position';

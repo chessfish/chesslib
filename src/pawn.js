@@ -1,6 +1,6 @@
-import { PAWN } from '../brands'
+import { PAWN } from './brands'
 import { Piece } from './piece'
-import { squareName } from '../util'
+import { squareName } from './util'
 
 export class Pawn extends Piece {
 

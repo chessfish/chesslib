@@ -1,7 +1,7 @@
 import { h, input, event, struct, value } from 'mercury';
 
 import { Point } from '../../point'
-import { Queen } from '../../piece/standard'
+import { Queen } from '../../standard'
 import { squareCoords } from '../../util'
 
 const dragEvent = require('./drag-handler.js');

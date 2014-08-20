@@ -1,6 +1,6 @@
 import { WHITE, KING, PAWN } from './brands';
 import { Board } from './board';
-import { Mobility } from './piece/mobility';
+import { Mobility } from './mobility';
 import { Castling } from './castling';
 import { EnPassantTarget } from './eptarget';
 import { Point } from './point';

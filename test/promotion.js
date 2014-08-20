@@ -4,7 +4,7 @@ require('longjohn');
 var test = require('tape');
 
 var FEN = require('../lib/fen.js').FEN;
-var standard = require('../lib/piece/standard.js');
+var standard = require('../lib/standard.js');
 var brands = require('../lib/brands.js');
 var squareCoords = require('../lib/util.js').squareCoords;
 

@@ -1,8 +1,8 @@
-import { KING, QUEEN, KNIGHT, BISHOP, ROOK } from '../brands';
+import { KING, QUEEN, KNIGHT, BISHOP, ROOK } from './brands';
 import { Piece } from './piece';
-import { Leaper } from './mobility/leaper';
-import { Rider } from './mobility/rider';
-import { Royal } from './mobility/royal';
+import { Leaper } from './leaper';
+import { Rider } from './rider';
+import { Royal } from './royal';
 
 export { Pawn } from './pawn';
 

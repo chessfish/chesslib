@@ -1,5 +1,5 @@
 import { WHITE, BLACK, DARK, LIGHT } from './brands';
-import { King, Queen, Rook, Bishop, Knight, Pawn } from './piece/standard';
+import { King, Queen, Rook, Bishop, Knight, Pawn } from './standard';
 import { Point } from './point';
 import { Board } from './board';
 import { FEN } from './fen';

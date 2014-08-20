@@ -3,7 +3,7 @@ require('longjohn');
 
 var test = require('tape');
 var FEN = require('../lib/fen.js').FEN;
-var EnPassantTarget = require('../lib/eptarget').EnPassantTarget;
+var EnPassantTarget = require('../lib/eptarget.js').EnPassantTarget;
 var Point = require('../lib/point.js').Point;
 var brands = require('../lib/brands.js');
 var squareCoords = require('../lib/util.js').squareCoords;

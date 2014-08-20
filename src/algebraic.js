@@ -1,6 +1,6 @@
 import { WHITE, KING, PAWN } from './brands';
 import { Point } from './point';
-import { King, Queen, Rook, Bishop, Knight, Pawn } from './piece/standard';
+import { King, Queen, Rook, Bishop, Knight, Pawn } from './standard';
 import { EnPassantTarget } from './eptarget';
 import { squareCoords, rankIndex, fileIndex } from './util';
 import { ChessError, AmbiguityError, MobilityError } from './error';

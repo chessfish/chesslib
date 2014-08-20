@@ -14,9 +14,7 @@ test('PGN parser', function (t) {
 			t.plan(pgns.length);
 		}).
 		map(PGN.parse).
-		then(function () {
-			t.ok(true);
-		}).
+		map(t.ok).
 		catch(ChessError, function (err) {
 			console.error("Chess error! ");
 			console.error("Last position: " + err.lastPosition);

@@ -10,3 +10,4 @@ require('./mobility.js');
 require('./board.js');
 require('./promotion.js');
 require('./algebraic.js');
+require('./line.js');

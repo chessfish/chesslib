@@ -1,4 +1,5 @@
-import { FEN } from './fen'
+import { FEN } from './fen';
+import { last } from './util';
 
 export class Line {
 
@@ -11,10 +12,18 @@ export class Line {
 		this.ply.push(ply);
 	}
 
-	move(move) {
+	move(move, note=null) {
 		const position = this.position.move(move);
-		this.addPly({ position, move });
+		this.addPly({ position, move, note });
 		this.position = position;
+		return this;
+	}
+
+	annotate(note) {
+		if (this.ply.length === 0) {
+			throw new Error("no move to annotate");
+		}
+		last(this.ply).note = note;
 		return this;
 	}
 
@@ -25,8 +34,4 @@ export class Line {
 	get length() {
 		return Math.ceil(this.ply.length / 2);
 	}
-}
-
-function last(arr) {
-	return arr[arr.length - 1];
 }

@@ -69,9 +69,9 @@ function parseSource(s) {
 		return null;
 	}
 	if (!isNaN(Number(s))) {
-		return new Point(0, rankIndex(s));
+		return new Point(NaN, rankIndex(s));
 	}
-	return new Point(fileIndex(s), 0);
+	return new Point(fileIndex(s), NaN);
 }
 
 function normalMove(algStr, position) {

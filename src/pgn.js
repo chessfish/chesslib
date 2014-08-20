@@ -1,8 +1,7 @@
-import { Algebraic } from './algebraic';
-import { Game } from './game';
-import { partition, last } from './util';
 import { FEN } from './fen';
+import { Game } from './game';
 import { ChessError } from './error';
+import { partition, last } from './util';
 
 export const PGN = {
 
@@ -116,15 +115,15 @@ function tokenizeTranscript(transcript) {
 				break;
 			}
 			if (mode === null) {
-				var p3 = peek(3), p5 = peek(5);
+				var p3 = peek(3), p7 = peek(7);
 				if (p3 === '1-0' || p3 === '0-1') {
 					result(p3);
 					skip(3);
 					return;
 				}
-				if (p5 === '1/2-1/2') {
-					result(p5);
-					skip(5);
+				if (p7 === '1/2-1/2') {
+					result(p7);
+					skip(7);
 					return;
 				}
 				mode = MODE_MOVE_NUMBER_NOTATION;

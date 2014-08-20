@@ -15,7 +15,7 @@ test('PGN parser', function (t) {
 		}).
 		map(PGN.parse).
 		then(function () {
-			t.ok(true, 'parsing ok');
+			t.ok(true);
 		}).
 		catch(ChessError, function (err) {
 			console.error("Chess error! ");

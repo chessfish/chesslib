@@ -1,4 +1,5 @@
 export class ChessError extends Error {
+
 	constructor(message, position) {
 		Error.call(this);
 		this.name = this.constructor.name;
@@ -13,14 +14,10 @@ export class CheckError extends ChessError {}
 
 export class PromotionError extends ChessError {}
 
-export class ResultError extends ChessError {
-
-	// constructor() {
-	// 	super()
-	// }
-}
+export class ResultError extends ChessError {}
 
 export class AmbiguityError extends ChessError {
+
 	constructor(rejection, candidates) {
 		super(`Ambiguous notation: ${rejection}`)
 		this.rejection = rejection;

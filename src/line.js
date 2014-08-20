@@ -1,6 +1,7 @@
 import { FEN } from './fen'
 
 export class Line {
+
 	constructor(position=FEN.standardPosition) {
 		this.position = position;
 		this.ply = [];

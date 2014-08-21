@@ -1,6 +1,7 @@
-import { PAWN } from './brands'
-import { Piece } from './piece'
-import { squareName } from './util'
+import { PAWN } from './brands';
+import { Piece } from './piece';
+import { Point } from './point';
+import { squareName } from './util';
 
 export class Pawn extends Piece {
 
@@ -24,7 +25,10 @@ export class Pawn extends Piece {
 		const reach = this.reach;
 		// pawns can move two squares on their first move.
 		if (from.y === this.homeRank) {
-			return to.y === from.y + reach || to.y === from.y + reach * 2;
+			return to.y === from.y + reach || (
+				(to.y === from.y + reach * 2) &&
+				(position.pieceByCoords(new Point(from.x, from.y + reach)) == null)
+			);
 		}
 		return to.y === from.y + reach;
 	}

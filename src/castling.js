@@ -1,6 +1,7 @@
-import { Point } from './point'
-import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from './brands'
-import { CheckError } from './error'
+import { Point } from './point';
+import { KING, ROOK, QUEENSIDE, KINGSIDE, WHITE, BLACK } from './brands';
+import { CheckError } from './error';
+import { oppositeColor } from './util';
 
 export class Castling {
 
@@ -39,11 +40,14 @@ export class Castling {
 		if (!isValid(position, color, side)) {
 			throw new CheckError();
 		}
+		const modes = blankModes();
+		const opponent = oppositeColor(position.activeColor);
+		modes[opponent] = position.castling.modes[opponent];
 		return new Castling({
 			rook: Castling.rook(position, color, side),
 			square: position.pieceCoords(king).
 				sum(Castling.rookOffset(color, side)),
-			modes: blankModes(),
+			modes,
 		});
 	}
 

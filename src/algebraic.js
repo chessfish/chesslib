@@ -11,7 +11,7 @@ export const Algebraic = {
 	get chunker() { return chunker; }
 };
 
-export const chunker = /([KQRBNP])?([a-h]?[1-8]?)?x?([a-h][1-8])/;
+export const chunker = /([KQRBNP])?([a-h]?[1-8]?)?x?([a-h][1-8])(?:=([QRBN]))?/;
 
 export function parse(algStr, position) {
 	if (algStr === 'O-O' || algStr === 'O-O-O') {
@@ -24,7 +24,7 @@ export function stringify(move) {
 
 }
 
-function *pieces(position, source, target, i = 'p') {
+function *pieces(position, source, target, i='') {
 	const Brand = pieceBrand(i);
 	if (Brand === King) {
 		yield getKing(position);
@@ -55,13 +55,20 @@ function *candidates(position, brand, source, target) {
 	}
 }
 
-function pieceBrand(i) {switch (i.toLowerCase()) {
-	case 'k': return King;
-	case 'q': return Queen;
-	case 'r': return Rook;
-	case 'b': return Bishop;
-	case 'n': return Knight;
-	case 'p': return Pawn;
+function pieceBrand(i) {switch (i) {
+	case 'K': return King;
+	case 'Q': return Queen;
+	case 'R': return Rook;
+	case 'B': return Bishop;
+	case 'N': return Knight;
+	case '': return Pawn;
+}}
+
+function parsePromotionPrize(i, color) {switch (i) {
+	case 'Q': return new Queen({ color });
+	case 'R': return new Rook({ color });
+	case 'B': return new Bishop({ color });
+	case 'N': return new Knight({ color });
 }}
 
 function parseSource(s) {
@@ -75,9 +82,10 @@ function parseSource(s) {
 }
 
 function normalMove(algStr, position) {
-	const [_, i, s, t] = chunker.exec(algStr);
+	const [_, i, s, t, p] = chunker.exec(algStr);
 	const source = parseSource(s);
 	const target = squareCoords(t);
+	const promotionPrize = parsePromotionPrize(p, position.activeColor);
 	const [piece, extra] = [ ...pieces(position, source, target, i) ];
 	if (piece == null) {
 		throw new MobilityError(algStr, position);
@@ -95,6 +103,7 @@ function normalMove(algStr, position) {
 		captureTarget,
 		capturePiece,
 		isEnPassant,
+		promotionPrize,
 	};
 }
 
@@ -107,7 +116,8 @@ function castlingMove(algStr, position) {
 		isCapture: false,
 		capturePiece: null,
 		isEnPassant: false,
-	}
+		promotionPrize: null,
+	};
 }
 
 function getCastlingCoords(algStr, position) {switch (algStr) {

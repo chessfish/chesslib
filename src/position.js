@@ -221,7 +221,11 @@ export class Position {
 	}
 
 	move(notation) {
-		const { piece, target } = Algebraic.parse(notation, this);
-		return this.movePiece(piece, target);
+		const { piece, target, promotionPrize } = Algebraic.parse(notation, this);
+		const position = this.movePiece(piece, target);
+		if (promotionPrize != null) {
+			return position.promote(promotionPrize);
+		}
+		return position;
 	}
 }

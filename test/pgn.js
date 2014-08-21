@@ -25,19 +25,17 @@ test('PGN parser', function (t) {
 });
 
 test('invalid PGN', function (t) {
-	t.plan(3);
 
-	t.throws(function () {
-		PGN.parse('1. e5');
-	}, 'it throws a chess error');
+	var cheating = [
+		'1. e5',
+		'1. e4 dxe4',
+		'1.e5 Nxe5',
+	];
+	t.plan(cheating.length);
 
-	t.throws(function () {
-		PGN.parse('1. e5 dxe5');
-	}, 'it throws a chess error');
-
-	t.throws(function () {
-		PGN.parse('1.e5 Nxe5');
-	}, 'it throws a chess error');
+	cheating.forEach(function (pgn) {
+		t.throws(function () { PGN.parse(pgn); }, pgn);
+	});
 })
 
 function getPGNs() {

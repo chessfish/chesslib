@@ -91,6 +91,7 @@ function tokenizePGN(transcript) {
 			return;
 
 		case ' ':
+		case '.':
 			if (mode === MODE_PLY_NOTATION) {
 				if (buffer.length == 0) {
 					return;
@@ -103,6 +104,9 @@ function tokenizePGN(transcript) {
 				return;
 			}
 			if (mode === MODE_MOVE_NUMBER_NOTATION) {
+				if ('.' === char) {
+					buffer.push(char);
+				}
 				finishToken();
 				mode = MODE_PLY_NOTATION;
 				return;

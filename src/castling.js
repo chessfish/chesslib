@@ -30,22 +30,25 @@ export class Castling {
 		].join('') || '-';
 	}
 
-	static analyze(position, king, coords) {
-		const { brand, color } = king;
+	static analyze(position, piece, coords) {
+		const { brand, color } = piece;
 		const { castling } = position;
-		const side = Castling.side(position, king, coords);
-		if (side == null || !castling.isLegal(color, side)) {
+		if (brand !== KING) {
 			return new Castling({ modes: castling.modes });
+		}
+		const side = Castling.side(position, piece, coords);
+		const modes = blankModes();
+		const opponent = oppositeColor(position.activeColor);
+		modes[opponent] = position.castling.modes[opponent];
+		if (side == null || !castling.isLegal(color, side)) {
+			return new Castling({ modes });
 		}
 		if (!isValid(position, color, side)) {
 			throw new CheckError();
 		}
-		const modes = blankModes();
-		const opponent = oppositeColor(position.activeColor);
-		modes[opponent] = position.castling.modes[opponent];
 		return new Castling({
 			rook: Castling.rook(position, color, side),
-			square: position.pieceCoords(king).
+			square: position.pieceCoords(piece).
 				sum(Castling.rookOffset(color, side)),
 			modes,
 		});

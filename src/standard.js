@@ -17,6 +17,17 @@ export class King extends Piece {
 		return KING;
 	}
 
+	canCapture(position, from, to) {
+		// FIXME: this is an ugly hack:
+		for (var m of [this.mobility[0], this.mobility[1]]) {
+			const success = m.test(position, from, to);
+			if (success) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	get fenEncoding() {
 		return this.isWhite ? 'K' : 'k';
 	}

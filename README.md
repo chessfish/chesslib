@@ -25,7 +25,6 @@ _Checked items are implemented_
   - [ ] person-vs-computer
   - [ ] analysis
   - [ ] lessons
-- [ ] 3d board
 - [x] good test coverage
 
 ## license

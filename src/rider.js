@@ -19,10 +19,6 @@ class RiderMobility extends Mobility {
 			}
 		}
 	}
-
-	toString() {
-		return `(${this.scope}) rider`;
-	}
 }
 
 export function Rider(m, n) {

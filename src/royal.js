@@ -14,10 +14,6 @@ class RoyalMobility extends Mobility {
 			}
 		}
 	}
-
-	toString() {
-		return 'royal';
-	}
 }
 
 class CastlingMobility extends Mobility {

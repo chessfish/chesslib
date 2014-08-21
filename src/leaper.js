@@ -12,10 +12,6 @@ class LeaperMobility extends Mobility {
 			}
 		}
 	}
-
-	toString() {
-		return `(${this.scope}) leaper`;
-	}
 }
 
 export function Leaper(m, n) {

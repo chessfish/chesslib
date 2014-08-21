@@ -3,7 +3,8 @@ require('longjohn');
 
 var test = require('tape');
 var Algebraic = require('../lib/algebraic.js').Algebraic;
-var start = require('../lib/fen.js').FEN.standardPosition;
+var FEN = require('../lib/fen.js').FEN;
+var start = FEN.standardPosition;
 var util = require('../lib/util.js');
 
 test('algebraic notation parser', function (t) {
@@ -86,6 +87,35 @@ test('algebraic notation parser', function (t) {
 			move('N3e4')
 		;
 	}, "disambiguation works by rank");
+});
+
+test('stringification', function (t) {
+	t.plan(4);
+
+	t.equal(Algebraic.stringify({
+		piece: start.piece('e2'),
+		target: util.squareCoords('e4')
+	}, start), 'e4');
+
+	t.equal(Algebraic.stringify({
+		piece: start.piece('g1'),
+		target: util.squareCoords('f3')
+	}, start), 'Nf3');
+
+	t.equal(Algebraic.stringify({
+		piece: start.piece('a2'),
+		target: util.squareCoords('a3')
+	}, start), 'a3');
+
+	var p1 = FEN.parse(
+		'r1bqkb1r/ppp2ppp/2n5/4p1N1/2p1n2P/2N5/PPPP1PP1/R1BQK2R w KQkq - 1'
+	);
+
+	t.equal(Algebraic.stringify({
+		piece: p1.piece('g5'),
+		target: util.squareCoords('e4')
+	}, p1), 'Ngxe4');
+
 });
 
 test('algebraic package conveniences', function (t) {

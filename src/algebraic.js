@@ -1,9 +1,17 @@
-import { WHITE, KING, PAWN } from './brands';
+import { WHITE, KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN } from './brands';
 import { Point } from './point';
 import { King, Queen, Rook, Bishop, Knight, Pawn } from './standard';
 import { EnPassantTarget } from './eptarget';
-import { squareCoords, rankIndex, fileIndex } from './util';
 import { ChessError, AmbiguityError, MobilityError } from './error';
+import {
+	squareCoords,
+	rankIndex,
+	fileIndex,
+	rankName,
+	fileName,
+	squareName
+} from './util';
+const unique = require('lodash.uniq');
 
 export const Algebraic = {
 	parse,
@@ -11,8 +19,7 @@ export const Algebraic = {
 	get chunker() { return chunker; }
 };
 
-export const chunker =
-	/([KQRBNP])?([a-h]?[1-8]?)?x?([a-h][1-8])(?:=([QRBN]))?/;
+export const chunker = /([KQRBN])?([a-h]?[1-8]?)?x?([a-h][1-8])(?:=([QRBN]))?/;
 
 export function parse(algStr, position) {
 	if (algStr === 'O-O' || algStr === 'O-O-O') {
@@ -21,8 +28,38 @@ export function parse(algStr, position) {
 	return normalMove(algStr, position);
 }
 
-export function stringify(move) {
+export function stringify({
+		piece,
+		target,
+		source=position.pieceCoords(piece),
+		isCapture=position.pieceByCoords(target) != null,
+		promotionPrize=null
+	},
+	position
+) {
+	const initial = stringifyPiece(piece);
+	const disambiguator = [];
 
+	for (var p of pieces(position, null, target, stringifyPiece(piece))) {
+		if (p === piece) {
+			continue;
+		}
+		const pCoords = position.pieceCoords(p);
+		if (pCoords.y === source.y) {
+			disambiguator.push(rankName(source.y));
+		}
+		else {
+			disambiguator.push(fileName(source.x));
+		}
+	}
+	const capture = isCapture ? 'x' : '';
+	const targetSquare = squareName(target);
+	return [
+		initial,
+		...unique(disambiguator),
+		capture,
+		targetSquare
+	].join('');
 }
 
 function *pieces(position, source, target, i='') {
@@ -131,3 +168,12 @@ function getCastlingCoords(algStr, position) {switch (algStr) {
 function getKing(position) {
 	return position.one({ brand: King.brand, color: position.activeColor });
 }
+
+function stringifyPiece(piece) {switch (piece.brand) {
+	case KING: return 'K';
+	case QUEEN: return 'Q';
+	case ROOK: return 'R';
+	case BISHOP: return 'B';
+	case KNIGHT: return 'N';
+	case PAWN: return '';
+}}

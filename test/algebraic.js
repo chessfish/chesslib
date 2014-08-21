@@ -8,7 +8,7 @@ var util = require('../lib/util.js');
 
 test('algebraic notation parser', function (t) {
 
-	t.plan(5);
+	t.plan(8);
 
 	t.ok(start.
 		move('f3').move('e5').
@@ -56,5 +56,42 @@ test('algebraic notation parser', function (t) {
 		start.one({ brand: 'king', color: 'black' }),
 		"Black castles queenside");
 
+	t.throws(function () {
+		start.
+			move('Nf3').move('e5').
+			move('Nc3').move('d5').
+			move('e3').move('c5').
+			move('Ne2').move('b5').
+			move('Nd4')
+		;
+	}, "It throws on an ambiguous move");
 
+	t.doesNotThrow(function () {
+		start.
+			move('Nf3').move('e5').
+			move('Nc3').move('d5').
+			move('e3').move('c5').
+			move('Ne2').move('b5').
+			move('Ned4')
+		;
+	}, "disambiguation works by file");
+
+	t.doesNotThrow(function () {
+		start.
+			move('Nf3').move('e5').
+			move('Nc3').move('d5').
+			move('Ng5').move('c5').
+			move('Nge4').move('b5').
+			move('Nxc5').move('a5').
+			move('N3e4')
+		;
+	}, "disambiguation works by rank");
+});
+
+test('algebraic package conveniences', function (t) {
+	t.plan(3);
+	var pkg = require('../lib/algebraic.js');
+	t.equal(pkg.chunker, Algebraic.chunker);
+	t.equal(pkg.parse, Algebraic.parse);
+	t.equal(pkg.stringify, Algebraic.stringify);
 });

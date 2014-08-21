@@ -6,7 +6,7 @@ var Line = require('../lib/line').Line;
 
 test('Line class', function (t) {
 
-	t.plan(2);
+	t.plan(3);
 
 	var line = new Line()
 		.move('e4').move('e5')
@@ -16,5 +16,10 @@ test('Line class', function (t) {
 
 	t.equal(line.plyLength, 5);
 	t.equal(line.length, 3);
+
+  t.throws(function () {
+    (new Line).annotate("there is no move to annotate.");
+  }, "you can't annotate an empty line")
+
 
 });

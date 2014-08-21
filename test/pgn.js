@@ -24,6 +24,22 @@ test('PGN parser', function (t) {
 	;
 });
 
+test('invalid PGN', function (t) {
+	t.plan(3);
+
+	t.throws(function () {
+		PGN.parse('1. e5');
+	}, 'it throws a chess error');
+
+	t.throws(function () {
+		PGN.parse('1. e5 dxe5');
+	}, 'it throws a chess error');
+
+	t.throws(function () {
+		PGN.parse('1.e5 Nxe5');
+	}, 'it throws a chess error');
+})
+
 function getPGNs() {
 	return (
 		fs.readdirAsync(joinPath(__dirname, 'data/pgn')).

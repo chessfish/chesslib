@@ -9,7 +9,7 @@ export const PGN = {
 		// transform the PGN into meaningful tokens:
 		const tokens = tokenizePGN(
 			// strip out different whitespace chars.
-			pgnStr.split(/[\n\r\r\t]+/g).join(' '));
+			` ${ pgnStr.split(/[\n\r\r\t]+/g).join(' ') } `);
 
 		const game = new Game();
 
@@ -142,7 +142,7 @@ function tokenizePGN(transcript) {
 			skipping = i + n - 1;
 		}
 
-		function peek(n=1) {
+		function peek(n) {
 			var str = '';
 			for (var j = 0; j < n; j++) {
 				str += transcript[i + j];
@@ -165,9 +165,6 @@ function tokenizePGN(transcript) {
 		}
 		if (buffer.length > 0) {
 			const source = buffer.join('');
-			if (/^\s+$/.test(source)) {
-				return;
-			}
 			tokens.push({ mode, source });
 		}
 		mode = null;

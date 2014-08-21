@@ -11,7 +11,8 @@ export const Algebraic = {
 	get chunker() { return chunker; }
 };
 
-export const chunker = /([KQRBNP])?([a-h]?[1-8]?)?x?([a-h][1-8])(?:=([QRBN]))?/;
+export const chunker =
+	/([KQRBNP])?([a-h]?[1-8]?)?x?([a-h][1-8])(?:=([QRBN]))?/;
 
 export function parse(algStr, position) {
 	if (algStr === 'O-O' || algStr === 'O-O-O') {

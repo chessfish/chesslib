@@ -66,7 +66,7 @@ function tokenizePGN(transcript) {
 	var mode = null;
 	var lastMode = null;
 	var buffer = [];
-	var halfMove = false;
+	var halfmoveToggle = false;
 	var skipping = 0;
 
 	transcript.split('').forEach((char, i) => {
@@ -97,8 +97,7 @@ function tokenizePGN(transcript) {
 					return;
 				}
 				finishToken();
-				halfMove = !halfMove;
-				if (halfMove) {
+				if (halfmove()) {
 					mode = MODE_PLY_NOTATION;
 				}
 				return;
@@ -152,6 +151,10 @@ function tokenizePGN(transcript) {
 	});
 
 	return tokens;
+
+	function halfmove() {
+		return halfmoveToggle = !halfmoveToggle;
+	}
 
 	function result(source) {
 		tokens.push({ mode: MODE_RESULT, source });

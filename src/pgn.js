@@ -6,21 +6,19 @@ import { partition, last } from './util';
 export const PGN = {
 
 	parse(pgnStr) {
-
-		// deal the tags and transcript separately...
-		const [tags, notation] =
-			partition(pgnStr.split('\n'), line => '[' === line.charAt(0));
-
-		// transform the transcript into meaningful tokens:1
-		const tokens = tokenizeTranscript(notation.join(' '));
+		// transform the PGN into meaningful tokens:
+		const tokens = tokenizePGN(
+			// strip out different whitespace chars.
+			pgnStr.split(/[\n\r\r\t]+/g).join(' '));
 
 		const game = new Game();
-
-		tags.forEach(tag => game.addTag(...parseTag(tag)));
 
 		try {
 			tokens.forEach(({ mode, source }) => {
 				switch (mode) {
+				case MODE_TAG:
+					game.addTag(...parseTag(source));
+					break;
 				case MODE_PLY_NOTATION:
 					game.move(source);
 					break;
@@ -28,7 +26,7 @@ export const PGN = {
 					game.annotate(source);
 					break;
 				case MODE_RESULT:
-					game.addResult(source);
+					game.finish(source);
 					break;
 				}
 			});
@@ -48,23 +46,22 @@ export const PGN = {
 
 };
 
-export const tagChunker = /\[\s*(\w+)\s+([^\]]+)\s*\]/;
-
 function parseTag(line) {
-	const [_, key, value] = tagChunker.exec(line);
-	return [key, cleanValue(value)]
+	const [key, value] = line.split(/\s+/);
+	return [key, cleanValue(value)];
 }
 
 function cleanValue(value) {
 	return value.replace(/^[\"\']|[\"\']$/g, '');
 }
 
+const MODE_TAG = 'tag';
 const MODE_RESULT = 'result';
 const MODE_MOVE_NUMBER_NOTATION = 'move number';
 const MODE_PLY_NOTATION = 'ply';
 const MODE_ANNOTATION_NOTATION = 'annotation';
 
-function tokenizeTranscript(transcript) {
+function tokenizePGN(transcript) {
 	const tokens = [];
 	var mode = null;
 	var lastMode = null;
@@ -78,14 +75,16 @@ function tokenizeTranscript(transcript) {
 		}
 		switch (char) {
 
+		case '[':
 		case '{':
 			skip(1);
 			lastMode = mode;
 			finishToken();
-			mode = MODE_ANNOTATION_NOTATION;
+			mode = char == '[' ? MODE_TAG : MODE_ANNOTATION_NOTATION;
 			break;
 
 		case '}':
+		case ']':
 			finishToken();
 			mode = lastMode;
 			lastMode = null;
@@ -114,7 +113,7 @@ function tokenizeTranscript(transcript) {
 			if (!/\d/.test(char)) {
 				break;
 			}
-			if (mode === null) {
+			if (mode === null || mode === MODE_PLY_NOTATION) {
 				var p3 = peek(3), p7 = peek(7);
 				if (p3 === '1-0' || p3 === '0-1') {
 					result(p3);
@@ -126,6 +125,8 @@ function tokenizeTranscript(transcript) {
 					skip(7);
 					return;
 				}
+			}
+			if (mode === null) {
 				mode = MODE_MOVE_NUMBER_NOTATION;
 			}
 		}
@@ -159,7 +160,11 @@ function tokenizeTranscript(transcript) {
 			return;
 		}
 		if (buffer.length > 0) {
-			tokens.push({ mode, source: buffer.join('') });
+			const source = buffer.join('');
+			if (/^\s+$/.test(source)) {
+				return;
+			}
+			tokens.push({ mode, source });
 		}
 		mode = null;
 		buffer = [];

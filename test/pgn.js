@@ -10,11 +10,11 @@ var ChessError = require('../lib/error.js').ChessError;
 
 test('PGN parser', function (t) {
 	getPGNs().
-		tap(function (pgns) {
-			t.plan(pgns.length);
-		}).
+		tap(function (pgns) { t.plan(pgns.length); }).
 		map(PGN.parse).
-		map(t.ok).
+		map(function (game, i) {
+			t.ok(Boolean(game), this.filenames[i]);
+		}).
 		catch(ChessError, function (err) {
 			console.error("Chess error! ");
 			console.error("Last position: " + err.lastPosition);
@@ -27,9 +27,14 @@ test('PGN parser', function (t) {
 function getPGNs() {
 	return (
 		fs.readdirAsync(joinPath(__dirname, 'data/pgn')).
-		map(function (filename) {
-			return fs.readFileAsync(joinPath(__dirname, 'data/pgn', filename))
+		filter(function (filename) {
+			return filename.charAt(0) !== '.';
 		}).
-		map(String)
+		bind({}).
+		tap(function (filenames) { this.filenames = filenames; }).
+		map(function (filename) {
+			return fs.readFileAsync(
+				joinPath(__dirname, 'data/pgn', filename), 'utf-8');
+		})
 	);
 }

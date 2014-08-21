@@ -1,0 +1,16 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2014.08.19"]
+[White "horriblehector"]
+[Black "ojiep_2k"]
+[Result "1-0"]
+[WhiteElo "1576"]
+[BlackElo "1527"]
+[TimeControl "15|10"]
+[Termination "horriblehector won by resignation"]
+
+1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nc6 5.Nc3 a6 6.Bc4 e6 7.Be3 Bd7 8.Qd2 Na5 9.Bb3 Nxb3 10.axb3 Be7
+ 11.O-O Nf6 12.f4 Ng4 13.Na4 Nxe3 14.Qxe3 O-O 15.Nf3 Rc8 16.c4 e5 17.f5 f6 18.Rfd1 Bxa4 19.Rxa4 Qc7 20.Rd5 Rfd8
+ 21.Rb4 a5 22.Rb6 Rd7 23.Nd2 Bd8 24.Rdb5 Qb8 25.Ra6 bxa6 26.Rxb8 Rxb8 27.Qd3 Bb6+ 28.Kh1 Bd4 29.Qc2 a4 30.c5 dxc5
+ 31.Qc4+ Kh8 32.Qe6 Rdb7 33.bxa4 Rxb2 34.Nf1 a5 35.g3 c4 36.Qxc4 R2b4 37.Qc6 R4b6 38.Qc7 R6b7 39.Qxa5 Ra7 40.Qd2 Rxa4
+ 41.Qc2 h6 42.Qxa4 1-0

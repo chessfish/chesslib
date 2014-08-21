@@ -5,6 +5,7 @@ import { EnPassantTarget, NullEnPassantTarget } from './eptarget';
 import { Position } from './position';
 import { Board } from './board';
 import { Point } from './point';
+import { HalfmoveClock } from './halfmoveclock';
 import { squareCoords } from './util';
 
 export const FEN = {
@@ -16,7 +17,7 @@ export const FEN = {
 			castling,
 			enPassantTarget,
 			halfmoveClock,
-			fullmoveClock
+			fullmoveCounter
 		] = fenStr.split(' ');
 		return new Position({
 			board: parseRanks(ranks),
@@ -24,7 +25,7 @@ export const FEN = {
 			castling: parseCastling(castling),
 			enPassantTarget: parseEPTarget(enPassantTarget),
 			halfmoveClock: parseClock(halfmoveClock),
-			fullmoveClock: parseClock(fullmoveClock)
+			fullmoveCounter: parseCounter(fullmoveCounter)
 		});
 	},
 
@@ -98,7 +99,7 @@ function parseEPTarget(enPassantTarget) {switch (enPassantTarget) {
 		return EnPassantTarget.fromPoint(squareCoords(enPassantTarget));
 }}
 
-function parseClock(clock) {
+function parseCounter(clock) {
 	if (clock == null) {
 		return null;
 	}
@@ -112,7 +113,7 @@ function stringifyPosition(position) {
 		stringifyCastling(position.castling),
 		stringifyEPTarget(position.enPassantTarget),
 		stringifyClock(position.halfmoveClock),
-		stringifyClock(position.fullmoveClock)
+		stringifyCounter(position.fullmoveCounter)
 	].filter(Boolean).join(' ');
 }
 
@@ -157,8 +158,22 @@ function stringifyEPTarget(enPassantTarget) {
 }
 
 function stringifyClock(clock) {
-	if (clock == null) {
-		return null;
+	if (String(clock) === '0') {
+		return clock.source;
 	}
 	return String(clock);
+}
+
+function stringifyCounter(counter) {
+	if (counter == null) {
+		return null;
+	}
+	return String(counter);
+}
+
+function parseClock(halfmoveClock) {
+	return new HalfmoveClock(
+		halfmoveClock != null ? Number(halfmoveClock) : 0,
+		halfmoveClock
+	);
 }

@@ -1,4 +1,4 @@
-import { WHITE, KING, PAWN } from './brands';
+import { WHITE, BLACK, KING, PAWN } from './brands';
 import { Board } from './board';
 import { Mobility } from './mobility';
 import { Castling } from './castling';
@@ -6,6 +6,7 @@ import { EnPassantTarget } from './eptarget';
 import { Point } from './point';
 import { Promotion } from './promotion';
 import { Algebraic } from './algebraic';
+import { HalfmoveClock } from './halfmoveclock';
 import {
 	entries,
 	identity,
@@ -31,8 +32,8 @@ export class Position {
 		activeColor=WHITE,
 		castling=null,
 		enPassantTarget=null,
-		halfmoveClock=0,
-		fullmoveClock=0,
+		halfmoveClock=null,
+		fullmoveCounter=0,
 		board=new Board(ranks, files),
 	} = {}) {
 		this.board = board;
@@ -40,7 +41,7 @@ export class Position {
 		this.castling = castling;
 		this.enPassantTarget = enPassantTarget;
 		this.halfmoveClock = halfmoveClock;
-		this.fullmoveClock = fullmoveClock;
+		this.fullmoveCounter = fullmoveCounter;
 		this.promotionSquare = Promotion.square(this);
 	}
 
@@ -170,8 +171,13 @@ export class Position {
 			activeColor: oppositeColor(this.activeColor),
 			castling,
 			enPassantTarget: EnPassantTarget.analyze(this, piece, target),
-			halfmoveClock: this.halfmoveClock + 1,
-			fullmoveClock: this.fullmoveClock,
+			halfmoveClock: HalfmoveClock.analyze(this, piece, target),
+			fullmoveCounter: (
+				// Increment the fullmove counter for each Black move:
+				this.activeColor === BLACK ?
+				this.fullmoveCounter + 1 :
+				this.fullmoveCounter
+			),
 			board: this.board.map((p, square) => {
 				if (// it is...
 					// ...the square vacated by the piece:

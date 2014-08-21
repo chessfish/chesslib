@@ -11,7 +11,7 @@ export class Game extends Line {
 		this.tags[key] = value;
 	}
 
-	addResult(result) {
+	finish(result) {
 		this.result;
 	}
 }

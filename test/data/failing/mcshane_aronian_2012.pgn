@@ -1,0 +1,28 @@
+[Event "London Chess Classic"]
+[Site "London ENG"]
+[Date "2012.12.04"]
+[EventDate "2012.12.01"]
+[Round "4"]
+[Result "0-1"]
+[White "Luke McShane"]
+[Black "Levon Aronian"]
+[ECO "C78"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "152"]
+
+1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.d3 b5 7.Bb3
+d6 8.a4 Bd7 9.c3 O-O 10.Nbd2 Na5 11.Bc2 c5 12.Re1 Re8 13.Nf1
+Nc6 14.Ne3 b4 15.h3 Rb8 16.Nc4 Be6 17.Bb3 h6 18.Be3 bxc3
+19.bxc3 d5 20.exd5 Nxd5 21.Qc2 e4 22.dxe4 Nxe3 23.Rxe3 Rxb3
+24.Qxb3 Na5 25.Nxa5 Bxb3 26.Nxb3 Qb6 27.Nbd2 Qb2 28.Rae1 Rd8
+29.Nf1 c4 30.Ne5 Bc5 31.Rf3 Qb3 32.a5 Rd6 33.Nxf7 Rf6 34.Rxf6
+gxf6 35.Nxh6+ Kf8 36.Ng4 Qxc3 37.Rd1 Qb4 38.Nxf6 Kf7 39.Nd5
+Qb2 40.Nde3 c3 41.Rd5 Be7 42.Rf5+ Ke8 43.g4 c2 44.Nxc2 Qxc2
+45.Ng3 Qc7 46.Nh5 Bd8 47.Kg2 Qc6 48.Re5+ Kf7 49.g5 Qa4 50.h4
+Bxa5 51.Rf5+ Ke6 52.Nf4+ Kd7 53.f3 Qc2+ 54.Kh3 Qf2 55.Kg4 Be1
+56.Ng6 a5 57.Rf7+ Kd8 58.e5 a4 59.e6 Bb4 60.e7+ Bxe7 61.Nxe7
+Qc5 62.Kh5 a3 63.Kh6 a2 64.g6 Qc4 65.Nf5 a1=Q 66.Rf8+ Kc7
+67.g7 Qc6+ 68.Kh7 Qxf3 69.g8=N Qh5+ 70.Ngh6 Qe5 71.Ng7 Qxh4
+72.Rf7+ Kb6 73.Nf5 Qee4 74.Kg6 Qe6+ 75.Kg7 Qg5+ 76.Kf8 Qc8#
+0-1

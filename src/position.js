@@ -113,7 +113,8 @@ export class Position {
 		return false;
 	}
 
-	isCheckmate(color=this.activeColor) {
+	isCheckmate() {
+		const color = this.activeColor;
 		if (!this.isCheck(color)) {
 			// it can't be checkmate if it's not even check:
 			return false;

@@ -2,11 +2,14 @@ require('traceur/bin/traceur-runtime.js');
 require('longjohn');
 
 var test = require('tape');
+var joinPath = require('path').join;
 var FEN = require('../lib/fen.js').FEN;
+var PGN = require('../lib/pgn.js').PGN;
 var EnPassantTarget = require('../lib/eptarget.js').EnPassantTarget;
 var Point = require('../lib/point.js').Point;
 var brands = require('../lib/brands.js');
 var squareCoords = require('../lib/util.js').squareCoords;
+var util = require('./lib/util.js');
 
 var p = FEN.standardPosition;
 
@@ -89,4 +92,12 @@ test('move', function (t) {
 	t.throws(function () {
 		p.movePiece(p.piece('a4'), null);
 	}, 'when you pass null as targetSquare');
+});
+
+test('50 move rule', function (t) {
+	t.plan(1);
+
+	util.getFile(joinPath(__dirname, './data/pgn/karpov_kasparov_1991.pgn')).
+	then(PGN.parse).
+	then(function (game) { t.ok(game.ply[112 * 2].position.is50MoveDraw()); });
 });

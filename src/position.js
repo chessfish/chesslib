@@ -137,6 +137,10 @@ export class Position {
 		return true;
 	}
 
+	is50MoveDraw() {
+		return this.halfmoveClock.count >= 50 * 2;
+	}
+
 	tryMovePiece(piece, target) {
 		try {
 			return this.movePiece(piece, target);

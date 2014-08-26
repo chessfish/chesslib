@@ -106,6 +106,14 @@ export class Position {
 		}
 	}
 
+	*moves(color=this.activeColor) {
+		for (var piece of this.query({ color })) {
+			for (var move of bounded(this.board, piece.moves(this))) {
+				yield { piece, move };
+			}
+		}
+	}
+
 	isCheck(color, loc) {
 		for (var _ of this.checks(color, loc)) {
 			return true;
@@ -119,19 +127,17 @@ export class Position {
 			// it can't be checkmate if it's not even check:
 			return false;
 		}
-		for (var ally of this.query({ color })) {
-			for (var move of bounded(this.board, ally.moves(this))) {
-				try {
-					if (!this.movePiece(ally, move).isCheck(color)) {
-						return false;
-					}
+		for (let { piece, move } of this.moves()) {
+			try {
+				if (!this.movePiece(piece, move).isCheck(color)) {
+					return false;
 				}
-				catch (err) {
-					if (err instanceof ChessError) {
-						continue;
-					}
-					throw err;
+			}
+			catch (err) {
+				if (err instanceof ChessError) {
+					continue;
 				}
+				throw err;
 			}
 		}
 		return true;

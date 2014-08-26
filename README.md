@@ -29,4 +29,4 @@ _Checked items are implemented_
 
 ## license
 
-MIT (See LICENCE)
+MIT (See LICENSE)

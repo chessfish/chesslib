@@ -1,4 +1,4 @@
-import { WHITE, BLACK, KING, PAWN } from './brands';
+import { WHITE, BLACK, KING, PAWN, LIGHT, DARK } from './brands';
 import { Board } from './board';
 import { Mobility } from './mobility';
 import { Castling } from './castling';
@@ -145,6 +145,33 @@ export class Position {
 
 	is50MoveDraw() {
 		return this.halfmoveClock.count >= 50 * 2;
+	}
+
+	isCheckmatePossible() {
+		var pieces = this.all();
+		var kings = pieces.filter(piece => piece.brand === KING);
+		var nonKings = pieces.filter(piece => piece.brand !== KING);
+		if (
+			// There is an illegal number of Kings on the board:
+			(kings.length !== 2) ||
+			// Bare kings:
+			(pieces.length === 2) ||
+			// King + Knight vs. King
+			(pieces.length === 3 && nonKings[0].brand === KNIGHT) ||
+			(
+				// same-colored bishop hijinx:
+				nonKings.every(({ brand }) => brand === BISHOP) &&
+				(
+					nonKings.every(piece =>
+						squareColor(position.pieceCoords(piece)) === LIGHT) ||
+					nonKings.every(piece =>
+						squareColor(position.pieceCoords(piece)) === DARK)
+				)
+			)
+		) {
+			return false;
+		}
+		return true;
 	}
 
 	tryMovePiece(piece, target) {

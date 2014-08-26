@@ -1,4 +1,4 @@
-import { WHITE, BLACK } from './brands'
+import { WHITE, BLACK, LIGHT, DARK } from './brands'
 import { Point } from './point'
 const isNumber = require('lodash.isnumber');
 
@@ -38,6 +38,9 @@ export const squareCoordsByName = (fileName, rankName) =>
 	new Point(fileIndex(fileName), rankIndex(rankName));
 
 export const oppositeColor = color => color === WHITE ? BLACK : WHITE;
+
+export const squareColor = ({ x, y }) =>
+	(isEven(x) && isEven(y) || isOdd(x) && isOdd(y)) ? LIGHT : DARK;
 
 export const isEven = n => isNumber(n) && n % 2 === 0;
 

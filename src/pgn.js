@@ -12,9 +12,7 @@ const TOKEN_ANNOTATION_NOTATION = 'annotation';
 export const PGN = {
 
 	parse(pgnStr) {
-		const gameStrs = pgnStr.split(/\r\n\r\n\r\n|\n\n\n/); // FIXME: is this sane?
-		const games = gameStrs.map(parseGame);
-		return games;
+		return pgnStr.split(/\r\n\r\n\r\n|\n\n\n/).map(parseGame); // FIXME: is this sane?
 	},
 
 	stringify(game) {

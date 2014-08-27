@@ -14,6 +14,12 @@ returns the `Position` object represented by the [FEN](http://en.wikipedia.org/w
 ### `FEN.stringify(position)`
 returns the FEN-encoded string representing the given `Position` object
 
+### `FEN.standard`
+a string encoding of the standard starting position.
+
+### `FEN.standardPosition`
+the `Position` object obtained by calling `FEN.parse(FEN.standard)`.
+
 ## PGN
 
 ### `PGN.parse(pgnSource)`

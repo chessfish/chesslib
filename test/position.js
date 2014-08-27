@@ -90,7 +90,7 @@ test('tryMovePiece', function (t) {
 test('move', function (t) {
 	t.plan(1);
 	t.throws(function () {
-		p.movePiece(p.piece('a4'), null);
+		p.movePiece(p.pieceBySquare('a4'), null);
 	}, 'when you pass null as targetSquare');
 });
 

@@ -57,11 +57,11 @@ export class Position {
 		return this.board.ranks;
 	}
 
-	pieces(brand) {
+	material(brand) {
 		return this.board.getPieces(brand);
 	}
 
-	piece(squareName) {
+	pieceBySquare(squareName) {
 		return this.pieceByCoords(squareCoords(squareName));
 	}
 
@@ -73,8 +73,8 @@ export class Position {
 		return this.board.getPieceByCoords(point, rotated);
 	}
 
-	*query(selector={}) {
-		pieces: for (var piece of this.pieces(selector.brand)) {
+	*pieces(selector={}) {
+		pieces: for (var piece of this.material(selector.brand)) {
 			for (var [val, key] of entries(selector)) {
 				if (piece[key] !== val) {
 					continue pieces;
@@ -84,22 +84,22 @@ export class Position {
 		}
 	}
 
-	all(selector) {
-		return [ ...this.query(selector) ];
-	}
-
-	one(selector) {
-		for (var i of this.query(selector)) {
+	piece(selector) {
+		for (var i of this.pieces(selector)) {
 			return i;
 		}
 		return null;
 	}
 
+	all(selector) {
+		return [ ...this.pieces(selector) ];
+	}
+
 	*checks(
 		color=this.activeColor,
-		loc=this.pieceCoords(this.one({ brand: KING, color }))
+		loc=this.pieceCoords(this.piece({ brand: KING, color }))
 	) {
-		for (var enemy of this.query({ color: oppositeColor(color) })) {
+		for (var enemy of this.pieces({ color: oppositeColor(color) })) {
 			if (enemy.canCapture(this, this.pieceCoords(enemy), loc)) {
 				yield enemy;
 			}
@@ -107,7 +107,7 @@ export class Position {
 	}
 
 	*moves(color=this.activeColor) {
-		for (var piece of this.query({ color })) {
+		for (var piece of this.pieces({ color })) {
 			for (var move of bounded(this.board, piece.moves(this))) {
 				yield { piece, move };
 			}

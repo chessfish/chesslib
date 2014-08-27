@@ -37,30 +37,30 @@ test('pawn movement: WHITE', function (t) {
 	});
 
 	t.doesNotThrow(function () {
-		p2.movePiece(p2.piece('e4'), squareCoords('d5'));
+		p2.movePiece(p2.pieceBySquare('e4'), squareCoords('d5'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.movePiece(p3.piece('d4'), squareCoords('e5'));
+		p3.movePiece(p3.pieceBySquare('d4'), squareCoords('e5'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.movePiece(p3.piece('d4'), squareCoords('d5'));
+		p3.movePiece(p3.pieceBySquare('d4'), squareCoords('d5'));
 	});
 
 	t.throws(function () {
-		p3.movePiece(p3.piece('d4'), squareCoords('e6'));
+		p3.movePiece(p3.pieceBySquare('d4'), squareCoords('e6'));
 	});
 
 	t.throws(function () {
-		p3.movePiece(p3.piece('a2'), squareCoords('h3'));
+		p3.movePiece(p3.pieceBySquare('a2'), squareCoords('h3'));
 	});
 
 	t.doesNotThrow(function () {
 		var p4 = FEN.parse(
 			'rbbnqknr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RBBNQKNR w KQkq f6'
 		);
-		p4.movePiece(p4.piece('e5'), squareCoords('f6'));
+		p4.movePiece(p4.pieceBySquare('e5'), squareCoords('f6'));
 	}, 'can capture en passant');
 });
 
@@ -69,7 +69,7 @@ test('pawn movement: BLACK', function (t) {
 	t.plan(18);
 
 	var p = FEN.standardPosition;
-	var whiteP = p.one({ brand: brands.PAWN, color: brands.WHITE });
+	var whiteP = p.piece({ brand: brands.PAWN, color: brands.WHITE });
 	var coords = p.pieceCoords(whiteP);
 	// move any old white pawn forward one:
 	var p1 = p.movePiece(whiteP, coords.sum(new Point(0, whiteP.reach)));
@@ -96,11 +96,11 @@ test('pawn movement: BLACK', function (t) {
 	});
 
 	t.doesNotThrow(function () {
-		p2.movePiece(p2.piece('d5'), squareCoords('e4'));
+		p2.movePiece(p2.pieceBySquare('d5'), squareCoords('e4'));
 	});
 
 	t.doesNotThrow(function () {
-		p3.movePiece(p3.piece('e5'), squareCoords('d4'));
+		p3.movePiece(p3.pieceBySquare('e5'), squareCoords('d4'));
 	});
 });
 

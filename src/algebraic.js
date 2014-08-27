@@ -75,7 +75,7 @@ function *pieces(position, source, target, i='') {
 }
 
 function *candidates(position, brand, source, target) {
-	for (var p of position.query({ brand, color: position.activeColor })) {
+	for (var p of position.pieces({ brand, color: position.activeColor })) {
 		const loc = position.pieceCoords(p);
 		if (source == null || source.x === loc.x || source.y === loc.y) {
 			try {
@@ -146,7 +146,7 @@ function normalMove(algStr, position) {
 }
 
 function castlingMove(algStr, position) {
-	const king = position.one({ brand: KING, color: position.activeColor });
+	const king = position.piece({ brand: KING, color: position.activeColor });
 	return {
 		piece: king,
 		source: position.pieceCoords(king),
@@ -166,7 +166,7 @@ function getCastlingCoords(algStr, position) {switch (algStr) {
 }}
 
 function getKing(position) {
-	return position.one({ brand: King.brand, color: position.activeColor });
+	return position.piece({ brand: King.brand, color: position.activeColor });
 }
 
 function stringifyPiece(piece) {switch (piece.brand) {

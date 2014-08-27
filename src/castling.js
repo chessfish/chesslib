@@ -68,9 +68,9 @@ export class Castling {
 
 	static rook(position, color, side) {
 		const { x: kingX }
-			= position.pieceCoords(position.one({ brand: KING, color }));
+			= position.pieceCoords(position.piece({ brand: KING, color }));
 
-		for (var rook of position.query({ brand: ROOK, color })) {
+		for (var rook of position.pieces({ brand: ROOK, color })) {
 			const { x: rookX } = position.pieceCoords(rook);
 			if (
 				color === WHITE ? (
@@ -150,7 +150,7 @@ function xOffset(color, side, m=1) {
 }
 
 function isValid(position, color, side) {
-	const loc = position.pieceCoords(position.one({ brand: KING, color }));
+	const loc = position.pieceCoords(position.piece({ brand: KING, color }));
 	for (var pt of loc.to(loc.sum(Castling.kingOffset(color, side)))) {
 		if (position.isCheck(color, pt)) {
 			return false;

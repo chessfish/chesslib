@@ -16,7 +16,7 @@ test('Pawn promotion', function (t) {
 	);
 	var p2;
 	t.doesNotThrow(function () {
-		p2 = p1.movePiece(p1.piece('f7'), squareCoords('g8'));
+		p2 = p1.movePiece(p1.pieceBySquare('f7'), squareCoords('g8'));
 	}, 'position can be pending promotion');
 
 	t.doesNotThrow(function () {

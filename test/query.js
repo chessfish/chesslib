@@ -65,7 +65,7 @@ test('can query both kings', function (t) {
 
 test('the active king in the starting position is white', function (t) {
 	t.plan(2);
-	var activeKing = startingPosition.one({
+	var activeKing = startingPosition.piece({
 		brand: KING,
 		color: startingPosition.activeColor
 	});

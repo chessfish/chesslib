@@ -42,8 +42,8 @@ test('algebraic notation parser', function (t) {
 		move('e4').move('e5').
 		move('Bc4').move('Nf6').
 		move('Nf3').move('Nc6').
-		move('O-O').piece('g1'),
-		start.one({ brand: 'king', color: 'white' }),
+		move('O-O').pieceBySquare('g1'),
+		start.piece({ brand: 'king', color: 'white' }),
 		"White castles early");
 
 	t.equal(start.
@@ -53,8 +53,8 @@ test('algebraic notation parser', function (t) {
 		move('dxe6').move('Bxe6').
 		move('Nf3').move('Nc6').
 		move('b3').move('Qd7').
-		move('Bb2').move('O-O-O').piece('c8'),
-		start.one({ brand: 'king', color: 'black' }),
+		move('Bb2').move('O-O-O').pieceBySquare('c8'),
+		start.piece({ brand: 'king', color: 'black' }),
 		"Black castles queenside");
 
 	t.throws(function () {
@@ -93,17 +93,17 @@ test('stringification', function (t) {
 	t.plan(4);
 
 	t.equal(Algebraic.stringify({
-		piece: start.piece('e2'),
+		piece: start.pieceBySquare('e2'),
 		target: util.squareCoords('e4')
 	}, start), 'e4');
 
 	t.equal(Algebraic.stringify({
-		piece: start.piece('g1'),
+		piece: start.pieceBySquare('g1'),
 		target: util.squareCoords('f3')
 	}, start), 'Nf3');
 
 	t.equal(Algebraic.stringify({
-		piece: start.piece('a2'),
+		piece: start.pieceBySquare('a2'),
 		target: util.squareCoords('a3')
 	}, start), 'a3');
 
@@ -112,7 +112,7 @@ test('stringification', function (t) {
 	);
 
 	t.equal(Algebraic.stringify({
-		piece: p1.piece('g5'),
+		piece: p1.pieceBySquare('g5'),
 		target: util.squareCoords('e4')
 	}, p1), 'Ngxe4');
 

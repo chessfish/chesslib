@@ -14,10 +14,6 @@ export const PGN = {
 	parse(pgnStr) {
 		const gameStrs = pgnStr.split(/\r\n\r\n\r\n|\n\n\n/); // FIXME: is this sane?
 		const games = gameStrs.map(parseGame);
-
-		if (games.length === 1) {
-			return games[0];
-		}
 		return games;
 	},
 

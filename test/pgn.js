@@ -11,8 +11,8 @@ test('PGN parser', function (t) {
 	util.getFiles(joinPath(__dirname, 'data/pgn')).
 		tap(function (files) { t.plan(files.length); }).
 		map(PGN.parse).
-		map(function (game, i) {
-			t.ok(Boolean(game), this.filenames[i]);
+		map(function (games, i) {
+			t.ok(games.length > 0, this.filenames[i]);
 		}).
 		catch(ChessError, function (err) {
 			console.error("Chess error! ");

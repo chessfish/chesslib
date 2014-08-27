@@ -99,5 +99,5 @@ test('50 move rule', function (t) {
 
 	util.getFile(joinPath(__dirname, './data/pgn/karpov_kasparov_1991.pgn')).
 	then(PGN.parse).
-	then(function (game) { t.ok(game.ply[112 * 2].position.is50MoveDraw()); });
+	spread(function (game) { t.ok(game.ply[112 * 2].position.is50MoveDraw()); });
 });

@@ -63,6 +63,9 @@ throws a `CheckError` if the move is illegal because it would leave the King in 
 ### `position.movePiece(piece, target)`
 like `position.move()`, but lower level, and handier for UI programming. Instead of taking the move in algebraic notation, it takes the piece and the coordinates of the target square.
 
+### `position.tryMovePiece(piece, target)`
+like `position.movePiece()`, except it doesn't throw, and instead returns the position itself upon error. This makes it even handier for UI programming (pieces snap back home on an illegal move), but worthless for analysis, where the question of move legality is important, since that information will be silenced.
+
 ### `position.moves()`
 returns an iterator of every legal move in the given position.
 

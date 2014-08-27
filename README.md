@@ -81,6 +81,35 @@ returns the first piece matching the selector.
 ### `position.all(selector)`
 returns an array of all the pieces matching the selector.
 
+## Line
+
+A line is an accumalator of moves and corresponding immutable positions.
+
+### `new Line(position=FEN.standardPosition)`
+instantiates a new `Line` object.
+
+### `line.move(moveNotation)`
+accumulate a new `{ position, move, note }` literal, where `position` is the `Position` object obtained by calling `position.move(move)` on the line's current position, and `note` is an optional annotation.
+
+### `line.annotate(note)`
+add a note to, or replace the existing note of, the current `{ position, move }` literal.
+
+### `line.plyLength`
+the length of the line, measured by ply.
+
+### `line.length`
+the length of the line, measured by moves.
+
+### Game
+
+A `Game` object is a `Line`, accompanied by some optional tags.
+
+### `new Game(position=FEN.standardPosition, tags)`
+instantiates a new `Game` object.
+
+### `game.addTag(tag)`
+add a tag to the game's collection of tags.
+
 # feature roadmap
 _Checked items are implemented_
 

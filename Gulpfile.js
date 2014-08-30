@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var traceur = require('gulp-traceur');
 var rename = require('gulp-rename');
 var watch = require('gulp-watch');
+var uglify = require('gulp-uglify');
 var argv = require('minimist')(process.argv);
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -20,10 +21,17 @@ gulp.task('browserify', ['default'], function () {
 			expose: 'chessview'
 		}).
 		bundle().
-		pipe(source('bundle.js')).
+		pipe(source('chesslib.js')).
 		pipe(gulp.dest('browser'))
 	);
 });
+
+gulp.task('uglify', ['browserify'], function () {
+	gulp.src('browser/chesslib.js').
+		pipe(uglify()).
+		pipe(rename('chesslib.min.js')).
+		pipe(gulp.dest('browser'))
+})
 
 function esify(src) {
 	var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '').replace('*', '');

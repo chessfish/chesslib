@@ -8,7 +8,8 @@
     "jsdice": "^1.1.0",
     "lodash.assign": "^2.4.1",
     "lodash.isnumber": "^2.4.1",
-    "lodash.uniq": "^2.4.1"
+    "lodash.uniq": "^2.4.1",
+    "traceur": "0.0.55"
   },
   "devDependencies": {
     "bluebird": "^2.3.0",
@@ -24,7 +25,6 @@
     "longjohn": "^0.2.4",
     "minimist": "^0.2.0",
     "tape": "^2.14.0",
-    "traceur": "0.0.55",
     "vinyl-source-stream": "^0.1.1"
   },
   "scripts": {

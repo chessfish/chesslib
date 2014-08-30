@@ -1,5 +1,5 @@
 {
-  "name": "chessview",
+  "name": "chesslib",
   "version": "0.9.5",
   "description": "A view for chess positions",
   "main": "./lib/index.js",
@@ -33,7 +33,7 @@
   "author": "Christopher Thorn <morphcham@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:humanchimp/chessview.git"
+    "url": "git@github.com:humanchimp/chesslib.git"
   },
   "license": "MIT"
 }

@@ -8,8 +8,7 @@
     "jsdice": "^1.1.0",
     "lodash.assign": "^2.4.1",
     "lodash.isnumber": "^2.4.1",
-    "lodash.uniq": "^2.4.1",
-    "mercury": "^6.0.1"
+    "lodash.uniq": "^2.4.1"
   },
   "devDependencies": {
     "bluebird": "^2.3.0",

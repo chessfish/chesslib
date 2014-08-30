@@ -7,22 +7,10 @@ var argv = require('minimist')(process.argv);
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 
-gulp.task('default', [
-	'core',
-	'ui core',
-	'ui modules',
-]);
+gulp.task('default', ['core']);
 
 gulp.task('core', function () {
 	return esify('./src/*.js');
-});
-
-gulp.task('ui core', function () {
-	return esify('./src/ui/*.js');
-});
-
-gulp.task('ui modules', function () {
-	return esify('./src/ui/*/*.js');
 });
 
 gulp.task('browserify', ['default'], function () {
@@ -30,9 +18,6 @@ gulp.task('browserify', ['default'], function () {
 		browserify().
 		require('./lib/index.js', {
 			expose: 'chessview'
-		}).
-		require('mercury', {
-			expose: 'mercury'
 		}).
 		bundle().
 		pipe(source('bundle.js')).

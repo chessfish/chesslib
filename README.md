@@ -117,22 +117,12 @@ _Checked items are implemented_
 - [x] PGN
 - [ ] UCI
 - [x] queryable position model with a simple API
-- [x] decoupled views (unopinionated about frontend frameworks, although the ui samples are using mercury)
-- [x] easily themeable 2d board
 - [x] detect legal moves, checks, checkmates
 - [x] compositional approach to piece mobility
-- [ ] support for kibitzers
 - [ ] support for chess variants:
   - [x] Chess960 (Fischerandom)
   - [ ] fairy pieces
   - [ ] non-standard board sizes (e.g. 8x10 Capablanca chess)
-- [ ] support for various use-cases:
-  - [x] figures
-  - [ ] puzzles
-  - [ ] person-vs-person live
-  - [ ] person-vs-computer
-  - [ ] analysis
-  - [ ] lessons
 - [x] good test coverage
 
 # license

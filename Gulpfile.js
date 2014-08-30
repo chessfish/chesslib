@@ -27,10 +27,12 @@ gulp.task('browserify', ['default'], function () {
 });
 
 gulp.task('uglify', ['browserify'], function () {
-	gulp.src('browser/chesslib.js').
+	return (
+		gulp.src('browser/chesslib.js').
 		pipe(uglify()).
 		pipe(rename('chesslib.min.js')).
 		pipe(gulp.dest('browser'))
+	);
 })
 
 function esify(src) {

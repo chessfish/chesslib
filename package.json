@@ -1,6 +1,6 @@
 {
   "name": "chesslib",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "A view for chess positions",
   "main": "./lib/index.js",
   "dependencies": {

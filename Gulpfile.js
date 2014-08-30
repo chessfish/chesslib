@@ -18,7 +18,7 @@ gulp.task('browserify', ['default'], function () {
 	return (
 		browserify().
 		require('./lib/index.js', {
-			expose: 'chessview'
+			expose: 'chesslib'
 		}).
 		bundle().
 		pipe(source('chesslib.js')).
@@ -33,7 +33,7 @@ gulp.task('uglify', ['browserify'], function () {
 		pipe(rename('chesslib.min.js')).
 		pipe(gulp.dest('browser'))
 	);
-})
+});
 
 function esify(src) {
 	var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '').replace('*', '');

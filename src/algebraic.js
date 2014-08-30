@@ -37,28 +37,24 @@ export function stringify({
 	},
 	position
 ) {
-	const initial = stringifyPiece(piece);
 	const disambiguator = [];
 
 	for (var p of pieces(position, null, target, stringifyPiece(piece))) {
 		if (p === piece) {
 			continue;
 		}
-		const pCoords = position.pieceCoords(p);
-		if (pCoords.y === source.y) {
+		if (position.pieceCoords(p).y === source.y) {
 			disambiguator.push(rankName(source.y));
 		}
 		else {
 			disambiguator.push(fileName(source.x));
 		}
 	}
-	const capture = isCapture ? 'x' : '';
-	const targetSquare = squareName(target);
 	return [
-		initial,
+		stringifyPiece(piece),
 		...unique(disambiguator),
-		capture,
-		targetSquare
+		isCapture ? 'x' : '',
+		squareName(target),
 	].join('');
 }
 

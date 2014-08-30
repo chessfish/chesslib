@@ -1,6 +1,5 @@
 src
 test
-browser
 playground
 .gitignore
 .travis.yml

@@ -14,10 +14,10 @@ export { Leaper } from './leaper';
 export { King, Queen, Rook, Bishop, Knight, Pawn } from './standard';
 export { fischerandom, doubleFischerandom, ninesixty } from './fischerandom';
 export {
-  ChessError,
-  MobilityError,
-  CheckError,
-  PromotionError,
-  ResultError,
-  AmbiguityError
+	ChessError,
+	MobilityError,
+	CheckError,
+	PromotionError,
+	ResultError,
+	AmbiguityError
 } from './error';

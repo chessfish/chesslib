@@ -32,7 +32,7 @@ export function stringify({
 		piece,
 		target,
 		source=position.pieceCoords(piece),
-		isCapture=position.pieceByCoords(target) != null,
+		isCapture=position.pieceByCoords(target) != null, // FIXME: what about en passant?
 		promotionPrize=null
 	},
 	position

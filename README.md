@@ -29,9 +29,9 @@ PGNs can contain a single game, or a collection of many games. This method alway
 
 ## Algebraic
 
-### `Algebraic.parse(moveNotation)`
+### `Algebraic.parse(moveNotation, position=FEN.standardPosition)`
 
-returns a `{ piece, move }` literal with the piece and "move" (coordinates) described by the [algebraic notation](http://en.wikipedia.org/wiki/Algebraic_notation_(chess))-encoded `moveNotation`.
+returns an object describing the move in relative to the given position with the piece and "move" (coordinates) described by the [algebraic notation](http://en.wikipedia.org/wiki/Algebraic_notation_(chess))-encoded `moveNotation`.
 
 ## Position
 
@@ -64,7 +64,7 @@ throws a `CheckError` if the move is illegal because it would leave the King in 
 like `position.move()`, but lower level, and handier for UI programming. Instead of taking the move in algebraic notation, it takes the piece and the coordinates of the target square.
 
 ### `position.tryMovePiece(piece, target)`
-like `position.movePiece()`, except it doesn't throw, and instead returns the position itself upon error. This makes it even handier for UI programming (pieces snap back home on an illegal move), but worthless for analysis, where the question of move legality is important, since that information will be silenced.
+like `position.movePiece()`, except it doesn't throw, and instead returns the position itself upon error. This makes it handy for UI programming (pieces snap back home on an illegal move), but worthless for analysis, where the question of move legality is important, since that information will be silenced.
 
 ### `position.moves()`
 returns an iterator of every legal move in the given position.

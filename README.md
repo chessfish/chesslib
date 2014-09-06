@@ -54,7 +54,7 @@ This constructor is generally not used directly. Instead, you'd usually come abo
 Return a new `Position` that is exactly the same as the current position, except for the properties of `overrides`. This method is not generally used directly. Instead, you'd normally use `position.move()`
 
 ### `position.move(moveNotation)`
-returns a new `Position` object representing the position after the give `moveNotation`, which is a string of
+returns a new `Position` object representing the position after the give `moveNotation`, which is a string of algrbraic notation.
 
 throws a `MobilityError` if the move is illegal because a piece would be blocked, because the target square is occupied by a friendly piece, or because there is no suitable piece on the board able to move to that square by definition.
 

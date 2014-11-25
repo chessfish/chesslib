@@ -1,7 +1,7 @@
 {
   "name": "chesslib",
   "version": "0.9.10",
-  "description": "A view for chess positions",
+  "description": "A library for chess positions",
   "main": "./lib/index.js",
   "dependencies": {
     "jsdice": "^1.1.0",
@@ -32,7 +32,7 @@
   "author": "Christopher Thorn <morphcham@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:humanchimp/chesslib.git"
+    "url": "git@github.com:chessfish/chesslib.git"
   },
   "license": "MIT"
 }

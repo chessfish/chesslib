@@ -1,4 +1,4 @@
-# chesslib [![Build Status](https://travis-ci.org/humanchimp/chesslib.svg?branch=master)](https://travis-ci.org/humanchimp/chesslib) [![Coverage Status](https://coveralls.io/repos/humanchimp/chesslib/badge.png)](https://coveralls.io/r/humanchimp/chesslib)
+# chesslib [![Build Status](https://travis-ci.org/humanchimp/chesslib.svg?branch=master)](https://travis-ci.org/humanchimp/chesslib) [![Coverage Status](https://coveralls.io/repos/chessfish/chesslib/badge.png)](https://coveralls.io/r/chessfish/chesslib)
 
 This is a library for chess positions. It is a work in progress.
 

@@ -22,6 +22,7 @@
     "istanbul": "^0.3.0",
     "lodash.times": "^2.4.1",
     "longjohn": "^0.2.4",
+    "merge-stream": "^0.1.6",
     "minimist": "^0.2.0",
     "tape": "^2.14.0",
     "vinyl-source-stream": "^0.1.1"

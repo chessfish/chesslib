@@ -7,6 +7,7 @@ var uglify = require('gulp-uglify');
 var argv = require('minimist')(process.argv);
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var merge = require('merge-stream');
 
 gulp.task('default', ['core']);
 
@@ -15,24 +16,25 @@ gulp.task('core', function () {
 });
 
 gulp.task('browserify', ['default'], function () {
-	return (
-		browserify().
-		require('./lib/index.js', {
-			expose: 'chesslib'
-		}).
-		bundle().
-		pipe(source('chesslib.js')).
-		pipe(gulp.dest('browser'))
-	);
+  var compiled = browserifyTask({
+    from: './lib/index.js',
+    to: 'chesslib.js'
+  });
+
+  var umd = browserifyTask({
+    from: './lib/index.js',
+    to: 'chesslib.umd.js',
+    standalone: 'chesslib'
+  });
+
+  return merge(compiled, umd);
 });
 
 gulp.task('uglify', ['browserify'], function () {
-	return (
-		gulp.src('browser/chesslib.js').
-		pipe(uglify()).
-		pipe(rename('chesslib.min.js')).
-		pipe(gulp.dest('browser'))
-	);
+  return merge(
+    uglifyTask({ from: 'browser/chesslib.js', to: 'chesslib.min.js' }),
+    uglifyTask({ from: 'browser/chesslib.umd.js', to: 'chesslib.umd.min.js' })
+  );
 });
 
 function esify(src) {
@@ -54,3 +56,30 @@ function esify(src) {
 		pipe(gulp.dest(path.join('lib', p)))
 	;
 }
+
+function browserifyTask(options) {
+	var browserifyOptions = {};
+
+	if (options.standalone) {
+		browserifyOptions.standalone = options.standalone;
+	}
+
+	return (
+		browserify(browserifyOptions).
+		require(options.from, {
+			expose: 'chesslib'
+		}).
+		bundle().
+		pipe(source(options.to)).
+		pipe(gulp.dest('browser'))
+	);
+}
+
+function uglifyTask(options) {
+	return (
+		gulp.src(options.from).
+		pipe(uglify()).
+		pipe(rename(options.to)).
+		pipe(gulp.dest('browser'))
+	);
+};

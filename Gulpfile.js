@@ -8,8 +8,6 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 
 var prepend = require('gulp-insert').prepend;
-var Promise = require('bluebird');
-var fs = Promise.promisifyAll(require('fs'));
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 

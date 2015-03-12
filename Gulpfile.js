@@ -25,7 +25,7 @@ function esify(src) {
 			modules: 'common',
 			optional: ['runtime'],
 		})).
-		pipe((sourcemaps.write("."))).
+		pipe(sourcemaps.write(".")).
 		pipe(gulp.dest('lib'))
 	;
 }

@@ -23,6 +23,7 @@ function esify(src) {
 	gulp.src(src).
 		pipe(sourcemaps.init()).
 		pipe(babel({
+			loose: 'all',
 			modules: 'common',
 			optional: ['runtime'],
 		})).
@@ -51,23 +52,3 @@ gulp.task('uglify', ['browserify'], function () {
 		pipe(gulp.dest('browser'))
 	);
 });
-
-// function esify(src) {
-// 	var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '').replace('*', '');
-// 	var stream = gulp.src(src);
-
-// 	if (argv.w || argv.watch) {
-// 		stream = stream.pipe(watch());
-// 	}
-
-// 	return stream.
-// 		pipe(traceur({
-// 			experimental: true,
-// 			sourceMap: true
-// 		})).
-// 		pipe(rename({
-// 			extname: '.js'
-// 		})).
-// 		pipe(gulp.dest(path.join('lib', p)))
-// 	;
-// }

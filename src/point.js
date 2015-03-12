@@ -37,10 +37,10 @@ export class Point {
 		return this.x >= x && this.y >= y;
 	}
 
-	*to(to) {
+	*to(that) {
 		const [[x0, x1],[y0, y1]] = [
-			[Math.min(this.x, to.x), Math.max(this.x, to.x)],
-			[Math.min(this.y, to.y), Math.max(this.y, to.y)],
+			[Math.min(this.x, that.x), Math.max(this.x, that.x)],
+			[Math.min(this.y, that.y), Math.max(this.y, that.y)],
 		];
 		for(var i = y0; i < y1; i++) {
 			for(var j = x0; j < x1; j++) {

@@ -1,6 +1,3 @@
-require('traceur/bin/traceur-runtime.js');
-require('longjohn');
-
 var test = require('tape');
 var FEN = require('../lib/fen.js').FEN;
 var Point = require('../lib/point.js').Point;

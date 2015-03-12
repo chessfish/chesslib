@@ -18,7 +18,7 @@ gulp.task('core', function () {
 });
 
 function esify(src) {
-	gulp.src(src).
+	return gulp.src(src).
 		pipe(sourcemaps.init()).
 		pipe(babel({
 			loose: 'all',

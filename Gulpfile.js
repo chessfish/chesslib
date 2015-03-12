@@ -1,6 +1,5 @@
 var path = require('path');
 var gulp = require('gulp');
-var traceur = require('gulp-traceur');
 var rename = require('gulp-rename');
 var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
@@ -8,11 +7,28 @@ var argv = require('minimist')(process.argv);
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 
+var prepend = require('gulp-insert').prepend;
+var babel = require('gulp-babel');
+var sourcemaps = require('gulp-sourcemaps');
+
 gulp.task('default', ['core']);
 
 gulp.task('core', function () {
 	return esify('./src/*.js');
 });
+
+function esify(src) {
+	return gulp.src(src).
+		pipe(sourcemaps.init()).
+		pipe(babel({
+			loose: 'all',
+			modules: 'common',
+			optional: ['runtime'],
+		})).
+		pipe(sourcemaps.write(".")).
+		pipe(gulp.dest('lib'))
+	;
+}
 
 gulp.task('browserify', ['default'], function () {
 	return (
@@ -34,23 +50,3 @@ gulp.task('uglify', ['browserify'], function () {
 		pipe(gulp.dest('browser'))
 	);
 });
-
-function esify(src) {
-	var p = path.normalize(path.dirname(src)).replace(/^src\/?/, '').replace('*', '');
-	var stream = gulp.src(src);
-
-	if (argv.w || argv.watch) {
-		stream = stream.pipe(watch());
-	}
-
-	return stream.
-		pipe(traceur({
-			experimental: true,
-			sourceMap: true
-		})).
-		pipe(rename({
-			extname: '.js'
-		})).
-		pipe(gulp.dest(path.join('lib', p)))
-	;
-}

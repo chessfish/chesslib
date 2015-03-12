@@ -1,6 +1,3 @@
-require('traceur/bin/traceur-runtime.js');
-require('longjohn');
-
 var test = require('tape');
 var Mobility = require('../lib/mobility.js').Mobility;
 

@@ -1,5 +1,4 @@
 require('traceur/bin/traceur-runtime.js');
-require('longjohn');
 
 var test = require('tape');
 var joinPath = require('path').join;

@@ -843,3 +843,18 @@
 1.e4 e6 2.d4 d5 3.Nc3 Bb4 4.e5 c5 5.a3 Bxc3+ 6.bxc3 Qb6 7.Qg4 g6 8.Nf3 Nc6 9.Be3 Qb2 0-1
 
 
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2017.02.15"]
+[White "Player1"]
+[Black "Player2"]
+[Result "1-0"]
+[ECO "A40"]
+[WhiteElo "600"]
+[BlackElo "600"]
+[TimeControl "300"]
+[Termination "Player1 won by checkmate"]
+[CurrentPosition "5R2/p3R2Q/4p2k/6p1/6p1/q1b3P1/5PKP/8 b - - 4 38"]
+
+1.d4 {[%clk 0:04:59]} b6 {[%clk 0:04:59]} 2.Nf3 {[%clk 0:04:59]} g6 {[%clk 0:04:56]} 3.Bf4 {[%clk 0:04:58]} Bh6 {[%clk 0:04:48]} 4.e3 {[%clk 0:04:57]} g5 {[%clk 0:04:45]} 5.Be5 {[%clk 0:04:45]} f6 {[%clk 0:04:42]} 6.Bg3 {[%clk 0:04:38]} g4 {[%clk 0:04:39]} 7.Nh4 {[%clk 0:04:32]} c5 {[%clk 0:04:32]} 8.dxc5 {[%clk 0:04:29]} bxc5 {[%clk 0:04:30]} 9.Be2 {[%clk 0:04:29]} Qa5+ {[%clk 0:04:28]} 10.c3 {[%clk 0:04:24]} f5 {[%clk 0:04:21]} 11.O-O {[%clk 0:04:21]} f4 {[%clk 0:04:18]} 12.exf4 {[%clk 0:04:16]} Ba6 {[%clk 0:04:10]} 13.Nf5 {[%clk 0:04:03]} Bf8 {[%clk 0:04:02]} 14.Nd2 {[%clk 0:03:50]} Bxe2 {[%clk 0:03:58]} 15.Qxe2 {[%clk 0:03:46]} Qa6 {[%clk 0:03:46]} 16.Qe3 {[%clk 0:03:41]} e6 {[%clk 0:03:41]} 17.Nh4 {[%clk 0:03:27]} Nc6 {[%clk 0:03:31]} 18.f5 {[%clk 0:03:22]} Nce7 {[%clk 0:03:17]} 19.fxe6 {[%clk 0:03:19]} dxe6 {[%clk 0:03:16]} 20.Be5 {[%clk 0:03:12]} Ng6 {[%clk 0:03:05]} 21.Bxh8 {[%clk 0:03:09]} Nxh8 {[%clk 0:03:03]} 22.Rfe1 {[%clk 0:02:59]} Bh6 {[%clk 0:03:01]} 23.Qe4 {[%clk 0:02:53]} Bxd2 {[%clk 0:02:57]} 24.Qxa8+ {[%clk 0:02:46]} Kf7 {[%clk 0:02:53]} 25.Re4 {[%clk 0:02:35]} Ng6 {[%clk 0:02:34]} 26.Nxg6 {[%clk 0:02:32]} hxg6 {[%clk 0:02:33]} 27.Rd1 {[%clk 0:02:23]} Bg5 {[%clk 0:02:26]} 28.Re5 {[%clk 0:02:03]} Bf6 {[%clk 0:02:14]} 29.Rxc5 {[%clk 0:01:53]} Qxa2 {[%clk 0:02:10]} 30.Rc7+ {[%clk 0:01:48]} Ne7 {[%clk 0:02:08]} 31.g3 {[%clk 0:01:34]} Qxb2 {[%clk 0:02:03]} 32.Rdd7 {[%clk 0:01:29]} Qc1+ {[%clk 0:02:00]} 33.Kg2 {[%clk 0:01:27]} g5 {[%clk 0:01:46]} 34.Rd8 {[%clk 0:01:12]} Bxc3 {[%clk 0:01:30]} 35.Rf8+ {[%clk 0:01:08]} Kg6 {[%clk 0:01:25]} 36.Rxe7 {[%clk 0:01:03]} Qa3 {[%clk 0:01:17]} 37.Qe4+ {[%clk 0:00:57]} Kh6 {[%clk 0:01:07]} 38.Qh7# {[%clk 0:00:51]}  1-0
+

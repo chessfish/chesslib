@@ -73,6 +73,9 @@ function tokenizePGN(transcript) {
 	var halfmoveToggle = false;
 	var skipping = 0;
 
+    // strip out time notations
+    transcript = transcript.replace(/{\[(.*?)\]}\s/g, '');
+
 	transcript.split('').forEach((char, i) => {
 		if (i < skipping) {
 			return;
